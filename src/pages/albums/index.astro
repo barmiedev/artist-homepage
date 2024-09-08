@@ -1,0 +1,19 @@
+---
+import type { SanityDocument } from '@sanity/client';
+import Base from '../../layouts/base.astro';
+import { loadQuery } from '../../sanity/lib/load-query';
+
+const { data: albums } = (await loadQuery<SanityDocument[]>({
+  query: `*[_type == "album"]`,
+})) as { data: SanityDocument[] };
+---
+
+<Base>
+  <ul>
+    {albums.map((album) => (
+      <li>
+        <a href={`/albums/${album.slug.current}`}>{album.title}</a>
+      </li>
+    ))}
+  </ul>
+</Base>

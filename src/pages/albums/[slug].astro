@@ -1,0 +1,31 @@
+---
+import type { SanityDocument } from '@sanity/client';
+import Base from '../../layouts/base.astro';
+import { loadQuery } from '../../sanity/lib/load-query';
+
+export async function getStaticPaths() {
+  const { data: albums } = await loadQuery<SanityDocument[]>({
+    query: `*[_type == "album"]`,
+  });
+
+  return albums.map(({ slug }) => {
+    return {
+      params: {
+        slug: slug.current,
+      },
+    };
+  });
+}
+
+const { params } = Astro;
+
+const { data: album } = (await loadQuery({
+  query: `*[_type == "album" && slug.current == $slug][0]`,
+  params,
+})) as { data: SanityDocument };
+---
+<Base>
+  <a href="/albums">Back to Albums</a>
+  <h1>Album: {album.title}</h1>
+  {album.recordedAt}
+</Base>

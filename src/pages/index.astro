@@ -1,5 +1,5 @@
 ---
-
+import Base from '../layouts/base.astro';
 ---
 
 <html lang="en">
@@ -11,6 +11,9 @@
 		<title>{import.meta.env.PAGE_TITLE}</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Base>
+			<h1>Astro</h1>
+			<a href="/albums">Albums</a>
+		</Base>
 	</body>
 </html>
