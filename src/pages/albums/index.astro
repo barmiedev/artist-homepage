@@ -1,0 +1,16 @@
+---
+import Base from '@/layouts/base.astro';
+import { getAlbums } from '@/lib/content';
+
+const albums = await getAlbums();
+---
+
+<Base>
+  <ul>
+    {albums.map((album) => (
+      <li>
+        <a href={`/albums/${album.slug.current}`}>{album.title}</a>
+      </li>
+    ))}
+  </ul>
+</Base>
