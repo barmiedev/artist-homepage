@@ -1,11 +1,8 @@
 ---
-import type { SanityDocument } from '@sanity/client';
-import Base from '../../layouts/base.astro';
-import { loadQuery } from '../../sanity/lib/load-query';
+import Base from '@/layouts/base.astro';
+import { getAlbums } from '@/lib/content';
 
-const { data: albums } = (await loadQuery<SanityDocument[]>({
-  query: `*[_type == "album"]`,
-})) as { data: SanityDocument[] };
+const albums = await getAlbums();
 ---
 
 <Base>

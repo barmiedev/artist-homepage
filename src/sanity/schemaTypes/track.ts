@@ -45,8 +45,8 @@ export const trackType = defineType({
     }),
     defineField({
       name: 'lyrics',
-      type: 'reference',
-      to: [{ type: 'lyrics' }],
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'lyrics' }] }],
     }),
   ],
 });
