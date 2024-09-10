@@ -21,7 +21,9 @@ const { params } = Astro;
 
 const track = await getTrack(params);
 
-const baseLyrics = track.lyrics?.find((lyric) => lyric.language === 'pl');
+const baseLyrics = track.lyrics?.find(
+  (lyric: { language: string; text: unknown }) => lyric.language === 'pl',
+);
 ---
 <Base>
   <a href=`/albums/${track.album.slug}`>Back to {track.album.title}</a>

@@ -22,7 +22,7 @@ const album = await getAlbum(params);
   <h1>Album: {album.title}</h1>
   {album.recordedAt}
   <ul>
-    {album.tracks.map((track) => (
+    {album.tracks.map((track: { slug: string, title: string}) => (
       <li>
         <a href={`/tracks/${track.slug}`}>{track.title}</a>
       </li>
