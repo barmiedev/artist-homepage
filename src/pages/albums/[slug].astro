@@ -1,5 +1,6 @@
 ---
 import Base from '@/layouts/base.astro';
+import Common from '@/layouts/common.astro';
 import { getAlbum, getAlbums } from '@/lib/content';
 
 export async function getStaticPaths() {
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 const { params } = Astro;
 const album = await getAlbum(params);
 ---
-<Base>
+<Common>
   <a href="/albums">Back to Albums</a>
   <h1>Album: {album.title}</h1>
   {album.recordedAt}
@@ -28,4 +29,4 @@ const album = await getAlbum(params);
       </li>
     ))}
   </ul>
-</Base>
+</Common>

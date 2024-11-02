@@ -1,16 +1,16 @@
 ---
-import Base from '@/layouts/base.astro';
+import Common from '@/layouts/common.astro';
 import { getAlbums } from '@/lib/content';
 
 const albums = await getAlbums();
 ---
 
-<Base>
+<Common>
   <ul>
     {albums.map((album) => (
       <li>
-        <a href={`/albums/${album.slug.current}`}>{album.title}</a>
+        <a href={`/albums/${album.slug.current}`} data-astro-prefetch>{album.title}</a>
       </li>
     ))}
   </ul>
-</Base>
+</Common>

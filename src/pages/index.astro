@@ -1,19 +1,8 @@
 ---
-import Base from '@/layouts/base.astro';
+import Common from '@/layouts/common.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{import.meta.env.PAGE_TITLE}</title>
-	</head>
-	<body>
-		<Base>
-			<h1>Astro</h1>
-			<a href="/albums">Albums</a>
-		</Base>
-	</body>
-</html>
+<Common>
+	<h1>Astro</h1>
+	<a href="/albums">Albums</a>
+</Common>
