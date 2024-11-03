@@ -1,8 +1,6 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
+import { defineConfig } from 'astro/config';
 
 import { loadEnv } from 'vite';
 const {
@@ -13,6 +11,13 @@ const {
 
 // https://astro.build/config
 export default defineConfig({
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pl'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     sanity({
       projectId: PUBLIC_SANITY_PROJECT_ID,

@@ -1,0 +1,57 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import { defaultLocale, isLocale, locales } from '@/lib/utils/i18n';
+import { getLocalizedPath, getNavigationLinks } from '@/lib/utils/navigation';
+
+const { title } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const segments = currentPath.split('/').filter(Boolean);
+const currentLocale =
+  segments[0] && isLocale(segments[0]) ? segments[0] : defaultLocale;
+
+// Generate language switcher paths
+const localePaths = await Promise.all(
+  locales.map((locale) =>
+    getLocalizedPath({
+      currentLocale,
+      currentPath,
+      segments,
+      targetLocale: locale,
+    }),
+  ),
+);
+
+const navigation = await getNavigationLinks(currentLocale);
+---
+<html lang="en" transition:animate="initial">
+  <head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title ? `${title} ⋅ ${import.meta.env.PAGE_TITLE}` : `${import.meta.env.PAGE_TITLE}`}</title>
+    <ViewTransitions />
+	</head>
+  <body>
+    <nav>
+      <div>
+        {locales.map((locale, index) => (
+          <a
+            href={localePaths[index]}
+          >
+            {locale.toUpperCase()}
+          </a>
+        ))}
+      </div>
+      <div>
+        {navigation.map((link) => (
+          <a href={link.href}>{link.title}</a>
+        ))}
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
