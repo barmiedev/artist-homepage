@@ -10,11 +10,15 @@ const {
 
 const track = await getTrack({ slug: slug });
 const t = await getTranslations(locale, 'track');
-const backLink = await getLink({ locale, tag: 'albums' });
+const backLink = await getLink({
+  locale,
+  tag: 'albums',
+  slug: track.album.slug,
+});
 ---
 
 <Common title={track.title}>
-  <a href={backLink}>{t.back}</a>
+  <a href={backLink}>{t.back}{track.album.title}</a>
   <h1>{track.title}</h1>
   <p>{t.from}{track.album.title}</p>
 </Common>
