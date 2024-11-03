@@ -1,12 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import {
-  defaultLocale,
-  getRouteTranslations,
-  isLocale,
-  locales,
-} from '@/lib/utils/i18n';
-import { getNavigationLinks } from '@/lib/utils/navigation';
+import { defaultLocale, isLocale, locales } from '@/lib/utils/i18n';
+import { getLocalizedPath, getNavigationLinks } from '@/lib/utils/navigation';
 
 const { title } = Astro.props;
 
@@ -15,46 +10,16 @@ const segments = currentPath.split('/').filter(Boolean);
 const currentLocale =
   segments[0] && isLocale(segments[0]) ? segments[0] : defaultLocale;
 
-// Function to generate localized paths
-async function getLocalizedPath(targetLocale: string) {
-  if (currentPath === '/' && targetLocale === defaultLocale) return '/';
-  if (currentPath === '/' && targetLocale !== defaultLocale)
-    return `/${targetLocale}`;
-
-  const routes = await getRouteTranslations(targetLocale);
-  const currentRoutes = await getRouteTranslations(currentLocale);
-  let defaultRoutes = routes;
-
-  if (currentLocale !== defaultLocale) {
-    defaultRoutes = await getRouteTranslations(defaultLocale);
-  }
-
-  const pathSegments = segments.slice(currentLocale === defaultLocale ? 0 : 1);
-
-  if (currentLocale !== targetLocale) {
-    pathSegments.forEach((segment, index) => {
-      const key = Object.keys(currentRoutes).find(
-        (key) => currentRoutes[key] === segment,
-      );
-      if (!key) return;
-      pathSegments[index] = defaultRoutes[key] || segment;
-    });
-  }
-
-  if (targetLocale === defaultLocale) {
-    return `/${pathSegments.join('/')}`;
-  }
-
-  const translatedSegments = pathSegments.map((segment) => {
-    return routes[segment] || segment;
-  });
-
-  return `/${targetLocale}/${translatedSegments.join('/')}`;
-}
-
 // Generate language switcher paths
 const localePaths = await Promise.all(
-  locales.map((locale) => getLocalizedPath(locale)),
+  locales.map((locale) =>
+    getLocalizedPath({
+      currentLocale,
+      currentPath,
+      segments,
+      targetLocale: locale,
+    }),
+  ),
 );
 
 const navigation = await getNavigationLinks(currentLocale);

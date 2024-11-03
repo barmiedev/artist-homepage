@@ -55,3 +55,50 @@ export const getLink = async ({
 
   return prefix;
 };
+
+// Function to generate localized paths
+export const getLocalizedPath = async ({
+  targetLocale,
+  currentLocale,
+  currentPath,
+  segments,
+}: {
+  targetLocale: string;
+  currentLocale: string;
+  currentPath: string;
+  segments: string[];
+}) => {
+  if (currentPath === '/' && targetLocale === defaultLocale) return '/';
+  if (currentPath === '/' && targetLocale !== defaultLocale)
+    return `/${targetLocale}`;
+
+  const routes = await getRouteTranslations(targetLocale);
+  const currentRoutes = await getRouteTranslations(currentLocale);
+  let defaultRoutes = routes;
+
+  if (currentLocale !== defaultLocale) {
+    defaultRoutes = await getRouteTranslations(defaultLocale);
+  }
+
+  const pathSegments = segments.slice(currentLocale === defaultLocale ? 0 : 1);
+
+  if (currentLocale !== targetLocale) {
+    pathSegments.forEach((segment, index) => {
+      const key = Object.keys(currentRoutes).find(
+        (key) => currentRoutes[key] === segment,
+      );
+      if (!key) return;
+      pathSegments[index] = defaultRoutes[key] || segment;
+    });
+  }
+
+  if (targetLocale === defaultLocale) {
+    return `/${pathSegments.join('/')}`;
+  }
+
+  const translatedSegments = pathSegments.map((segment) => {
+    return routes[segment] || segment;
+  });
+
+  return `/${targetLocale}/${translatedSegments.join('/')}`;
+};
