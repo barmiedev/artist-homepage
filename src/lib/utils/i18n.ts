@@ -1,5 +1,5 @@
 // Global i18n utils
-export const locales = ['en', 'pl'] as const;
+export const locales = ['en', 'pl', 'de'] as const;
 export const defaultLocale = 'en';
 export type Locale = (typeof locales)[number];
 
