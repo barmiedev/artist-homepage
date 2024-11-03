@@ -1,7 +1,6 @@
 ---
-import Base from '@/layouts/base.astro';
-import Common from '@/layouts/common.astro';
-import { getAlbum, getAlbums } from '@/lib/content';
+import Album from '@/components/pages/album.astro';
+import { getAlbums } from '@/lib/content';
 
 export async function getStaticPaths() {
   const albums = await getAlbums();
@@ -16,17 +15,6 @@ export async function getStaticPaths() {
 }
 
 const { params } = Astro;
-const album = await getAlbum(params);
 ---
-<Common>
-  <a href="/albums">Back to Albums</a>
-  <h1>Album: {album.title}</h1>
-  {album.recordedAt}
-  <ul>
-    {album.tracks.map((track: { slug: string, title: string}) => (
-      <li>
-        <a href={`/tracks/${track.slug}`}>{track.title}</a>
-      </li>
-    ))}
-  </ul>
-</Common>
+
+<Album slug={params.slug} />

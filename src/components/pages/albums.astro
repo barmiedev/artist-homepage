@@ -1,0 +1,23 @@
+---
+import Common from '@/layouts/common.astro';
+import { getAlbums } from '@/lib/content';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const {
+  props: { locale = defaultLocale },
+} = Astro;
+
+const t = await getTranslations(locale, 'albums');
+const albums = await getAlbums();
+---
+
+<Common title={t.title}>
+  <h1>{t.title}</h1>
+  <ul>
+    {albums.map((album) => (
+      <li>
+        <a href={`/albums/${album.slug.current}`} data-astro-prefetch>{album.title}</a>
+      </li>
+    ))}
+  </ul>
+</Common>

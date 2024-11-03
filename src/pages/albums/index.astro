@@ -1,16 +1,18 @@
 ---
-import Common from '@/layouts/common.astro';
+import Albums from '@/components/pages/albums.astro';
 import { getAlbums } from '@/lib/content';
 
-const albums = await getAlbums();
+export async function getStaticPaths() {
+  const albums = await getAlbums();
+
+  return albums.map(({ slug }) => {
+    return {
+      params: {
+        slug: slug.current,
+      },
+    };
+  });
+}
 ---
 
-<Common>
-  <ul>
-    {albums.map((album) => (
-      <li>
-        <a href={`/albums/${album.slug.current}`} data-astro-prefetch>{album.title}</a>
-      </li>
-    ))}
-  </ul>
-</Common>
+<Albums />

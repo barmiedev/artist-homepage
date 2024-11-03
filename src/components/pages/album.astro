@@ -1,0 +1,25 @@
+---
+import Common from '@/layouts/common.astro';
+import { getAlbum } from '@/lib/content';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const {
+  props: { locale = defaultLocale, slug },
+} = Astro;
+
+const album = await getAlbum({ slug: slug });
+const t = await getTranslations(locale, 'albums');
+---
+<Common title={album.title}>
+  <a href="/albums">Back to Albums</a>
+  {t.title}
+  <h1>Album: {album.title}</h1>
+  {album.recordedAt}
+  <ul>
+    {album.tracks.map((track: { slug: string, title: string}) => (
+      <li>
+        <a href={`/tracks/${track.slug}`}>{track.title}</a>
+      </li>
+    ))}
+  </ul>
+</Common>
