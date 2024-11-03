@@ -25,9 +25,11 @@ export async function getTranslations(locale: string, namespace: string) {
     console.error(
       `Translation file not found for locale: ${locale}, namespace: ${namespace}`,
     );
-    // Fallback to English if translation is missing
+    // Fallback to default locale if translation is missing
     try {
-      const fallback = await import(`../../i18n/en/${namespace}.json`);
+      const fallback = await import(
+        `../../i18n/${defaultLocale}/${namespace}.json`
+      );
       return fallback.default;
     } catch {
       return {};
