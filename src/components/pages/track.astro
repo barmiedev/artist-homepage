@@ -2,6 +2,7 @@
 import Common from '@/layouts/common.astro';
 import { getTrack } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
 
 const {
   props: { locale = defaultLocale, slug },
@@ -9,9 +10,11 @@ const {
 
 const track = await getTrack({ slug: slug });
 const t = await getTranslations(locale, 'track');
+const backLink = await getLink({ locale, tag: 'albums' });
 ---
+
 <Common title={track.title}>
-  <a href="/albums">Back to Albums</a>
+  <a href={backLink}>{t.back}</a>
   <h1>{track.title}</h1>
   <p>{t.from}{track.album.title}</p>
 </Common>
