@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import LanguageSwitch from '@/components/language-switch.astro';
+import Meta from '@/components/meta.astro';
 import { locales } from '@/lib/utils/i18n';
 import {
   getLocalizedPath,
@@ -27,13 +28,11 @@ const localePaths = await Promise.all(
 
 const navigation = await getNavigationLinks(currentLocale);
 ---
-<html lang="en" transition:animate="initial">
+
+<!doctype html>
+<html lang="en" transition:animate="fade">
   <head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title ? `${title} ⋅ ${import.meta.env.PAGE_TITLE}` : `${import.meta.env.PAGE_TITLE}`}</title>
+    <Meta pageTitle={title} />
     <ViewTransitions />
     <script>
       // Language detection and redirection

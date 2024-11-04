@@ -7,15 +7,18 @@ export const lyricsType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'track',
       type: 'reference',
       to: [{ type: 'track' }],
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'text',
       type: 'blockContent',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'language',

@@ -5,10 +5,10 @@ import { getAlbums } from '@/lib/content';
 export async function getStaticPaths() {
   const albums = await getAlbums();
 
-  return albums.map(({ slug }) => {
+  return albums.map((album) => {
     return {
       params: {
-        slug: slug?.current,
+        slug: album?.slug.current,
       },
     };
   });

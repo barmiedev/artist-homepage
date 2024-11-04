@@ -68,20 +68,65 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Globals = {
+  _id: string;
+  _type: "globals";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteTitle: string;
+  siteDescription: string;
+  siteKeywords?: Array<string>;
+  siteAuthor?: string;
+  siteUrl: string;
+  siteImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  siteFavicon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  instagram?: string;
+  twitter?: string;
+  facebook?: string;
+  spotify?: string;
+  appleMusic?: string;
+  youtube?: string;
+  soundcloud?: string;
+  bandcamp?: string;
+  email?: string;
+};
+
 export type Lyrics = {
   _id: string;
   _type: "lyrics";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  track?: {
+  title: string;
+  track: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "track";
   };
-  text?: Array<{
+  text: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -129,16 +174,16 @@ export type Track = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
   releaseDate?: string;
-  album?: {
+  album: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "album";
   };
-  trackNumber?: number;
+  trackNumber: number;
   about?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -185,7 +230,7 @@ export type Track = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "person";
     };
-    role?: string;
+    role: string;
     description?: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -255,7 +300,7 @@ export type Credit = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "person";
   };
-  role?: string;
+  role: string;
   description?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -303,9 +348,9 @@ export type Album = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  cover?: {
+  title: string;
+  slug: Slug;
+  cover: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -338,7 +383,7 @@ export type Album = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "person";
   };
-  releaseDate?: string;
+  releaseDate: string;
   tracks?: Array<{
     _ref: string;
     _type: "reference";
@@ -415,8 +460,8 @@ export type Person = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  slug?: Slug;
+  name: string;
+  slug: Slug;
   image?: {
     asset?: {
       _ref: string;
@@ -491,11 +536,11 @@ export type SanityImageMetadata = {
 
 export type Slug = {
   _type: "slug";
-  current?: string;
+  current: string;
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Lyrics | Track | Credit | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Globals | Lyrics | Track | Credit | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/content/get-album.ts
 // Variable: albumQuery
@@ -506,9 +551,9 @@ export type AlbumQueryResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  cover?: {
+  title: string;
+  slug: Slug;
+  cover: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -541,10 +586,10 @@ export type AlbumQueryResult = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "person";
   };
-  releaseDate?: string;
+  releaseDate: string;
   tracks: Array<{
-    title: string | null;
-    slug: string | null;
+    title: string;
+    slug: string;
   }> | null;
   listen?: {
     _ref: string;
@@ -563,9 +608,9 @@ export type AlbumsQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  cover?: {
+  title: string;
+  slug: Slug;
+  cover: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -598,7 +643,7 @@ export type AlbumsQueryResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "person";
   };
-  releaseDate?: string;
+  releaseDate: string;
   tracks?: Array<{
     _ref: string;
     _type: "reference";
@@ -614,6 +659,43 @@ export type AlbumsQueryResult = Array<{
   };
 }>;
 
+// Source: ./src/lib/content/get-globals.ts
+// Variable: globalsQuery
+// Query: *[_type == "globals"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}
+export type GlobalsQueryResult = {
+  _id: string;
+  _type: "globals";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteTitle: string;
+  siteDescription: string;
+  siteKeywords?: Array<string>;
+  siteAuthor?: string;
+  siteUrl: string;
+  siteImage: {
+    asset: {
+      path: string | null;
+      url: string | null;
+    } | null;
+  } | null;
+  siteFavicon: {
+    asset: {
+      path: string | null;
+      url: string | null;
+    } | null;
+  };
+  instagram?: string;
+  twitter?: string;
+  facebook?: string;
+  spotify?: string;
+  appleMusic?: string;
+  youtube?: string;
+  soundcloud?: string;
+  bandcamp?: string;
+  email?: string;
+} | null;
+
 // Source: ./src/lib/content/get-track.ts
 // Variable: trackQuery
 // Query: *[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}}
@@ -623,14 +705,14 @@ export type TrackQueryResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
   releaseDate?: string;
   album: {
-    title: string | null;
-    slug: string | null;
-  } | null;
-  trackNumber?: number;
+    title: string;
+    slug: string;
+  };
+  trackNumber: number;
   about?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -677,7 +759,7 @@ export type TrackQueryResult = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "person";
     };
-    role?: string;
+    role: string;
     description?: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -765,7 +847,7 @@ export type TrackQueryResult = {
       alt?: string;
       _type: "image";
       _key: string;
-    }> | null;
+    }>;
     language: "cn" | "cz" | "de" | "en" | "es" | "fr" | "it" | "jp" | "kr" | "pl" | "ru" | "sk" | "uk" | null;
   }> | null;
 } | null;
@@ -779,16 +861,16 @@ export type TracksQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
   releaseDate?: string;
-  album?: {
+  album: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "album";
   };
-  trackNumber?: number;
+  trackNumber: number;
   about?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -835,7 +917,7 @@ export type TracksQueryResult = Array<{
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "person";
     };
-    role?: string;
+    role: string;
     description?: Array<{
       children?: Array<{
         marks?: Array<string>;
@@ -899,6 +981,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current}}": AlbumQueryResult;
     "*[_type == \"album\"]": AlbumsQueryResult;
+    "*[_type == \"globals\"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
     "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
   }

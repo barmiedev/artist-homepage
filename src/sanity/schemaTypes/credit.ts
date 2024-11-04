@@ -12,6 +12,7 @@ export const creditType = defineType({
     defineField({
       name: 'role',
       type: 'string',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'description',

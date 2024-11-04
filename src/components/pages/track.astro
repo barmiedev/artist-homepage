@@ -14,7 +14,7 @@ const t = await getTranslations(locale, 'track');
 const backLink = await getLink({
   locale,
   tag: 'albums',
-  slug: track?.album?.slug,
+  slug: track?.album.slug,
 });
 
 const defaultLyricLanguage =
@@ -26,9 +26,9 @@ const defaultLyrics = track?.lyrics?.find(
 ---
 
 <Common title={track?.title}>
-  <a href={backLink}>{t.back}{track?.album?.title}</a>
+  <a href={backLink}>{t.back}{track?.album.title}</a>
   <h1>{track?.title}</h1>
-  <p>{t.from}{track?.album?.title}</p>
+  <p>{t.from}{track?.album.title}</p>
 
   <p><PortableText portableText={defaultLyrics?.text}/></p>
 </Common>

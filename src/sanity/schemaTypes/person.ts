@@ -7,6 +7,7 @@ export const personType = defineType({
     defineField({
       name: 'name',
       type: 'string',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -15,6 +16,7 @@ export const personType = defineType({
         source: 'name',
         maxLength: 96,
       },
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'image',

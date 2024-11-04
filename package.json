@@ -12,7 +12,7 @@
     "lint": "biome lint --write ./src",
     "check": "biome check --write ./src",
     "prepare": "husky",
-    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json && bunx sanity typegen generate"
+    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json --enforce-required-fields && bunx sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
