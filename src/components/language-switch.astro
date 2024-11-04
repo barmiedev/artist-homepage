@@ -1,5 +1,7 @@
 ---
-const { language = 'en' } = Astro.props;
+import { defaultLocale } from '@/lib/utils/i18n';
+
+const { language = defaultLocale } = Astro.props;
 ---
 
 <astro-language-switch data-language={language}>

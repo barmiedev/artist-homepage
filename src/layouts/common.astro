@@ -48,7 +48,7 @@ const navigation = await getNavigationLinks(currentLocale);
           const languages = navigator.languages?.filter((lang) => lang.length === 2);
 
           // Fallback to English if no matching language is found
-          const userLang = languages[0] || 'en';
+          const userLang = languages[0] || defaultLocale;
 
           // Setting the cookie
           document.cookie = getLanguageCookie(userLang);
