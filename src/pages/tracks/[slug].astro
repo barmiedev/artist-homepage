@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   return tracks.map((track) => {
     return {
       params: {
-        slug: track.slug.current,
+        slug: track.slug?.current,
       },
     };
   });

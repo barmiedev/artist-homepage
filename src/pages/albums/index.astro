@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   return albums.map(({ slug }) => {
     return {
       params: {
-        slug: slug.current,
+        slug: slug?.current,
       },
     };
   });

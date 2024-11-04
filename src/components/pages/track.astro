@@ -13,7 +13,7 @@ const t = await getTranslations(locale, 'track');
 const backLink = await getLink({
   locale,
   tag: 'albums',
-  slug: track.album.slug,
+  slug: track?.album?.slug,
 });
 ---
 

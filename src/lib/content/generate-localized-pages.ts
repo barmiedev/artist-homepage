@@ -37,8 +37,8 @@ const generateLocalizedAlbumPages = async () => {
     // Add dynamic album pages
     for (const { slug } of pages) {
       paths.push({
-        params: { path: `${locale}/${routes.albums}/${slug.current}` },
-        props: { locale, page: 'album', slug: slug.current },
+        params: { path: `${locale}/${routes.albums}/${slug?.current}` },
+        props: { locale, page: 'album', slug: slug?.current },
       });
     }
   }
@@ -62,8 +62,8 @@ const generateLocalizedTrackPages = async () => {
     // Add dynamic track pages
     for (const { slug } of pages) {
       paths.push({
-        params: { path: `${locale}/${routes.tracks}/${slug.current}` },
-        props: { locale, page: 'track', slug: slug.current },
+        params: { path: `${locale}/${routes.tracks}/${slug?.current}` },
+        props: { locale, page: 'track', slug: slug?.current },
       });
     }
   }

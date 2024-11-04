@@ -8,17 +8,17 @@ const {
   props: { locale = defaultLocale, slug },
 } = Astro;
 
-const album = await getAlbum({ slug: slug });
 const t = await getTranslations(locale, 'albums');
 const backLink = await getLink({ locale, tag: 'albums' });
+const album = await getAlbum({ slug: slug });
 ---
 
-<Common title={album.title}>
+<Common title={album?.title}>
   <a href={backLink}>{t.back}</a>
-  <h1>Album: {album.title}</h1>
-  {album.recordedAt}
+  <h1>Album: {album?.title}</h1>
+  {album?.recordedAt}
   <ul>
-    {album.tracks.map(async (track: { slug: string, title: string}) => {
+    {album?.tracks?.map(async (track) => {
       const link = await getLink({ locale, slug: track.slug, tag: 'track' });
       return (
         <li>

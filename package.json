@@ -11,7 +11,8 @@
     "format": "biome format --write ./src",
     "lint": "biome lint --write ./src",
     "check": "biome check --write ./src",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json && bunx sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
