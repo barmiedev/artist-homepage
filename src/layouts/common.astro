@@ -71,6 +71,9 @@ const navigation = await getNavigationLinks(currentLocale);
           targetLocale: language,
         });
 
+        console.log('currentPath:', currentPath);
+        console.log('localePath:', localePath);
+
         // redirect user to the correct language (if needed)
         if (localePath !== currentPath) {
           window.location.href = localePath;
