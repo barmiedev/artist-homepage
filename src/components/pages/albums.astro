@@ -19,7 +19,7 @@ const albums = await getAlbums();
       const link = await getLink({ locale, slug: album?.slug.current, tag: 'albums' });
       return (
         <li>
-          <a href={link}>{album.title}</a>
+          <a href={link}>{album?.title}</a>
         </li>
       )
     })}
