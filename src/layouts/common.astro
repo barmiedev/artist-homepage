@@ -64,12 +64,21 @@ const navigation = await getNavigationLinks(currentLocale);
         const { segments, currentLocale } = getSegments(currentPath);
 
         // get localized path (current one)
-        const localePath = await getLocalizedPath({
+        let localePath = await getLocalizedPath({
           currentLocale,
           currentPath,
           segments,
           targetLocale: language,
         });
+
+        // there might be a trailing slash in the URL - unify it (if currentPath has one, add it to localePath)
+        if (currentPath.endsWith('/') && !localePath.endsWith('/')) {
+          localePath += '/';
+        }
+
+        if (localePath.endsWith('/') && !currentPath.endsWith('/')) {
+          localePath = localePath.slice(0, -1);
+        }
 
         console.log('currentPath:', currentPath);
         console.log('localePath:', localePath);
