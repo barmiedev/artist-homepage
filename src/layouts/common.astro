@@ -1,14 +1,17 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import { defaultLocale, isLocale, locales } from '@/lib/utils/i18n';
-import { getLocalizedPath, getNavigationLinks } from '@/lib/utils/navigation';
+import LanguageSwitch from '@/components/language-switch.astro';
+import { locales } from '@/lib/utils/i18n';
+import {
+  getLocalizedPath,
+  getNavigationLinks,
+  getSegments,
+} from '@/lib/utils/navigation';
 
 const { title } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const segments = currentPath.split('/').filter(Boolean);
-const currentLocale =
-  segments[0] && isLocale(segments[0]) ? segments[0] : defaultLocale;
+const { segments, currentLocale } = getSegments(currentPath);
 
 // Generate language switcher paths
 const localePaths = await Promise.all(
@@ -32,6 +35,48 @@ const navigation = await getNavigationLinks(currentLocale);
 		<meta name="generator" content={Astro.generator} />
 		<title>{title ? `${title} ⋅ ${import.meta.env.PAGE_TITLE}` : `${import.meta.env.PAGE_TITLE}`}</title>
     <ViewTransitions />
+    <script>
+      // Language detection and redirection
+      import { getLanguageCookie, languageCookieName } from "@/config/language";
+      import { defaultLocale, isLocale } from "@/lib/utils/i18n";
+      import { getLocalizedPath, getSegments } from "@/lib/utils/navigation";
+
+      (async function() {
+        // will run once the page is loaded
+        if (!document.cookie.includes(languageCookieName)) {
+          // Protection for language codes that are not 2 characters long
+          const languages = navigator.languages?.filter((lang) => lang.length === 2);
+
+          // Fallback to English if no matching language is found
+          const userLang = languages[0] || defaultLocale;
+
+          // Setting the cookie
+          document.cookie = getLanguageCookie(userLang);
+        }
+        // changing location based on cookie
+        const languageCookieValue = document.cookie
+          .split('; ')
+          .find((row) => row.startsWith(languageCookieName))?.split('=')[1] || defaultLocale;
+
+        const language = isLocale(languageCookieValue) ? languageCookieValue : defaultLocale;
+
+        const currentPath = window.location.pathname;
+        const { segments, currentLocale } = getSegments(currentPath);
+
+        // get localized path (current one)
+        const localePath = await getLocalizedPath({
+          currentLocale,
+          currentPath,
+          segments,
+          targetLocale: language,
+        });
+
+        // redirect user to the correct language (if needed)
+        if (localePath !== currentPath) {
+          window.location.href = localePath;
+        }
+      }())
+    </script>
 	</head>
   <body>
     <nav>
@@ -40,7 +85,8 @@ const navigation = await getNavigationLinks(currentLocale);
           <a
             href={localePaths[index]}
           >
-            {locale.toUpperCase()}
+            <LanguageSwitch language={locale} />
+
           </a>
         ))}
       </div>

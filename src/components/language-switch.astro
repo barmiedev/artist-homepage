@@ -1,0 +1,24 @@
+---
+import { defaultLocale } from '@/lib/utils/i18n';
+
+const { language = defaultLocale } = Astro.props;
+---
+
+<astro-language-switch data-language={language}>
+  <button>{language.toUpperCase()}</button>
+</astro-language-switch>
+
+<script>
+import { getLanguageCookie } from "@/config/language";
+
+  class AstroLanguageSwitch extends HTMLElement {
+    connectedCallback() {
+      const language = this.dataset.language;
+      const button = this.querySelector('button');
+      button?.addEventListener('click', () =>
+        document.cookie = getLanguageCookie(language)
+      )
+    }
+  }
+  customElements.define('astro-language-switch', AstroLanguageSwitch);
+</script>
