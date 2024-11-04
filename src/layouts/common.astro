@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import Footer from '@/components/footer.astro';
 import LanguageSwitch from '@/components/language-switch.astro';
 import Meta from '@/components/meta.astro';
 import { locales } from '@/lib/utils/i18n';
@@ -108,5 +109,6 @@ const navigation = await getNavigationLinks(currentLocale);
     <main>
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

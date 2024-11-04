@@ -1,0 +1,19 @@
+---
+import { getGlobals } from '@/lib/content/get-globals';
+import { serializeSocials } from '@/lib/serializers/socials';
+
+const globals = await getGlobals();
+const socials = serializeSocials(globals);
+---
+
+<footer>
+  <ul>
+    {socials.map((social) => (
+      <li>
+        <a href={social.href} target="_blank" rel="noopener noreferrer">
+          {social.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</footer>
