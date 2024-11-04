@@ -54,39 +54,39 @@ export const globalsType = defineType({
     // social media links
     defineField({
       name: 'instagram',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'twitter',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'facebook',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'spotify',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'appleMusic',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'youtube',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'soundcloud',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'bandcamp',
-      type: 'string',
+      type: 'url',
     }),
     defineField({
       name: 'email',
-      type: 'string',
+      type: 'email',
     }),
   ]
 });
