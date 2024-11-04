@@ -3,6 +3,7 @@ import Common from '@/layouts/common.astro';
 import { getTrack } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import PortableText from '../portable-text.astro';
 
 const {
   props: { locale = defaultLocale, slug },
@@ -15,10 +16,19 @@ const backLink = await getLink({
   tag: 'albums',
   slug: track?.album?.slug,
 });
+
+const defaultLyricLanguage =
+  import.meta.env.DEFAULT_LYRIC_LANGUAGE || defaultLocale;
+
+const defaultLyrics = track?.lyrics?.find(
+  (lyric) => lyric.language === defaultLyricLanguage,
+);
 ---
 
-<Common title={track.title}>
-  <a href={backLink}>{t.back}{track.album.title}</a>
-  <h1>{track.title}</h1>
-  <p>{t.from}{track.album.title}</p>
+<Common title={track?.title}>
+  <a href={backLink}>{t.back}{track?.album?.title}</a>
+  <h1>{track?.title}</h1>
+  <p>{t.from}{track?.album?.title}</p>
+
+  <p><PortableText portableText={defaultLyrics?.text}/></p>
 </Common>
