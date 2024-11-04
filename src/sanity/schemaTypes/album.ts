@@ -7,6 +7,7 @@ export const albumType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -15,6 +16,7 @@ export const albumType = defineType({
         source: 'title',
         maxLength: 96,
       },
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'cover',
@@ -29,6 +31,7 @@ export const albumType = defineType({
           title: 'Alternative Text',
         },
       ],
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'recordedAt',
@@ -57,6 +60,7 @@ export const albumType = defineType({
     defineField({
       name: 'releaseDate',
       type: 'date',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'tracks',

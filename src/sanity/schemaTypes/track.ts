@@ -7,6 +7,7 @@ export const trackType = defineType({
     defineField({
       name: 'title',
       type: 'string',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -15,6 +16,7 @@ export const trackType = defineType({
         source: 'title',
         maxLength: 96,
       },
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'releaseDate',
@@ -24,10 +26,12 @@ export const trackType = defineType({
       name: 'album',
       type: 'reference',
       to: [{ type: 'album' }],
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'trackNumber',
       type: 'number',
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'about',
