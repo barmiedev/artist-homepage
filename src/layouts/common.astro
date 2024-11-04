@@ -76,12 +76,10 @@ const navigation = await getNavigationLinks(currentLocale);
           localePath += '/';
         }
 
+        // also, if localePath has a trailing slash, but currentPath doesn't, remove it
         if (localePath.endsWith('/') && !currentPath.endsWith('/')) {
           localePath = localePath.slice(0, -1);
         }
-
-        console.log('currentPath:', currentPath);
-        console.log('localePath:', localePath);
 
         // redirect user to the correct language (if needed)
         if (localePath !== currentPath) {
