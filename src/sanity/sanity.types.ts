@@ -659,6 +659,43 @@ export type AlbumsQueryResult = Array<{
   };
 }>;
 
+// Source: ./src/lib/content/get-globals.ts
+// Variable: globalsQuery
+// Query: *[_type == "globals"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}
+export type GlobalsQueryResult = {
+  _id: string;
+  _type: "globals";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteTitle: string;
+  siteDescription: string;
+  siteKeywords?: Array<string>;
+  siteAuthor?: string;
+  siteUrl: string;
+  siteImage: {
+    asset: {
+      path: string | null;
+      url: string | null;
+    } | null;
+  } | null;
+  siteFavicon: {
+    asset: {
+      path: string | null;
+      url: string | null;
+    } | null;
+  };
+  instagram?: string;
+  twitter?: string;
+  facebook?: string;
+  spotify?: string;
+  appleMusic?: string;
+  youtube?: string;
+  soundcloud?: string;
+  bandcamp?: string;
+  email?: string;
+} | null;
+
 // Source: ./src/lib/content/get-track.ts
 // Variable: trackQuery
 // Query: *[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}}
@@ -944,6 +981,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current}}": AlbumQueryResult;
     "*[_type == \"album\"]": AlbumsQueryResult;
+    "*[_type == \"globals\"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
     "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
   }

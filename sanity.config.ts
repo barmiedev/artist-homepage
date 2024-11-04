@@ -5,6 +5,9 @@ import { schema } from './src/sanity/schemaTypes';
 const singletonActions = new Set(['publish', 'discardChanges', 'restore']);
 const singletonTypes = new Set(['globals']);
 
+// PROTIP:
+// if you want to use Sanity Studio locally, comment out the process.env lines (remain the import.meta.env lines)
+
 export default defineConfig({
   projectId:
     process.env.PUBLIC_SANITY_PROJECT_ID ||

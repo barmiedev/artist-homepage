@@ -35,10 +35,10 @@ const generateLocalizedAlbumPages = async () => {
     });
 
     // Add dynamic album pages
-    for (const { slug } of pages) {
+    for (const page of pages) {
       paths.push({
-        params: { path: `${locale}/${routes.albums}/${slug?.current}` },
-        props: { locale, page: 'album', slug: slug?.current },
+        params: { path: `${locale}/${routes.albums}/${page?.slug.current}` },
+        props: { locale, page: 'album', slug: page?.slug.current },
       });
     }
   }

@@ -1,0 +1,35 @@
+---
+import { getGlobals } from '@/lib/content/get-globals';
+
+const { generator, site } = Astro;
+const { pageTitle } = Astro.props;
+
+// Get global site data from Sanity
+const globals = await getGlobals();
+const siteTitle = globals?.siteTitle ?? import.meta.env.PAGE_TITLE ?? '';
+
+const title = pageTitle ? `${pageTitle} ⋅ ${siteTitle}` : siteTitle;
+const description = globals?.siteDescription ?? '';
+const favicon = globals?.siteFavicon.asset?.url ?? '/favicon.ico';
+const image = globals?.siteImage?.asset?.url ?? '';
+const keywords = globals?.siteKeywords?.join(', ') ?? '';
+---
+
+<meta charset="utf-8" />
+
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={generator} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content={globals?.siteAuthor || ""} />
+
+<!-- Socials -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={site} />
+<meta property="og:image" content={image} />
+
+<link rel="icon" type="image" href={favicon} />
+
+<title>{title}</title>
