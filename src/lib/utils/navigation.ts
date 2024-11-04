@@ -2,6 +2,7 @@ import {
   type Locale,
   defaultLocale,
   getRouteTranslations,
+  isLocale,
 } from '@/lib/utils/i18n';
 
 type LinkTag = 'home' | 'albums' | 'track';
@@ -101,4 +102,11 @@ export const getLocalizedPath = async ({
   });
 
   return `/${targetLocale}/${translatedSegments.join('/')}`;
+};
+
+export const getSegments = (currentPath: string) => {
+  const segments = currentPath.split('/').filter(Boolean);
+  const currentLocale =
+    segments[0] && isLocale(segments[0]) ? segments[0] : defaultLocale;
+  return { currentLocale, segments };
 };
