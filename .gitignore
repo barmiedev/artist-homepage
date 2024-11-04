@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 
 *.code-workspace
+
+# sanity schema
+**/sanity/schema.json

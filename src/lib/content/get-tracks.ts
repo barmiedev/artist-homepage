@@ -1,10 +1,13 @@
 import { loadQuery } from '@/sanity/lib/load-query';
-import type { SanityDocument } from '@sanity/client';
+import type { TracksQueryResult } from '@/sanity/sanity.types';
+import { defineQuery } from 'groq';
+
+const tracksQuery = defineQuery(`*[_type == "track"]`);
 
 export const getTracks = async () => {
-  const { data } = (await loadQuery({
-    query: `*[_type == "track"]`,
-  })) as { data: SanityDocument[] };
+  const { data } = await loadQuery<TracksQueryResult>({
+    query: tracksQuery,
+  });
 
   return data;
 };

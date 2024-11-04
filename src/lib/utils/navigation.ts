@@ -36,7 +36,7 @@ export const getLink = async ({
   locale,
   slug,
   tag,
-}: { locale: Locale; slug?: string; tag?: LinkTag }) => {
+}: { locale: Locale; slug?: string | null; tag?: LinkTag }) => {
   const routes = await getRouteTranslations(locale);
   const prefix = locale === defaultLocale ? '' : `/${locale}`;
 

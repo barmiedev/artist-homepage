@@ -5,12 +5,14 @@
   },
   "linter": {
     "enabled": true,
+    "ignore": ["./src/sanity/**/*"],
     "rules": {
       "recommended": true
     }
   },
   "formatter": {
     "enabled": true,
+    "ignore": ["./src/sanity/**/*"],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80,

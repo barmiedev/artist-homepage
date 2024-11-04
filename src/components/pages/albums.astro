@@ -16,7 +16,7 @@ const albums = await getAlbums();
   <h1>{t.title}</h1>
   <ul>
     {albums.map(async (album) => {
-      const link = await getLink({ locale, slug: album.slug.current, tag: 'albums' });
+      const link = await getLink({ locale, slug: album?.slug?.current, tag: 'albums' });
       return (
         <li>
           <a href={link}>{album.title}</a>

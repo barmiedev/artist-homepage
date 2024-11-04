@@ -8,6 +8,8 @@ interface ImportMetaEnv {
   readonly PUBLIC_SANITY_PROJECT_ID: string;
   readonly PUBLIC_SANITY_DATASET: string;
   readonly SANITY_STUDIO_BASEPATH: string;
+
+  readonly DEFAULT_LYRIC_LANGUAGE: string;
 }
 
 interface ImportMeta {

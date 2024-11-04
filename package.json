@@ -11,7 +11,8 @@
     "format": "biome format --write ./src",
     "lint": "biome lint --write ./src",
     "check": "biome check --write ./src",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json && bunx sanity typegen generate"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
@@ -22,6 +23,7 @@
     "@sanity/visual-editing": "^2.1.9",
     "astro": "^4.15.4",
     "astro-portabletext": "^0.10.0",
+    "groq": "^3.62.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sanity": "^3.57.1",
