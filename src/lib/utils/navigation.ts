@@ -81,7 +81,9 @@ export const getLocalizedPath = async ({
     defaultRoutes = await getRouteTranslations(defaultLocale);
   }
 
-  const pathSegments = segments.slice(currentLocale === defaultLocale ? 0 : 1);
+  const pathSegments = segments
+    .filter(Boolean)
+    .slice(currentLocale === defaultLocale ? 0 : 1);
 
   if (currentLocale !== targetLocale) {
     pathSegments.forEach((segment, index) => {
