@@ -38,7 +38,7 @@ const navigation = await getNavigationLinks(currentLocale);
     <script>
       // Language detection and redirection
       import { getLanguageCookie, languageCookieName } from "@/config/language";
-      import { defaultLocale } from "@/lib/utils/i18n";
+      import { defaultLocale, isLocale } from "@/lib/utils/i18n";
       import { getLocalizedPath, getSegments } from "@/lib/utils/navigation";
 
       (async function() {
@@ -58,6 +58,8 @@ const navigation = await getNavigationLinks(currentLocale);
           .split('; ')
           .find((row) => row.startsWith(languageCookieName))?.split('=')[1] || defaultLocale;
 
+        const language = isLocale(languageCookieValue) ? languageCookieValue : defaultLocale;
+
         const currentPath = window.location.pathname;
         const { segments, currentLocale } = getSegments(currentPath);
 
@@ -66,7 +68,7 @@ const navigation = await getNavigationLinks(currentLocale);
           currentLocale,
           currentPath,
           segments,
-          targetLocale: languageCookieValue,
+          targetLocale: language,
         });
 
         // redirect user to the correct language (if needed)
