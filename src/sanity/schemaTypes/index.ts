@@ -2,6 +2,7 @@ import type { SchemaTypeDefinition } from 'sanity';
 import { albumType } from './album';
 import { blockContentType } from './block-content';
 import { creditType } from './credit';
+import { gigType } from './gig';
 import { globalsType } from './globals';
 import { listenType } from './listen';
 import { lyricsType } from './lyrics';
@@ -17,6 +18,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     lyricsType,
     personType,
     trackType,
+    gigType,
     globalsType
   ],
 };

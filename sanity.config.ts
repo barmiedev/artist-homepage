@@ -40,6 +40,7 @@ export default defineConfig({
             S.documentTypeListItem('lyrics').title('Lyrics'),
             S.documentTypeListItem('person').title('People'),
             S.documentTypeListItem('track').title('Tracks'),
+            S.documentTypeListItem('gig').title('Gigs'),
           ]),
     }),
   ],

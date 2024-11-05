@@ -113,6 +113,73 @@ export type Globals = {
   email?: string;
 };
 
+export type Gig = {
+  _id: string;
+  _type: "gig";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  date: string;
+  city: string;
+  country: string;
+  venue: string;
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  facebookEventUrl?: string;
+  ticketsUrl?: string;
+  otherBands?: Array<string>;
+  slug: Slug;
+};
+
 export type Lyrics = {
   _id: string;
   _type: "lyrics";
@@ -540,7 +607,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Globals | Lyrics | Track | Credit | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Globals | Gig | Lyrics | Track | Credit | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/content/get-album.ts
 // Variable: albumQuery
@@ -657,6 +724,146 @@ export type AlbumsQueryResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "listen";
   };
+}>;
+
+// Source: ./src/lib/content/get-gig.ts
+// Variable: gigQuery
+// Query: *[_type == "gig" && slug.current == $slug][0]
+export type GigQueryResult = {
+  _id: string;
+  _type: "gig";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  date: string;
+  city: string;
+  country: string;
+  venue: string;
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  facebookEventUrl?: string;
+  ticketsUrl?: string;
+  otherBands?: Array<string>;
+  slug: Slug;
+} | null;
+
+// Source: ./src/lib/content/get-gigs.ts
+// Variable: gigsQuery
+// Query: *[_type == "gig"] | order(date desc)
+export type GigsQueryResult = Array<{
+  _id: string;
+  _type: "gig";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  date: string;
+  city: string;
+  country: string;
+  venue: string;
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  facebookEventUrl?: string;
+  ticketsUrl?: string;
+  otherBands?: Array<string>;
+  slug: Slug;
 }>;
 
 // Source: ./src/lib/content/get-globals.ts
@@ -981,6 +1188,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current}}": AlbumQueryResult;
     "*[_type == \"album\"]": AlbumsQueryResult;
+    "*[_type == \"gig\" && slug.current == $slug][0]": GigQueryResult;
+    "*[_type == \"gig\"] | order(date desc)": GigsQueryResult;
     "*[_type == \"globals\"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
     "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
