@@ -1,0 +1,23 @@
+---
+import Common from '@/layouts/common.astro';
+import { getGig } from '@/lib/content/get-gig';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+
+const {
+  props: { locale = defaultLocale, slug },
+} = Astro;
+
+const gig = await getGig({ slug: slug });
+const t = await getTranslations(locale, 'gigs');
+const backLink = await getLink({
+  locale,
+  tag: 'gigs',
+});
+---
+
+<Common title={gig?.city}>
+  <a href={backLink}>{t.back}</a>
+  <h1>{gig?.city}</h1>
+  <p>{gig?.date}</p>
+</Common>
