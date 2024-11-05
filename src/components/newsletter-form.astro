@@ -1,0 +1,35 @@
+---
+---
+
+<hr />
+<h3>Newsletter</h3>
+<form>
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required />
+  <br />
+  <label>
+    <input type="checkbox" name="terms" required />
+    I agree to the terms and conditions
+  </label>
+  <br />
+  <br />
+  <button type="submit">Subscribe</button>
+</form>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+
+  const form = document.querySelector("form");
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const { data, error } = await actions.newsletter(formData);
+    if (isInputError(error)) {
+      console.error(error.fields)
+    }
+    if (!error) {
+      console.log(data)
+    }
+  })
+</script>

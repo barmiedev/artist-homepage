@@ -1,3 +1,4 @@
+import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
@@ -11,6 +12,8 @@ const {
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'hybrid',
+  adapter: netlify(),
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'pl', 'de'],

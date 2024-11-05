@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # sanity schema
 **/sanity/schema.json
+
+# netlify
+.netlify/
