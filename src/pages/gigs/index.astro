@@ -1,0 +1,18 @@
+---
+import Gigs from '@/components/pages/gigs.astro';
+import { getGigs } from '@/lib/content/get-gigs';
+
+export async function getStaticPaths() {
+  const gigs = await getGigs();
+
+  return gigs.map((gig) => {
+    return {
+      params: {
+        slug: gig?.slug.current,
+      },
+    };
+  });
+}
+---
+
+<Gigs />

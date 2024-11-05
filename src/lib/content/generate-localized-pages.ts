@@ -4,6 +4,7 @@ import {
   getRouteTranslations,
 } from '@/lib/utils/i18n';
 import { getAlbums } from './get-albums';
+import { getGigs } from './get-gigs';
 import { getTracks } from './get-tracks';
 
 const generateLocalizedHomePage = async () => {
@@ -62,8 +63,33 @@ const generateLocalizedTrackPages = async () => {
     // Add dynamic track pages
     for (const { slug } of pages) {
       paths.push({
-        params: { path: `${locale}/${routes.tracks}/${slug?.current}` },
-        props: { locale, page: 'track', slug: slug?.current },
+        params: { path: `${locale}/${routes.tracks}/${slug.current}` },
+        props: { locale, page: 'track', slug: slug.current },
+      });
+    }
+  }
+  return paths;
+};
+
+const generateLocalizedGigPages = async () => {
+  const pages = await getGigs();
+  const paths = [];
+
+  // Add localized paths
+  for (const locale of getLocalesWithout(defaultLocale)) {
+    const routes = await getRouteTranslations(locale);
+
+    // Add gigs page
+    paths.push({
+      params: { path: `${locale}/${routes.gigs}` },
+      props: { locale, page: 'gigs' },
+    });
+
+    // Add dynamic gig pages
+    for (const { slug } of pages) {
+      paths.push({
+        params: { path: `${locale}/${routes.gigs}/${slug.current}` },
+        props: { locale, page: 'gig', slug: slug?.current },
       });
     }
   }
@@ -74,4 +100,5 @@ export {
   generateLocalizedHomePage,
   generateLocalizedAlbumPages,
   generateLocalizedTrackPages,
+  generateLocalizedGigPages,
 };

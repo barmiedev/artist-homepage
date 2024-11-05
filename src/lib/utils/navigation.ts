@@ -5,7 +5,7 @@ import {
   isLocale,
 } from '@/lib/utils/i18n';
 
-type LinkTag = 'home' | 'albums' | 'track';
+type LinkTag = 'home' | 'albums' | 'track' | 'gigs' | 'gig';
 
 type NavigationLink = {
   title: string;
@@ -21,6 +21,10 @@ export const getNavigationLinks = async (
     locale === defaultLocale
       ? '/albums'
       : `/${locale}/${(await getRouteTranslations(locale)).albums}`;
+  const gigsLink =
+    locale === defaultLocale
+      ? '/gigs'
+      : `/${locale}/${(await getRouteTranslations(locale)).gigs}`;
 
   return [
     { title: 'HOME', href: homeLink, tag: 'home' },
@@ -28,6 +32,11 @@ export const getNavigationLinks = async (
       title: 'ALBUMS',
       href: albumsLink,
       tag: 'albums',
+    },
+    {
+      title: 'GIGS',
+      href: gigsLink,
+      tag: 'gigs',
     },
   ];
 };
@@ -52,6 +61,12 @@ export const getLink = async ({
 
   if (tag === 'track' && slug) {
     return `${prefix}/${routes.tracks}/${slug}`;
+  }
+
+  if (tag === 'gigs') {
+    return slug
+      ? `${prefix}/${routes.gigs}/${slug}`
+      : `${prefix}/${routes.gigs}`;
   }
 
   return prefix;

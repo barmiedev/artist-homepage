@@ -1,0 +1,47 @@
+---
+import Common from '@/layouts/common.astro';
+import { getGigs } from '@/lib/content/get-gigs';
+import { getGigsTimeline } from '@/lib/utils/gigs';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
+
+const {
+  props: { locale = defaultLocale },
+} = Astro;
+
+const t = await getTranslations(locale, 'gigs');
+const gigs = await getGigs();
+
+const { upcoming, past } = await getGigsTimeline(gigs);
+---
+
+<Common title={t.title}>
+  <h1>{t.title}</h1>
+  <h2>{t.upcoming}</h2>
+  <ul>
+    {upcoming.map(async (gig) => {
+      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+      return (
+      <li>
+        <h2>{gig.city}</h2>
+        <h3>{format(gig.date, 'dd.MM.yyyy')}</h3>
+        <p>{gig.venue}</p>
+        <a href={link}>Zobacz</a>
+      </li>
+    )})}
+  </ul>
+  <h2>{t.past}</h2>
+  <ul>
+    {past.map(async (gig) => {
+      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+      return (
+      <li>
+        <h2>{gig.city}</h2>
+        <h3>{format(gig.date, 'dd.MM.yyyy')}</h3>
+        <p>{gig.venue}</p>
+        <a href={link}>Zobacz</a>
+      </li>
+    )})}
+  </ul>
+</Common>
