@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "build:node": "astro build --node",
+    "preview": "astro preview --node",
     "astro": "astro",
     "format": "biome format --write ./src",
     "lint": "biome lint --write ./src",
@@ -35,6 +36,7 @@
     "typescript": "^5.5.4"
   },
   "devDependencies": {
+    "@astrojs/node": "^8.3.4",
     "@biomejs/biome": "1.8.3",
     "@portabletext/types": "^2.0.13",
     "@types/react": "^18.3.5",

@@ -1,4 +1,5 @@
 import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
@@ -10,10 +11,16 @@ const {
   SANITY_STUDIO_BASEPATH,
 } = loadEnv(process.env.NODE_ENV || '', process.cwd(), '');
 
+let adapter = netlify();
+
+if (process.argv.includes('--node')) {
+  adapter = node({ mode: 'standalone' });
+}
+
 // https://astro.build/config
 export default defineConfig({
   output: 'hybrid',
-  adapter: netlify(),
+  adapter: adapter,
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'pl', 'de'],
