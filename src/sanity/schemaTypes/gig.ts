@@ -60,7 +60,7 @@ export const gigType = defineType({
       name: 'slug',
       type: 'slug',
       options: {
-        source: (doc, context) => {
+        source: (doc, _) => {
           const date = doc.date ? doc.date as Date : '';
           const city = doc.city ? doc.city as string : '';
           return `${doc.date && format(date, 'yyyy-MM-dd')}-${city.split(' ').join('-').toLowerCase()}`},

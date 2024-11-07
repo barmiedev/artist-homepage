@@ -1,0 +1,39 @@
+---
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const { locale = defaultLocale } = Astro.props;
+const t = await getTranslations(locale, 'common');
+---
+
+<hr />
+<h3>{t.newsletter}</h3>
+<form>
+  <label for="email">{t.email}</label>
+  <input type="email" id="email" name="email" required />
+  <br />
+  <label>
+    <input type="checkbox" name="terms" required />
+    {t.acceptPolicy}
+  </label>
+  <br />
+  <br />
+  <button type="submit">{t.subscribe}</button>
+</form>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+
+  const form = document.querySelector("form");
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const { data, error } = await actions.addToNewsletter(formData);
+    if (isInputError(error)) {
+      console.error(error.fields)
+    }
+    if (!error) {
+      console.log(data)
+    }
+  })
+</script>
