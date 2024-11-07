@@ -22,17 +22,4 @@ export const server = {
       }
     },
   }),
-  removeFromNewsletter: defineAction({
-    accept: 'form',
-    input: z.object({
-      email: z.string().email(),
-    }),
-    handler: async ({ email }) => {
-      try {
-        await sendEmail({ email, type: 'removeFromNewsletter' });
-      } catch (error: unknown) {
-        return catchEmailError(error);
-      }
-    },
-  }),
 };
