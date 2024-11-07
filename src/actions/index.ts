@@ -14,7 +14,7 @@ export const server = {
       email: z.string().email(),
       terms: z.boolean(),
     }),
-    handler: async ({ email, terms }) => {
+    handler: async ({ email }) => {
       try {
         await sendEmail({ email, type: 'addToNewsletter' });
       } catch (error: unknown) {

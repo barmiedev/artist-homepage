@@ -36,6 +36,7 @@ export const articleType = defineType({
     defineField({
       name: 'publishedAt',
       type: 'datetime',
+      initialValue: () => new Date().toISOString(),
       validation: rule => rule.required(),
     }),
     defineField({

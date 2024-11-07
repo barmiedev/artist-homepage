@@ -1,9 +1,5 @@
 import { loadQuery } from '@/sanity/lib/load-query';
-import type {
-  AlbumQueryResult,
-  Article,
-  SingleArticleQueryResult,
-} from '@/sanity/sanity.types';
+import type { SingleArticleQueryResult } from '@/sanity/sanity.types';
 import { defineQuery } from 'groq';
 import type { QueryParams } from 'sanity';
 
