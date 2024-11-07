@@ -47,7 +47,7 @@ const addToNewsletter = async ({ from, email, audienceId }: EmailProps) => {
   await resend.emails.send({
     from: from,
     to: email,
-    subject: 'Welcome!', // TODO Change to CMS variable
+    subject: 'Welcome!', // TODO Change to a variable
     react: Welcome(),
   });
 };
