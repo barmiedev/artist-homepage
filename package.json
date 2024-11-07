@@ -12,12 +12,14 @@
     "lint": "biome lint --write ./src",
     "check": "biome check --write ./src",
     "prepare": "husky",
-    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json --enforce-required-fields && bunx sanity typegen generate"
+    "sanity:typegen": "bunx sanity schema extract --path ./src/sanity/schema.json --enforce-required-fields && bunx sanity typegen generate",
+    "email": "email dev"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/netlify": "^5.5.4",
     "@astrojs/react": "^3.6.2",
+    "@react-email/components": "0.0.27",
     "@sanity/astro": "^3.1.6",
     "@sanity/client": "^6.21.3",
     "@sanity/image-url": "^1.0.2",
@@ -28,6 +30,7 @@
     "groq": "^3.62.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "resend": "^4.0.1-alpha.0",
     "sanity": "^3.57.1",
     "typescript": "^5.5.4"
   },
@@ -37,6 +40,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "husky": "^9.1.5",
+    "react-email": "3.0.2",
     "vite": "^5.4.3"
   }
 }
