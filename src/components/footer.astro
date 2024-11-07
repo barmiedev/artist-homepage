@@ -8,7 +8,7 @@ const socials = serializeSocials(globals);
 ---
 
 <footer>
-  <NewsletterForm />
+  {globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
   <ul>
     {socials.map((social) => (
       <li>

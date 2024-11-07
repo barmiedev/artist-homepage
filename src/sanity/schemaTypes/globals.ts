@@ -88,5 +88,13 @@ export const globalsType = defineType({
       name: 'email',
       type: 'email',
     }),
+    defineField({
+      name: 'newsletter',
+      type: 'boolean'
+    }),
+    defineField({
+      name: 'privacyPolicy',
+      type: 'blockContent',
+    })
   ]
 });

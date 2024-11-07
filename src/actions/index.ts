@@ -1,15 +1,38 @@
 import { defineAction } from 'astro:actions';
 import { z } from 'astro:schema';
+import { sendEmail } from '@/lib/resend';
+
+const catchEmailError = (error: unknown) => {
+  console.error(error);
+  return { error: 'Failed to send email' };
+};
 
 export const server = {
-  newsletter: defineAction({
+  addToNewsletter: defineAction({
     accept: 'form',
     input: z.object({
       email: z.string().email(),
       terms: z.boolean(),
     }),
     handler: async ({ email, terms }) => {
-      return { email, terms };
+      try {
+        await sendEmail({ email, type: 'addToNewsletter' });
+      } catch (error: unknown) {
+        return catchEmailError(error);
+      }
+    },
+  }),
+  removeFromNewsletter: defineAction({
+    accept: 'form',
+    input: z.object({
+      email: z.string().email(),
+    }),
+    handler: async ({ email }) => {
+      try {
+        await sendEmail({ email, type: 'removeFromNewsletter' });
+      } catch (error: unknown) {
+        return catchEmailError(error);
+      }
     },
   }),
 };

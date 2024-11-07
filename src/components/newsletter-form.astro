@@ -1,19 +1,23 @@
 ---
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const { locale = defaultLocale } = Astro.props;
+const t = await getTranslations(locale, 'common');
 ---
 
 <hr />
-<h3>Newsletter</h3>
+<h3>{t.newsletter}</h3>
 <form>
-  <label for="email">Email</label>
+  <label for="email">{t.email}</label>
   <input type="email" id="email" name="email" required />
   <br />
   <label>
     <input type="checkbox" name="terms" required />
-    I agree to the terms and conditions
+    {t.acceptPolicy}
   </label>
   <br />
   <br />
-  <button type="submit">Subscribe</button>
+  <button type="submit">{t.subscribe}</button>
 </form>
 
 <script>
@@ -24,7 +28,7 @@
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-    const { data, error } = await actions.newsletter(formData);
+    const { data, error } = await actions.addToNewsletter(formData);
     if (isInputError(error)) {
       console.error(error.fields)
     }
