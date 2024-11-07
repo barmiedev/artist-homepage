@@ -11,7 +11,7 @@ const {
 } = Astro;
 
 const article = await getSingleArticle({ slug: slug });
-const t = await getTranslations(locale, 'gigs');
+const t = await getTranslations(locale, 'blog');
 const backLink = await getLink({
   locale,
   tag: 'blog',
