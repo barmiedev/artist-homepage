@@ -41,6 +41,7 @@ export default defineConfig({
             S.documentTypeListItem('person').title('People'),
             S.documentTypeListItem('track').title('Tracks'),
             S.documentTypeListItem('gig').title('Gigs'),
+            S.documentTypeListItem('article').title('Articles'),
           ]),
     }),
   ],

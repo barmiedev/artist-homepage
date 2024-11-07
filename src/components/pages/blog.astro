@@ -1,0 +1,31 @@
+---
+import Common from '@/layouts/common.astro';
+import { getArticles } from '@/lib/content/get-articles';
+import { defaultLocale } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+
+const {
+  props: { locale = defaultLocale },
+} = Astro;
+
+const articles = await getArticles(2);
+---
+
+<Common title="Blog">
+  <h1>Blog</h1>
+  <ul>
+    {articles.map(async (article) => {
+      if (!article) return null;
+      return (
+        <li>
+          {article.title}
+          <a href={await getLink({
+            locale,
+            tag: 'blog',
+            slug: article.slug.current,
+          })}>{article?.title}</a>
+        </li>
+      )
+    })}
+  </ul>
+</Common>

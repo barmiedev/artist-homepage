@@ -1,5 +1,6 @@
 import type { SchemaTypeDefinition } from 'sanity';
 import { albumType } from './album';
+import { articleType } from './article';
 import { blockContentType } from './block-content';
 import { creditType } from './credit';
 import { gigType } from './gig';
@@ -12,6 +13,7 @@ import { trackType } from './track';
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     blockContentType,
+    articleType,
     albumType,
     creditType,
     listenType,
