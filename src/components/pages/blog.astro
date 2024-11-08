@@ -13,7 +13,7 @@ const t = await getTranslations(locale, 'blog');
 ---
 
 <Common title={t.title}>
-  <h1>{t.tile}</h1>
+  <h1>{t.title}</h1>
   <ul>
     {articles.map(async (article) => {
       if (!article) return null;

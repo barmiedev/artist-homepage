@@ -25,7 +25,10 @@ export const getNavigationLinks = async (
     locale === defaultLocale
       ? '/gigs'
       : `/${locale}/${(await getRouteTranslations(locale)).gigs}`;
-  const blogLink = '/blog';
+  const blogLink =
+    locale === defaultLocale
+      ? '/blog'
+      : `/${locale}/${(await getRouteTranslations(locale)).blog}`;
 
   return [
     { title: 'HOME', href: homeLink, tag: 'home' },
