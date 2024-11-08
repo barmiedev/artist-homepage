@@ -10,6 +10,10 @@ export const announcementType = defineType({
       validation: rule => rule.required(),
     }),
     defineField({
+      name: 'previewText',
+      type: 'string'
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       options: {
@@ -17,6 +21,10 @@ export const announcementType = defineType({
         maxLength: 96,
       },
       validation: rule => rule.required(),
+    }),
+    defineField({
+      name: 'active',
+      type: 'boolean',
     }),
     defineField({
       name: 'cover',

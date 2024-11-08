@@ -4,7 +4,7 @@ import { defineQuery } from 'groq';
 import type { QueryParams } from 'sanity';
 
 const announcementQuery = defineQuery(
-  `*[_type == "announcement" && slug.current == $slug][0]`,
+  `*[_type == "announcement" && active == true && slug.current == $slug][0]`,
 );
 
 export const getAnnouncement = async (params: QueryParams) => {
@@ -18,7 +18,9 @@ export const getAnnouncement = async (params: QueryParams) => {
 
 export const getAnnouncements = async () => {
   const { data } = await loadQuery<AnnouncementQueryResult[]>({
-    query: defineQuery(`*[_type == "announcement"] | order(publishedAt desc)`),
+    query: defineQuery(
+      `*[_type == "announcement" && active == true] | order(publishedAt desc)`,
+    ),
   });
 
   return data;
@@ -27,7 +29,7 @@ export const getAnnouncements = async () => {
 export const getAnnouncementsWithoutSlug = async (slug: string) => {
   const { data } = await loadQuery<AnnouncementQueryResult[]>({
     query: defineQuery(
-      `*[_type == "announcement" && slug.current != "${slug}"] | order(publishedAt desc)`,
+      `*[_type == "announcement" && active == true && slug.current != "${slug}"] | order(publishedAt desc)`,
     ),
   });
 
@@ -37,7 +39,7 @@ export const getAnnouncementsWithoutSlug = async (slug: string) => {
 export const getLastAnnouncements = async (howMany?: number) => {
   const { data } = await loadQuery<AnnouncementQueryResult[]>({
     query: defineQuery(
-      `*[_type == "announcement"] | order(publishedAt desc) [0...${howMany}]`,
+      `*[_type == "announcement" && active == true] | order(publishedAt desc) [0...${howMany}]`,
     ),
   });
 
@@ -47,7 +49,7 @@ export const getLastAnnouncements = async (howMany?: number) => {
 export const getLastAnnouncement = async () => {
   const { data } = await loadQuery<AnnouncementQueryResult>({
     query: defineQuery(
-      `*[_type == "announcement"] | order(publishedAt desc) [0]`,
+      `*[_type == "announcement" && active == true] | order(publishedAt desc) [0]`,
     ),
   });
 

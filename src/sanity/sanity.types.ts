@@ -518,7 +518,9 @@ export type Announcement = {
   _updatedAt: string;
   _rev: string;
   title: string;
+  previewText?: string;
   slug: Slug;
+  active?: boolean;
   cover?: {
     asset?: {
       _ref: string;
@@ -918,7 +920,9 @@ export type AnnouncementQueryResult = {
   _updatedAt: string;
   _rev: string;
   title: string;
+  previewText?: string;
   slug: Slug;
+  active?: boolean;
   cover?: {
     asset?: {
       _ref: string;
