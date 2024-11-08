@@ -1,0 +1,25 @@
+---
+import Common from '@/layouts/common.astro';
+import { getAnnouncement } from '@/lib/content/get-announcements';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+import PortableTextImage from '../portable-text-image.astro';
+import PortableText from '../portable-text.astro';
+
+const {
+  props: { locale = defaultLocale, slug },
+} = Astro;
+
+const announcement = await getAnnouncement({ slug: slug });
+const t = await getTranslations(locale, 'announcements');
+const backLink = await getLink({
+  locale,
+});
+---
+
+<Common title={announcement?.title}>
+  <a href={backLink}>{t.back}</a>
+  <h1>{announcement?.title}</h1>
+  <PortableTextImage node={announcement?.cover} />
+  <p><PortableText portableText={announcement?.text} /></p>
+</Common>
