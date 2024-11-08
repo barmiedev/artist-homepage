@@ -1,8 +1,8 @@
 {
   "title": "Homepage",
-  "articles": "Articles",
-  "gigs": "Gigs",
-  "upcomingGigs": "Upcoming gigs",
-  "pastGigs": "Past gigs",
-  "announcements": "Announcements"
+  "articles": "Blogeinträge",
+  "gigs": "Konzerten",
+  "upcomingGigs": "Zukünftige Konzerte",
+  "pastGigs": "Konzerte gespielt",
+  "announcements": "Ankündigungen"
 }
