@@ -1,13 +1,82 @@
 ---
 import Common from '@/layouts/common.astro';
+import { getArticles } from '@/lib/content';
+import { getLastAnnouncement } from '@/lib/content/get-announcements';
+import { getLastGigs } from '@/lib/content/get-gigs';
+import { getGigsTimeline } from '@/lib/utils/gigs';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
 
 const {
   props: { locale = defaultLocale },
 } = Astro;
+
 const t = await getTranslations(locale, 'home');
+
+const articles = await getArticles(3);
+const gigs = await getLastGigs(3);
+const { upcoming, past } = await getGigsTimeline(gigs);
+
+const announcement = await getLastAnnouncement();
+const announcementLink = await getLink({
+  locale,
+  tag: 'announcement',
+  slug: announcement?.slug.current,
+});
+
+// TODO homepage layout
+// hero - photo in the background, title and subtitle
+// last announcement
+// last 3 articles
+// 3 concerts: if there are any concerts in the future, show them, if not, show the last 3 concerts
+// - if there are no concerts, show the last 3 concerts
+// - if there is 1 future concert, show it and 2 last concerts
+// footer with contact and social media
 ---
 
 <Common title="dom">
 	<h1>{t.title}</h1>
+  <h2>{t.announcements}</h2>
+  {announcement && (
+    <h4>
+      <a href={announcementLink}>{announcement.title}</a>
+    </h4>
+  )}
+  <h2>{t.articles}</h2>
+  <ul>
+  {articles.map(async (article) => {
+    const link = await getLink({ locale, tag: 'blog', slug: article?.slug.current });
+    return (
+      <li>
+        <a href={link}>{article?.title}</a>
+      </li>
+    );
+  })}
+  </ul>
+  <h2>{t.gigs}</h2>
+  <h3>{t.upcomingGigs}</h3>
+  <ul>
+    {upcoming.map(async (gig) => {
+      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+      return (
+      <li>
+        <h2>{gig.city}</h2>
+        <h3>{gig.date}</h3>
+        <p>{gig.venue}</p>
+        <a href={link}>Zobacz</a>
+      </li>
+    )})}
+  </ul>
+  <h3>{t.pastGigs}</h3>
+  <ul>
+    {past.map(async (gig) => {
+      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+      return (
+      <li>
+        <h2>{gig.city}</h2>
+        <h3>{gig.date}</h3>
+        <p>{gig.venue}</p>
+        <a href={link}>Zobacz</a>
+      </li>
+    )})}
 </Common>

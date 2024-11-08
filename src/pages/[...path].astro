@@ -1,6 +1,7 @@
 ---
 import Album from '@/components/pages/album.astro';
 import Albums from '@/components/pages/albums.astro';
+import Announcement from '@/components/pages/announcement.astro';
 import Article from '@/components/pages/article.astro';
 import Blog from '@/components/pages/blog.astro';
 import Gig from '@/components/pages/gig.astro';
@@ -9,6 +10,7 @@ import Home from '@/components/pages/home.astro';
 import Track from '@/components/pages/track.astro';
 import {
   generateLocalizedAlbumPages,
+  generateLocalizedAnnouncementPages,
   generateLocalizedArticlePages,
   generateLocalizedGigPages,
   generateLocalizedHomePage,
@@ -22,6 +24,7 @@ export async function getStaticPaths() {
     generateLocalizedTrackPages(), // tracks
     generateLocalizedGigPages(), // gigs
     generateLocalizedArticlePages(), // articles
+    generateLocalizedAnnouncementPages(), // announcements
   ]).then((results) => results.flat());
 
   return paths;
@@ -60,6 +63,10 @@ const { locale, page, slug } = Astro.props;
 
 {page === 'article' && (
   <Article locale={locale} slug={slug} />
+)}
+
+{page === 'announcement' && (
+  <Announcement locale={locale} slug={slug} />
 )}
 
 <style>

@@ -4,6 +4,7 @@ import {
   getRouteTranslations,
 } from '@/lib/utils/i18n';
 import { getAlbums } from './get-albums';
+import { getAnnouncements } from './get-announcements';
 import { getArticles } from './get-articles';
 import { getGigs } from './get-gigs';
 import { getTracks } from './get-tracks';
@@ -87,10 +88,11 @@ const generateLocalizedGigPages = async () => {
     });
 
     // Add dynamic gig pages
-    for (const { slug } of pages) {
+    for (const page of pages) {
+      if (!page) continue;
       paths.push({
-        params: { path: `${locale}/${routes.gigs}/${slug.current}` },
-        props: { locale, page: 'gig', slug: slug?.current },
+        params: { path: `${locale}/${routes.gigs}/${page.slug.current}` },
+        props: { locale, page: 'gig', slug: page.slug.current },
       });
     }
   }
@@ -122,10 +124,33 @@ const generateLocalizedArticlePages = async () => {
   return paths;
 };
 
+const generateLocalizedAnnouncementPages = async () => {
+  const pages = await getAnnouncements();
+  const paths = [];
+
+  // Add localized paths
+  for (const locale of getLocalesWithout(defaultLocale)) {
+    const routes = await getRouteTranslations(locale);
+
+    // Add dynamic announcement pages
+    for (const page of pages) {
+      if (!page) continue;
+      paths.push({
+        params: {
+          path: `${locale}/${routes.announcements}/${page.slug.current}`,
+        },
+        props: { locale, page: 'announcement', slug: page.slug.current },
+      });
+    }
+  }
+  return paths;
+};
+
 export {
   generateLocalizedHomePage,
   generateLocalizedAlbumPages,
   generateLocalizedTrackPages,
   generateLocalizedGigPages,
   generateLocalizedArticlePages,
+  generateLocalizedAnnouncementPages,
 };

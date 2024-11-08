@@ -2,5 +2,6 @@
   "albums": "albums",
   "tracks": "tracks",
   "gigs": "gigs",
-  "blog": "blog"
+  "blog": "blog",
+  "announcements": "announcements"
 }
