@@ -1,3 +1,8 @@
 {
-  "title": "Strona główna"
+  "title": "Strona główna",
+  "articles": "Ostatnie wpisy",
+  "gigs": "Koncerty",
+  "upcomingGigs": "Nadchodzące koncerty",
+  "pastGigs": "Ostanie koncerty",
+  "announcements": "Ogłoszenia"
 }
