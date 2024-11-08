@@ -1,5 +1,6 @@
 {
   "albums": "albums",
   "tracks": "tracks",
-  "gigs": "gigs"
+  "gigs": "gigs",
+  "blog": "blog"
 }

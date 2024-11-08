@@ -4,6 +4,7 @@ import {
   getRouteTranslations,
 } from '@/lib/utils/i18n';
 import { getAlbums } from './get-albums';
+import { getArticles } from './get-articles';
 import { getGigs } from './get-gigs';
 import { getTracks } from './get-tracks';
 
@@ -96,9 +97,35 @@ const generateLocalizedGigPages = async () => {
   return paths;
 };
 
+const generateLocalizedArticlePages = async () => {
+  const pages = await getArticles();
+  const paths = [];
+
+  // Add localized paths
+  for (const locale of getLocalesWithout(defaultLocale)) {
+    const routes = await getRouteTranslations(locale);
+
+    // Add blog page
+    paths.push({
+      params: { path: `${locale}/${routes.blog}` },
+      props: { locale, page: 'blog' },
+    });
+
+    // Add dynamic article pages
+    for (const page of pages) {
+      paths.push({
+        params: { path: `${locale}/${routes.blog}/${page?.slug.current}` },
+        props: { locale, page: 'article', slug: page?.slug.current },
+      });
+    }
+  }
+  return paths;
+};
+
 export {
   generateLocalizedHomePage,
   generateLocalizedAlbumPages,
   generateLocalizedTrackPages,
   generateLocalizedGigPages,
+  generateLocalizedArticlePages,
 };

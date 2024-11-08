@@ -1,0 +1,19 @@
+---
+
+import Blog from '@/components/pages/blog.astro';
+import { getArticles } from '@/lib/content';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+
+  return articles.map((article) => {
+    return {
+      params: {
+        slug: article?.slug.current,
+      },
+    };
+  });
+}
+---
+
+<Blog />

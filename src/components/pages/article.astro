@@ -1,0 +1,42 @@
+---
+import Common from '@/layouts/common.astro';
+import { getArticlesWithoutSlug, getSingleArticle } from '@/lib/content';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+import PortableTextImage from '../portable-text-image.astro';
+import PortableText from '../portable-text.astro';
+
+const {
+  props: { locale = defaultLocale, slug },
+} = Astro;
+
+const article = await getSingleArticle({ slug: slug });
+const t = await getTranslations(locale, 'blog');
+const backLink = await getLink({
+  locale,
+  tag: 'blog',
+});
+const lastArticles = await getArticlesWithoutSlug(slug, 3);
+---
+
+<Common title={article?.title}>
+  <a href={backLink}>{t.back}</a>
+  {lastArticles.map(async (article) => {
+    return (
+      <li>
+        <a
+          href={await getLink({
+            locale,
+            tag: 'blog',
+            slug: article?.slug.current,
+          })}
+        >
+          {article?.title}
+        </a>
+      </li>
+    );
+  })}
+  <h1>{article?.title}</h1>
+  <PortableTextImage node={article?.cover} />
+  <p><PortableText portableText={article?.text} /></p>
+</Common>
