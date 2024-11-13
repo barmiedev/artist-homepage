@@ -12,7 +12,9 @@ type LinkTag =
   | 'gigs'
   | 'gig'
   | 'blog'
-  | 'announcement';
+  | 'announcement'
+  | 'docs'
+  | 'contact';
 
 type NavigationLink = {
   title: string;
@@ -36,6 +38,14 @@ export const getNavigationLinks = async (
     locale === defaultLocale
       ? '/blog'
       : `/${locale}/${(await getRouteTranslations(locale)).blog}`;
+  const contactLink =
+    locale === defaultLocale
+      ? '/contact'
+      : `/${locale}/${(await getRouteTranslations(locale)).contact}`;
+  const docsLink =
+    locale === defaultLocale
+      ? '/docs'
+      : `/${locale}/${(await getRouteTranslations(locale)).docs}`;
 
   return [
     { title: 'home', href: homeLink, tag: 'home' },
@@ -53,6 +63,16 @@ export const getNavigationLinks = async (
       title: 'blog',
       href: blogLink,
       tag: 'blog',
+    },
+    {
+      title: 'contact',
+      href: contactLink,
+      tag: 'contact',
+    },
+    {
+      title: 'docs',
+      href: docsLink,
+      tag: 'docs',
     },
   ];
 };
@@ -93,6 +113,14 @@ export const getLink = async ({
 
   if (tag === 'announcement' && slug) {
     return `${prefix}/${routes.announcements}/${slug}`;
+  }
+
+  if (tag === 'docs') {
+    return `${prefix}/${routes.docs}`;
+  }
+
+  if (tag === 'contact') {
+    return `${prefix}/${routes.contact}`;
   }
 
   return prefix;

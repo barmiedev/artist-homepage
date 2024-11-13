@@ -3,5 +3,7 @@
   "tracks": "tracks",
   "gigs": "gigs",
   "blog": "blog",
-  "announcements": "announcements"
+  "announcements": "announcements",
+  "docs": "docs",
+  "contact": "contact"
 }

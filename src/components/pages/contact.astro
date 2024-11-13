@@ -1,0 +1,18 @@
+---
+import Common from '@/layouts/common.astro';
+import { getGlobals } from '@/lib/content/get-globals';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const {
+  props: { locale = defaultLocale },
+} = Astro;
+
+const t = await getTranslations(locale, 'contact');
+const globals = await getGlobals();
+---
+
+<Common title={t.title}>
+  <h1>{t.title}</h1>
+  <p>{globals?.siteTitle}</p>
+  <p>{globals?.email}</p>
+</Common>

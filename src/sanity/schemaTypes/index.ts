@@ -4,6 +4,7 @@ import { announcementType } from './announcement';
 import { articleType } from './article';
 import { blockContentType } from './block-content';
 import { creditType } from './credit';
+import { docsType } from './docs';
 import { gigType } from './gig';
 import { globalsType } from './globals';
 import { listenType } from './listen';
@@ -23,6 +24,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     personType,
     trackType,
     gigType,
-    globalsType
+    globalsType,
+    docsType
   ],
 };

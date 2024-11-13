@@ -1,0 +1,27 @@
+---
+import Common from '@/layouts/common.astro';
+import { getDocs } from '@/lib/content/get-docs';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const {
+  props: { locale = defaultLocale },
+} = Astro;
+
+const t = await getTranslations(locale, 'docs');
+const docs = await getDocs();
+---
+
+<Common title={t.title}>
+  <h1>{t.title}</h1>
+  {docs.map(async (doc) => {
+    return (
+      <div>
+        <h2>{doc.language}</h2>
+        <p>
+          <span>{t.rider}: {doc.techRiderUrl}</span>
+          <span>{t.pressKit}: {doc.pressKitUrl}</span>
+        </p>
+      </div>
+    );
+  })}
+</Common>
