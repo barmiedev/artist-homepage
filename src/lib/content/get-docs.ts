@@ -1,5 +1,5 @@
 import { loadQuery } from '@/sanity/lib/load-query';
-import type { DocsQueryResult, GigsQueryResult } from '@/sanity/sanity.types';
+import type { DocsQueryResult } from '@/sanity/sanity.types';
 import { defineQuery } from 'groq';
 
 const docsQuery = defineQuery(`*[_type == "docs"] | order(language asc)`);
