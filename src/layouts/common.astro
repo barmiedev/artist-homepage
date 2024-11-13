@@ -3,7 +3,7 @@ import { ViewTransitions } from 'astro:transitions';
 import Footer from '@/components/footer.astro';
 import LanguageSwitch from '@/components/language-switch.astro';
 import Meta from '@/components/meta.astro';
-import { locales } from '@/lib/utils/i18n';
+import { getTranslations, locales } from '@/lib/utils/i18n';
 import {
   getLocalizedPath,
   getNavigationLinks,
@@ -28,6 +28,10 @@ const localePaths = await Promise.all(
 );
 
 const navigation = await getNavigationLinks(currentLocale);
+const navigationTranslations = await getTranslations(
+  currentLocale,
+  'navigation',
+);
 ---
 
 <!doctype html>
@@ -102,7 +106,7 @@ const navigation = await getNavigationLinks(currentLocale);
       </div>
       <div>
         {navigation.map((link) => (
-          <a href={link.href}>{link.title}</a>
+          <a href={link.href}>{navigationTranslations[link.title]}</a>
         ))}
       </div>
     </nav>
