@@ -38,5 +38,6 @@ const lastArticles = await getArticlesWithoutSlug(slug, 3);
   })}
   <h1>{article?.title}</h1>
   <PortableTextImage node={article?.cover} />
-  <p><PortableText portableText={article?.text} /></p>
+
+  <article class="prose prose-stone prose-invert"><PortableText portableText={article?.text} /></article>
 </Common>
