@@ -38,19 +38,19 @@ export const getNavigationLinks = async (
       : `/${locale}/${(await getRouteTranslations(locale)).blog}`;
 
   return [
-    { title: 'HOME', href: homeLink, tag: 'home' },
+    { title: 'home', href: homeLink, tag: 'home' },
     {
-      title: 'ALBUMS',
+      title: 'albums',
       href: albumsLink,
       tag: 'albums',
     },
     {
-      title: 'GIGS',
+      title: 'gigs',
       href: gigsLink,
       tag: 'gigs',
     },
     {
-      title: 'BLOG',
+      title: 'blog',
       href: blogLink,
       tag: 'blog',
     },
