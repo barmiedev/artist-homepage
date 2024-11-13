@@ -43,6 +43,7 @@ export default defineConfig({
             S.documentTypeListItem('gig').title('Gigs'),
             S.documentTypeListItem('article').title('Articles'),
             S.documentTypeListItem('announcement').title('Announcements'),
+            S.documentTypeListItem('docs').title('Documents'),
           ]),
     }),
   ],

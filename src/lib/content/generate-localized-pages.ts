@@ -146,6 +146,38 @@ const generateLocalizedAnnouncementPages = async () => {
   return paths;
 };
 
+const generateLocalizedDocPage = async () => {
+  const paths = [];
+
+  // Add localized paths
+  for (const locale of getLocalesWithout(defaultLocale)) {
+    const routes = await getRouteTranslations(locale);
+
+    // Add docs page
+    paths.push({
+      params: { path: `${locale}/${routes.docs}` },
+      props: { locale, page: 'docs' },
+    });
+  }
+  return paths;
+};
+
+const generateLocalizedContactPage = async () => {
+  const paths = [];
+
+  // Add localized paths
+  for (const locale of getLocalesWithout(defaultLocale)) {
+    const routes = await getRouteTranslations(locale);
+
+    // Add contact page
+    paths.push({
+      params: { path: `${locale}/${routes.contact}` },
+      props: { locale, page: 'contact' },
+    });
+  }
+  return paths;
+};
+
 export {
   generateLocalizedHomePage,
   generateLocalizedAlbumPages,
@@ -153,4 +185,6 @@ export {
   generateLocalizedGigPages,
   generateLocalizedArticlePages,
   generateLocalizedAnnouncementPages,
+  generateLocalizedDocPage,
+  generateLocalizedContactPage,
 };
