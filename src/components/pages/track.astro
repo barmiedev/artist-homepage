@@ -30,5 +30,5 @@ const defaultLyrics = track?.lyrics?.find(
   <h1>{track?.title}</h1>
   <p>{t.from}{track?.album.title}</p>
 
-  <p><PortableText portableText={defaultLyrics?.text}/></p>
+  <article class="prose prose-stone prose-invert"><PortableText portableText={defaultLyrics?.text}/></article>
 </Common>

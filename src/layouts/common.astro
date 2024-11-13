@@ -10,6 +10,17 @@ import {
   getSegments,
 } from '@/lib/utils/navigation';
 
+// Importing Raleway font weights
+import '@fontsource/raleway/100.css';
+import '@fontsource/raleway/200.css';
+import '@fontsource/raleway/300.css';
+import '@fontsource/raleway/400.css';
+import '@fontsource/raleway/500.css';
+import '@fontsource/raleway/600.css';
+import '@fontsource/raleway/700.css';
+import '@fontsource/raleway/800.css';
+import '@fontsource/raleway/900.css';
+
 const { title } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -115,3 +126,30 @@ const navigationTranslations = await getTranslations(
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  body {
+    font-family: 'Raleway', sans-serif;
+    @apply bg-background text-foreground;
+  }
+
+  main {
+    @apply mx-auto px-12 py-16;
+  }
+
+  h1 {
+    @apply text-5xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-medium;
+  }
+
+  h3 {
+    @apply text-2xl font-medium;
+  }
+
+  p {
+    @apply text-lg font-normal;
+  }
+</style>
