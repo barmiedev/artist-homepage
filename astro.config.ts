@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
 
+import tailwind from '@astrojs/tailwind';
 import { loadEnv } from 'vite';
 const {
   PUBLIC_SANITY_DATASET,
@@ -37,5 +38,6 @@ export default defineConfig({
       studioBasePath: SANITY_STUDIO_BASEPATH,
     }),
     react(),
+    tailwind(),
   ],
 });

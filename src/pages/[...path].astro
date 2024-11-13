@@ -82,27 +82,3 @@ const { locale, page, slug } = Astro.props;
 {page === 'contact' && (
   <Contact locale={locale} />
 )}
-
-<style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-  .greeting {
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 2rem 0;
-    text-align: center;
-  }
-  .content {
-    margin: 2rem 0;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-  }
-</style>
