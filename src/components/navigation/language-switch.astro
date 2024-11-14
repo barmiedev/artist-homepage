@@ -5,11 +5,11 @@ const { language = defaultLocale } = Astro.props;
 ---
 
 <astro-language-switch data-language={language}>
-  <button>{language.toUpperCase()}</button>
+  <button class="font-medium">{language.toUpperCase()}</button>
 </astro-language-switch>
 
 <script>
-import { getLanguageCookie } from "@/config/language";
+  import { getLanguageCookie } from "@/config/language";
 
   class AstroLanguageSwitch extends HTMLElement {
     connectedCallback() {

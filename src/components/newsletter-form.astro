@@ -5,7 +5,6 @@ const { locale = defaultLocale } = Astro.props;
 const t = await getTranslations(locale, 'common');
 ---
 
-<hr />
 <h3>{t.newsletter}</h3>
 <form>
   <label for="email">{t.email}</label>

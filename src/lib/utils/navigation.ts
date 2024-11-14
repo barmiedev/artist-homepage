@@ -16,10 +16,11 @@ type LinkTag =
   | 'docs'
   | 'contact';
 
-type NavigationLink = {
+export type NavigationLink = {
   title: string;
   href: string;
   tag: LinkTag;
+  hide?: boolean;
 };
 
 export const getNavigationLinks = async (
@@ -48,7 +49,7 @@ export const getNavigationLinks = async (
       : `/${locale}/${(await getRouteTranslations(locale)).docs}`;
 
   return [
-    { title: 'home', href: homeLink, tag: 'home' },
+    { title: 'home', href: homeLink, tag: 'home', hide: true },
     {
       title: 'albums',
       href: albumsLink,
@@ -73,6 +74,7 @@ export const getNavigationLinks = async (
       title: 'docs',
       href: docsLink,
       tag: 'docs',
+      hide: true,
     },
   ];
 };

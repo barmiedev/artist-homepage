@@ -1,14 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Footer from '@/components/footer.astro';
-import LanguageSwitch from '@/components/language-switch.astro';
 import Meta from '@/components/meta.astro';
-import { getTranslations, locales } from '@/lib/utils/i18n';
-import {
-  getLocalizedPath,
-  getNavigationLinks,
-  getSegments,
-} from '@/lib/utils/navigation';
 
 // Importing Raleway font weights
 import '@fontsource/raleway/100.css';
@@ -20,33 +13,14 @@ import '@fontsource/raleway/600.css';
 import '@fontsource/raleway/700.css';
 import '@fontsource/raleway/800.css';
 import '@fontsource/raleway/900.css';
+import '@fontsource/bebas-neue';
+import NavigationBar from '@/components/navigation/navigation-bar.astro';
 
 const { title } = Astro.props;
-
-const currentPath = Astro.url.pathname;
-const { segments, currentLocale } = getSegments(currentPath);
-
-// Generate language switcher paths
-const localePaths = await Promise.all(
-  locales.map((locale) =>
-    getLocalizedPath({
-      currentLocale,
-      currentPath,
-      segments,
-      targetLocale: locale,
-    }),
-  ),
-);
-
-const navigation = await getNavigationLinks(currentLocale);
-const navigationTranslations = await getTranslations(
-  currentLocale,
-  'navigation',
-);
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="fade">
+<html lang="en" transition:animate="fade" class="scroll-smooth">
   <head>
     <Meta pageTitle={title} />
     <ViewTransitions />
@@ -104,45 +78,39 @@ const navigationTranslations = await getTranslations(
     </script>
 	</head>
   <body>
-    <nav>
-      <div>
-        {locales.map((locale, index) => (
-          <a
-            href={localePaths[index]}
-          >
-            <LanguageSwitch language={locale} />
-          </a>
-        ))}
+    <div class="relative mx-auto max-w-7xl">
+      <div class="px-12">
+        <NavigationBar />
+        <main>
+          <slot />
+        </main>
+        <Footer />
       </div>
-      <div>
-        {navigation.map((link) => (
-          <a href={link.href}>{navigationTranslations[link.title]}</a>
-        ))}
-      </div>
-    </nav>
-    <main>
-      <slot />
-    </main>
-    <Footer />
+    </div>
   </body>
 </html>
 
 <style is:global>
   body {
     font-family: 'Raleway', sans-serif;
-    @apply bg-background text-foreground;
+    @apply bg-background/95 text-foreground;
   }
 
   main {
-    @apply mx-auto px-12 py-16;
+    @apply py-0 min-h-[calc(100vh-25rem)];
+  }
+
+  footer {
+    @apply py-12;
   }
 
   h1 {
-    @apply text-5xl font-bold;
+    @apply text-6xl font-bold mb-4 text-foreground/90;
+    font-family: 'Bebas Neue', sans-serif;
   }
 
   h2 {
-    @apply text-3xl font-medium;
+    @apply text-3xl font-medium my-4;
   }
 
   h3 {
@@ -151,5 +119,10 @@ const navigationTranslations = await getTranslations(
 
   p {
     @apply text-lg font-normal;
+  }
+
+  .nav-title {
+    @apply text-4xl text-foreground-darken;
+    font-family: 'Bebas Neue', sans-serif;
   }
 </style>

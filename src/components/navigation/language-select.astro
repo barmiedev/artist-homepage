@@ -1,0 +1,26 @@
+---
+import LanguageSwitch from '@/components/navigation/language-switch.astro';
+import { locales } from '@/lib/utils/i18n';
+import { getLocalizedPath, getSegments } from '@/lib/utils/navigation';
+
+const currentPath = Astro.url.pathname;
+const { segments, currentLocale } = getSegments(currentPath);
+
+const localePaths = await Promise.all(
+  locales.map((locale) =>
+    getLocalizedPath({
+      currentLocale,
+      currentPath,
+      segments,
+      targetLocale: locale,
+    }),
+  ),
+);
+---
+
+{locales.map((locale, index) => (
+  <a href={localePaths[index]}>
+    <LanguageSwitch language={locale} />
+  </a>
+))}
+

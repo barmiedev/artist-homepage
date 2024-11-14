@@ -1,0 +1,38 @@
+---
+import { getGlobals } from '@/lib/content/get-globals';
+import { getTranslations, locales } from '@/lib/utils/i18n';
+import {
+  getLocalizedPath,
+  getNavigationLinks,
+  getSegments,
+} from '@/lib/utils/navigation';
+import { getLink } from '@/lib/utils/navigation';
+import LanguageSelect from './language-select.astro';
+
+const currentPath = Astro.url.pathname;
+const { currentLocale } = getSegments(currentPath);
+
+const navigation = await getNavigationLinks(currentLocale);
+const navigationTranslations = await getTranslations(
+  currentLocale,
+  'navigation',
+);
+
+const globals = await getGlobals();
+
+const home = await getLink({ locale: currentLocale, tag: 'home' });
+---
+
+<nav class="py-12 gap-4 md:justify-between">
+  {globals?.siteTitle && <a href={home} class="nav-title">{globals.siteTitle}</a>}
+  <ul class="flex flex-wrap gap-x-8 md:gap-16 pointer-events-none focus-within:text-foreground-darken hover:text-foreground-darken">
+    {navigation.filter((link) => !link.hide).map((link) => (
+      <li>
+        <a href={link.href} class="group pointer-events-auto block transition-colors duration-300 ease-in-out focus-within:text-foreground hover:text-foreground text-lg font-medium">
+          {navigationTranslations[link.title].toUpperCase()}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="flex gap-x-8"><LanguageSelect /></div>
+</nav>
