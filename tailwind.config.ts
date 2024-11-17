@@ -6,7 +6,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#040404',
+        background: {
+          DEFAULT: '#040404',
+          darken: '#030303',
+        },
         foreground: {
           DEFAULT: '#f3f3f3',
           darken: '#424242',

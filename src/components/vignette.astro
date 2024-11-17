@@ -1,0 +1,62 @@
+---
+import { cn } from '@/lib/utils';
+
+type Direction = 'top' | 'bottom' | 'left' | 'right';
+
+interface VignetteConfig {
+  pos: Direction;
+  sizing: string;
+}
+
+const vignettes: VignetteConfig[] = [
+  { pos: 'top', sizing: '200px' },
+  { pos: 'bottom', sizing: '200px' },
+  { pos: 'left', sizing: '0px' },
+  { pos: 'right', sizing: '0px' },
+];
+
+const defaultSizes: Record<Direction, string> = {
+  top: '100px',
+  bottom: '100px',
+  left: '0px',
+  right: '0px',
+};
+
+const orientation: Record<Direction, 'vertical' | 'horizontal'> = {
+  top: 'vertical',
+  bottom: 'vertical',
+  left: 'horizontal',
+  right: 'horizontal',
+};
+
+const opositeDir: Record<Direction, Direction> = {
+  top: 'bottom',
+  bottom: 'top',
+  left: 'right',
+  right: 'left',
+};
+---
+
+<div class="pointer-events-none fixed inset-0 z-[10] h-full w-full overflow-hidden">
+  {vignettes.map(({ pos, sizing }: VignetteConfig) => (
+    <div
+      class={cn(
+        'to-background-darken fixed z-[10] select-none from-transparent blur-[1px] backdrop-filter',
+        {
+          'h-full': orientation[pos] === 'horizontal',
+          'w-full': orientation[pos] === 'vertical',
+          'top-0 bg-gradient-to-t md:hidden': pos === 'top',
+          '-bottom-px bg-gradient-to-b md:hidden': pos === 'bottom',
+          '-left-6 bg-gradient-to-l min-w-[120px] max-md:hidden': pos === 'left',
+          '-right-6 bg-gradient-to-r min-w-[120px] max-md:hidden': pos === 'right',
+        }
+      )
+      }
+      style={{
+        [pos === 'top' || pos === 'bottom' ? 'height' : 'width']:
+          sizing || defaultSizes[pos],
+        maskImage: `linear-gradient(to ${opositeDir[pos]}, var(--background-darken) 20%, transparent)`,
+      }}
+    ></div>
+  ))}
+</div>
