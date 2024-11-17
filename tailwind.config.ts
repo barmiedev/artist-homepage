@@ -4,11 +4,15 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    colors: {
-      background: '#040404',
-      foreground: '#f3f3f3',
-    },
     extend: {
+      colors: {
+        background: '#040404',
+        foreground: {
+          DEFAULT: '#f3f3f3',
+          darken: '#424242',
+        },
+        link: '#f0f0f0',
+      },
       fontFamily: {
         sans: ['Raleway', ...defaultTheme.fontFamily.sans],
       },
