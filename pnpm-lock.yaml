@@ -53,9 +53,6 @@ importers:
       groq:
         specifier: ^3.62.3
         version: 3.62.3
-      motion:
-        specifier: ^11.11.15
-        version: 11.11.15(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -3243,20 +3240,6 @@ packages:
       react-dom:
         optional: true
 
-  framer-motion@11.11.15:
-    resolution: {integrity: sha512-fib+OpUe4nap4W1vhaDohnPU+42B5s1q+jNkNkb6TfzmDYtRhDyvn4mkRCAD5a2cQKOI3nJZP7yqGYtxnlmleg==}
-    peerDependencies:
-      '@emotion/is-prop-valid': '*'
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
   fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
@@ -4173,20 +4156,6 @@ packages:
 
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
-
-  motion@11.11.15:
-    resolution: {integrity: sha512-lWdAvCWe8eyPg23d46S+W+DHnduS4qJcaDeRzM+NfwdInKif40ElCdxevoXqwo7blAHMXPkRC6RJWn7DbfzrZQ==}
-    peerDependencies:
-      '@emotion/is-prop-valid': '*'
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
 
   mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
@@ -9452,14 +9421,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  framer-motion@11.11.15(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      tslib: 2.7.0
-    optionalDependencies:
-      '@emotion/is-prop-valid': 1.2.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   fresh@0.5.2: {}
 
   from2@2.3.0:
@@ -10587,15 +10548,6 @@ snapshots:
   module-alias@2.2.3: {}
 
   moment@2.30.1: {}
-
-  motion@11.11.15(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      framer-motion: 11.11.15(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      tslib: 2.7.0
-    optionalDependencies:
-      '@emotion/is-prop-valid': 1.2.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   mrmime@2.0.0: {}
 
