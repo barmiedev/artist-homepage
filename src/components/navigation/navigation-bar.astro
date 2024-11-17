@@ -19,7 +19,7 @@ const globals = await getGlobals();
 const home = await getLink({ locale: currentLocale, tag: 'home' });
 ---
 
-<nav class="py-12 gap-4 md:justify-between">
+<nav class="pb-12 gap-4 md:justify-between">
   {globals?.siteTitle && <a href={home} class="nav-title">{globals.siteTitle}</a>}
   <ul class="flex flex-wrap gap-x-8 md:gap-16 pointer-events-none focus-within:text-foreground-darken hover:text-foreground-darken">
     {navigation.filter((link) => !link.hide).map((link) => (
