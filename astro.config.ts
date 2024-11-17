@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
 
+import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import { loadEnv } from 'vite';
 const {
@@ -39,5 +40,6 @@ export default defineConfig({
     }),
     react(),
     tailwind(),
+    svelte(),
   ],
 });
