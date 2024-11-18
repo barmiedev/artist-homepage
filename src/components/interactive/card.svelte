@@ -37,7 +37,11 @@
     <div
       class="relative flex flex-col rounded-2xl border border-transparent px-4 py-4 md:px-8 md:py-8"
     >
-      <h3 class="mb-0">{title}</h3>
+      <h3
+        class="mb-0 group-hover:text-foreground group-focus-within:text-foreground transition-colors duration-300 ease-in-out"
+      >
+        {title}
+      </h3>
       <h4>{subtitle}</h4>
       <p>
         {description}
