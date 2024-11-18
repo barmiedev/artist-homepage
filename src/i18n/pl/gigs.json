@@ -2,5 +2,10 @@
   "title": "Koncerty",
   "back": "Powrót do koncertów",
   "upcoming": "Nadchodzące",
-  "past": "Zagrane"
+  "past": "Zagrane",
+  "organize.disclaimer": "Zawsze szukamy nowych okazji do zagrania na żywo. Jesteś zainteresowanx zorganizowaniem koncertu? ",
+  "organize.contact": "Napisz do nas",
+  "organize.documents": "Pobierz nasze materiały promocyjne i rider techniczny ",
+  "organize.watch": "Obejrzyj nasze wideo koncertowe ",
+  "organize.here": "tutaj"
 }

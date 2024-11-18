@@ -12,7 +12,7 @@
 
 <Hamburger callback={toggle} {open} />
 <aside
-  class="md:hidden fixed top-0 w-full h-screen overflow-hidden bg-background shadow-lg sm:hidden"
+  class="md:hidden fixed top-0 w-full h-screen overflow-hidden bg-background z-30 shadow-lg sm:hidden"
   class:open
 >
   <div class="absolute h-full w-full grid place-items-center">

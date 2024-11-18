@@ -66,15 +66,14 @@ export const getNavigationLinks = async (
       tag: 'blog',
     },
     {
-      title: 'contact',
-      href: contactLink,
-      tag: 'contact',
-    },
-    {
       title: 'docs',
       href: docsLink,
       tag: 'docs',
-      hide: true,
+    },
+    {
+      title: 'contact',
+      href: contactLink,
+      tag: 'contact',
     },
   ];
 };

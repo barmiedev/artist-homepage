@@ -1,6 +1,11 @@
 {
-  "title": "Gigs",
+  "title": "Concerts",
   "back": "Back to concerts",
   "upcoming": "Upcoming concerts",
-  "past": "Past concerts"
+  "past": "Past concerts",
+  "organize.disclaimer": "We are always looking for new opportunities to play live. If you are interested in organizing a concert, please ",
+  "organize.contact": "reach out to us",
+  "organize.documents": "Download our press kit and technical rider ",
+  "organize.watch": "Watch our live videos ",
+  "organize.here": "here"
 }
