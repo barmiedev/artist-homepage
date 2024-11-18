@@ -19,26 +19,26 @@ const { upcoming, past } = await getGigsTimeline(gigs);
 <Common title={t.title}>
   <h1>{t.title}</h1>
   <h2>{t.upcoming}</h2>
-  <ul>
+  <ul class="space-y-8">
     {upcoming.map(async (gig) => {
       const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
       return (
       <li>
-        <h2>{gig.city}</h2>
-        <h3>{format(gig.date, 'dd.MM.yyyy')}</h3>
+        <h4>{gig.city}</h4>
+        <p>{format(gig.date, 'dd.MM.yyyy')}</p>
         <p>{gig.venue}</p>
         <a href={link}>Zobacz</a>
       </li>
     )})}
   </ul>
   <h2>{t.past}</h2>
-  <ul>
+  <ul class="space-y-8">
     {past.map(async (gig) => {
       const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
       return (
       <li>
-        <h2>{gig.city}</h2>
-        <h3>{format(gig.date, 'dd.MM.yyyy')}</h3>
+        <h4>{gig.city}</h4>
+        <p>{format(gig.date, 'dd.MM.yyyy')}</p>
         <p>{gig.venue}</p>
         <a href={link}>Zobacz</a>
       </li>

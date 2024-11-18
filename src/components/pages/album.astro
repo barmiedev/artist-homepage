@@ -17,7 +17,7 @@ const album = await getAlbum({ slug: slug });
   <a href={backLink}>{t.back}</a>
   <h1>Album: {album?.title}</h1>
   {album?.recordedAt}
-  <ul>
+  <ul class="mt-8">
     {album?.tracks?.map(async (track) => {
       const link = await getLink({ locale, slug: track.slug, tag: 'track' });
       return (

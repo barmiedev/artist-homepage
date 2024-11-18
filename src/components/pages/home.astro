@@ -35,7 +35,6 @@ const announcementLink = await getLink({
 ---
 
 <Common title="dom">
-	<h1>{t.title}</h1>
   <h2>{t.announcements}</h2>
   {announcement && (
     <h4>
@@ -54,27 +53,29 @@ const announcementLink = await getLink({
   })}
   </ul>
   <h2>{t.gigs}</h2>
-  <h3>{t.upcomingGigs}</h3>
-  <ul>
-    {upcoming.map(async (gig) => {
-      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
-      return (
-      <li>
-        <h2>{gig.city}</h2>
-        <h3>{gig.date}</h3>
-        <p>{gig.venue}</p>
-        <a href={link}>Zobacz</a>
-      </li>
-    )})}
-  </ul>
+  {upcoming.length > 0 &&
+    <h3>{t.upcomingGigs}</h3>
+    <ul>
+      {upcoming.map(async (gig) => {
+        const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+        return (
+        <li>
+          <h4>{gig.city}</h4>
+          <p>{gig.date}</p>
+          <p>{gig.venue}</p>
+          <a href={link}>Zobacz</a>
+        </li>
+      )})}
+    </ul>
+  }
   <h3>{t.pastGigs}</h3>
-  <ul>
+  <ul class="space-y-8">
     {past.map(async (gig) => {
       const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
       return (
       <li>
-        <h2>{gig.city}</h2>
-        <h3>{gig.date}</h3>
+        <h4>{gig.city}</h4>
+        <p>{gig.date}</p>
         <p>{gig.venue}</p>
         <a href={link}>Zobacz</a>
       </li>
