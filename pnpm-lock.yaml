@@ -23,10 +23,10 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.2
         version: 5.1.2(astro@4.16.13(@types/node@22.9.0)(rollup@4.27.2)(typescript@5.6.3))(tailwindcss@3.4.15)
-      '@fontsource/bebas-neue':
+      '@fontsource/playfair-display':
         specifier: ^5.1.0
         version: 5.1.0
-      '@fontsource/raleway':
+      '@fontsource/trykker':
         specifier: ^5.1.0
         version: 5.1.0
       '@react-email/components':
@@ -1316,11 +1316,11 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
-  '@fontsource/bebas-neue@5.1.0':
-    resolution: {integrity: sha512-Z/JzzEEun97ZY7zzD5GhjZIE9bemHaLenzo5RlFtPVb8gNB9/DM7S+c7El5OcBcPc0crzeyGTVxkUboQQLM4vQ==}
+  '@fontsource/playfair-display@5.1.0':
+    resolution: {integrity: sha512-O4Ph7IwM2sH4IpSgYKP1ZdOuaYd22+eXdT1jU8/kDM6gIABV2RoqJM34Z+WD364+mO1noXPcF1ZtA4aRfcFZLA==}
 
-  '@fontsource/raleway@5.1.0':
-    resolution: {integrity: sha512-g97nQtuEMVlW95xKCZuDun4gSxmBOxf+7yfValqOwATvJL/98RkCacEsBgJlFNtWxO0+FkmoMl3b9kvZpyQ6VA==}
+  '@fontsource/trykker@5.1.0':
+    resolution: {integrity: sha512-lV7MrWnkasdfD9jEIz6hmp/nIXmW0UttZWrlg7CH1zkqy4CwmhiITUq6vdf1mIe63xt/omiRkSOnjR7lj2hp+g==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -7249,9 +7249,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@fontsource/bebas-neue@5.1.0': {}
+  '@fontsource/playfair-display@5.1.0': {}
 
-  '@fontsource/raleway@5.1.0': {}
+  '@fontsource/trykker@5.1.0': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:

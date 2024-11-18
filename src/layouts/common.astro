@@ -3,17 +3,17 @@ import { ViewTransitions } from 'astro:transitions';
 import Footer from '@/components/footer.astro';
 import Meta from '@/components/meta.astro';
 
-// Importing Raleway font weights
-import '@fontsource/raleway/100.css';
-import '@fontsource/raleway/200.css';
-import '@fontsource/raleway/300.css';
-import '@fontsource/raleway/400.css';
-import '@fontsource/raleway/500.css';
-import '@fontsource/raleway/600.css';
-import '@fontsource/raleway/700.css';
-import '@fontsource/raleway/800.css';
-import '@fontsource/raleway/900.css';
-import '@fontsource/bebas-neue';
+// Importing Playfair Display font weights
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/500.css';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/800.css';
+import '@fontsource/playfair-display/900.css';
+
+// Importing Trykker font
+import '@fontsource/trykker';
+
 import Noise from '@/components/interactive/noise.svelte';
 import NavigationBar from '@/components/navigation/navigation-bar.astro';
 import Vignette from '@/components/vignette.astro';
@@ -100,8 +100,8 @@ const { title } = Astro.props;
   }
 
   body {
-    font-family: 'Raleway', sans-serif;
-    @apply bg-background/95 text-foreground;
+    font-family: 'Trykker', serif;
+    @apply bg-background/95 text-foreground/60 antialiased leading-relaxed tracking-wide text-lg;
   }
 
   main {
@@ -113,16 +113,23 @@ const { title } = Astro.props;
   }
 
   h1 {
-    @apply text-6xl font-bold mb-4 text-foreground/90;
-    font-family: 'Bebas Neue', sans-serif;
+    @apply text-8xl font-medium mb-8 mt-4 text-foreground/90;
+    @apply first:mt-0;
+    font-family: 'Playfair Display', 'serif';
   }
 
   h2 {
-    @apply text-3xl font-medium my-4;
+    @apply text-5xl font-medium mb-4 mt-8 text-foreground/90;
+    @apply first:mt-0;
+    font-family: 'Playfair Display', 'serif';
   }
 
   h3 {
-    @apply text-2xl font-medium;
+    @apply text-2xl text-foreground/60 mb-8;
+  }
+
+  h4 {
+    @apply text-xl text-foreground/80;
   }
 
   p {
@@ -130,7 +137,12 @@ const { title } = Astro.props;
   }
 
   .nav-title {
-    @apply text-4xl text-foreground-darken;
-    font-family: 'Bebas Neue', sans-serif;
+    @apply text-4xl text-foreground-darken font-medium;
+    @apply hover:text-foreground-darken focus-within:text-foreground-darken;
+    font-family: 'Playfair Display', 'serif';
+  }
+
+  a {
+    @apply hover:text-foreground focus-within:text-foreground transition-colors duration-300 ease-in-out;
   }
 </style>
