@@ -56,6 +56,9 @@ importers:
       groq:
         specifier: ^3.62.3
         version: 3.64.1
+      lucide-svelte:
+        specifier: ^0.460.1
+        version: 0.460.1(svelte@5.2.2)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -3895,6 +3898,11 @@ packages:
   lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
+
+  lucide-svelte@0.460.1:
+    resolution: {integrity: sha512-guJjJSeWlKivsEG51Xg41egunBMJcobhDmkLv/NYTXmXyCEwxMf1A+HX7RvDEKiXbXYgtLImih67tI08MSUOkA==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.30.12:
     resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
@@ -10170,6 +10178,10 @@ snapshots:
   lru-cache@6.0.0:
     dependencies:
       yallist: 4.0.0
+
+  lucide-svelte@0.460.1(svelte@5.2.2):
+    dependencies:
+      svelte: 5.2.2
 
   magic-string@0.30.12:
     dependencies:
