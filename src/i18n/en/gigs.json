@@ -7,5 +7,11 @@
   "organize.contact": "reach out to us",
   "organize.documents": "Download our press kit and technical rider ",
   "organize.watch": "Watch our live videos ",
-  "organize.here": "here"
+  "organize.here": "here",
+  "city": "City",
+  "date": "Date",
+  "venue": "Venue",
+  "tickets": "Tickets",
+  "otherArtists": "Other artists",
+  "event": "Event"
 }

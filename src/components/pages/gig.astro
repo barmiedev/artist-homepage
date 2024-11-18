@@ -1,5 +1,7 @@
 ---
 import BackButton from '@/components/interactive/back-button.svelte';
+import EventButton from '@/components/interactive/event-button.svelte';
+import TicketButton from '@/components/interactive/ticket-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getGig } from '@/lib/content/get-gig';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
@@ -25,9 +27,10 @@ type GigMeta = {
 };
 
 const gigMeta: GigMeta[] = [
-  { label: 'Miasto', value: `${gig?.city}, ${gig?.country}` },
-  { label: 'Data', value: gig?.date },
-  { label: 'Inne zespoły', value: gig?.otherBands?.join(', ') },
+  { label: t.date, value: gig?.date },
+  { label: t.city, value: `${gig?.city}, ${gig?.country}` },
+  { label: t.venue, value: gig?.venue },
+  { label: t.otherArtists, value: gig?.otherBands?.join(', ') },
 ].filter((meta) => !!meta.value);
 ---
 
@@ -35,6 +38,12 @@ const gigMeta: GigMeta[] = [
   <BackButton client:load href={backLink}>{t.back}</BackButton>
   <h2>{gig?.city}</h2>
   <h3>{gig?.date}</h3>
+  {(!!gig?.ticketsUrl || !!gig?.facebookEventUrl) &&
+    <div class='flex max-md:flex-col gap-6 mb-8'>
+      {gig?.ticketsUrl && <TicketButton client:visible label={t.tickets} href={gig.ticketsUrl} date={gig?.date} />}
+      {gig?.facebookEventUrl && <EventButton client:visible label={t.event} href={gig.facebookEventUrl} />}
+    </div>
+  }
   {gig?.image &&
     <PortableTextImage node={gig?.image} imgClass="object-cover w-full rounded-xl mb-8 max-h-[300px] md:max-h-[400px] opacity-40 hover:opacity-70 duration-300 ease-in-out" />
   }
@@ -50,6 +59,7 @@ const gigMeta: GigMeta[] = [
       </div>
     </Card>
   </div>
+
   {gig?.about &&
     <article class="prose prose-stone prose-invert">
       <PortableText portableText={gig?.about}/>
