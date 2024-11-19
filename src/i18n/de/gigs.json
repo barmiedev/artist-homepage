@@ -8,10 +8,10 @@
   "organize.documents": "Laden Sie unser Pressekit und unseren technischen Rider herunter ",
   "organize.watch": "Sehen Sie sich unsere Live-Videos ",
   "organize.here": "hier an",
-  "city": "City",
-  "date": "Date",
-  "venue": "Venue",
+  "city": "Stadt",
+  "date": "Datum",
+  "venue": "Veranstaltungsort",
   "tickets": "Tickets",
-  "otherArtists": "Other artists",
-  "event": "Event"
+  "otherArtists": "Andere Musikbands",
+  "event": "Veranstaltung"
 }
