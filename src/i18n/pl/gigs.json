@@ -7,5 +7,11 @@
   "organize.contact": "Napisz do nas",
   "organize.documents": "Pobierz nasze materiały promocyjne i rider techniczny ",
   "organize.watch": "Obejrzyj nasze wideo koncertowe ",
-  "organize.here": "tutaj"
+  "organize.here": "tutaj",
+  "city": "City",
+  "date": "Date",
+  "venue": "Venue",
+  "tickets": "Tickets",
+  "otherArtists": "Other artists",
+  "event": "Event"
 }
