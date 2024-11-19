@@ -1,8 +1,14 @@
 ---
+import BackButton from '@/components/interactive/back-button.svelte';
+import EventButton from '@/components/interactive/event-button.svelte';
+import TicketButton from '@/components/interactive/ticket-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getGig } from '@/lib/content/get-gig';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import Card from '../card.astro';
+import PortableTextImage from '../portable-text-image.astro';
+import PortableText from '../portable-text.astro';
 
 const {
   props: { locale = defaultLocale, slug },
@@ -14,10 +20,49 @@ const backLink = await getLink({
   locale,
   tag: 'gigs',
 });
+
+type GigMeta = {
+  label: string;
+  value?: string;
+};
+
+const gigMeta: GigMeta[] = [
+  { label: t.date, value: gig?.date },
+  { label: t.city, value: `${gig?.city}, ${gig?.country}` },
+  { label: t.venue, value: gig?.venue },
+  { label: t.otherArtists, value: gig?.otherBands?.join(', ') },
+].filter((meta) => !!meta.value);
 ---
 
 <Common title={gig?.city}>
-  <a href={backLink}>{t.back}</a>
-  <h1>{gig?.city}</h1>
-  <p>{gig?.date}</p>
+  <BackButton client:load href={backLink}>{t.back}</BackButton>
+  <h2>{gig?.city}</h2>
+  <h3>{gig?.date}</h3>
+  {(!!gig?.ticketsUrl || !!gig?.facebookEventUrl) &&
+    <div class='flex max-md:flex-col gap-6 mb-8'>
+      {gig?.ticketsUrl && <TicketButton client:visible label={t.tickets} href={gig.ticketsUrl} date={gig?.date} />}
+      {gig?.facebookEventUrl && <EventButton client:visible label={t.event} href={gig.facebookEventUrl} />}
+    </div>
+  }
+  {gig?.image &&
+    <PortableTextImage node={gig?.image} imgClass="object-cover w-full rounded-xl mb-8 max-h-[300px] md:max-h-[400px] opacity-40 hover:opacity-70 duration-300 ease-in-out" />
+  }
+  <div class="max-md:-mx-4">
+    <Card classname='w-full mb-8'>
+      <div class="grid max-md:gap-4">
+        {gigMeta.map((meta) => (
+          <div class="group grid sm:grid-cols-2 md:grid-cols-3 gap-0 select-none">
+            <div>{meta.label}</div>
+            <div class="text-foreground/50 duration-300 group-hover:text-foreground ease-in-out md:col-span-2">{meta.value}</div>
+          </div>
+        ))}
+      </div>
+    </Card>
+  </div>
+
+  {gig?.about &&
+    <article class="prose prose-stone max-w-none prose-invert">
+      <PortableText portableText={gig?.about}/>
+    </article>
+  }
 </Common>

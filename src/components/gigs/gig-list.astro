@@ -1,0 +1,50 @@
+---
+import Card from '@/components/interactive/card.svelte';
+import { getDocs } from '@/lib/content/get-docs';
+import { getGlobals } from '@/lib/content/get-globals';
+import { type Locale, defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import { getLink } from '@/lib/utils/navigation';
+import type { Gig } from '@/sanity/sanity.types';
+import { format } from 'date-fns';
+
+interface Props {
+  title: string;
+  gigs: Gig[];
+  locale: Locale;
+  disclaimer?: boolean;
+}
+
+const { title, gigs, locale = defaultLocale, disclaimer } = Astro.props;
+const t = await getTranslations(locale, 'gigs');
+const globals = await getGlobals();
+
+const contactLink = await getLink({ locale, tag: 'contact' });
+const docsLink = await getLink({ locale, tag: 'docs' });
+const watchLink = globals?.youtube;
+---
+
+{disclaimer && t['organize.disclaimer'] &&
+  <div class="space-y-4">
+    <p>{t['organize.disclaimer']}<a class="underline underline-offset-4" href={contactLink}>{t['organize.contact']}</a>.</p>
+    <p>{t['organize.documents']}<a class="underline underline-offset-4" href={docsLink}>{t['organize.here']}</a>.</p>
+    {watchLink && <p>{t['organize.watch']}<a class="underline underline-offset-4" href={watchLink}>{t['organize.here']}</a>.</p>}
+  </div>
+}
+{gigs.length > 0 &&
+  <h2>{title}</h2>
+  <ul class="mt-8 grid md:grid-cols-2 gap-4 md:gap-8">
+    {gigs.map(async (gig) => {
+      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
+      return (
+        <li class="-mx-4 md:mx-0">
+          <Card
+            client:visible
+            title={gig.city}
+            subtitle={format(gig.date, 'dd.MM.yyyy')}
+            description={gig.venue}
+            href={link}
+          />
+        </li>
+    )})}
+  </ul>
+}
