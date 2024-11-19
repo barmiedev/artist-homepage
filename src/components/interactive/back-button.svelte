@@ -6,7 +6,7 @@
 
 <a
   {href}
-  class="relative group flex items-center transform translate-x-0 select-none mb-8"
+  class="relative group flex items-center transform translate-x-0 select-none mb-8 h-fit"
 >
   <ChevronLeft
     class="absolute w-4 h-4 opacity-0 group-hover:opacity-100 duration-100 text-current"
