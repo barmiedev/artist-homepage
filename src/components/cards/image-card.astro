@@ -1,0 +1,25 @@
+---
+import { cn } from '@/lib/utils';
+import PortableTextImage from '../portable-text-image.astro';
+
+const { classname, image, title, subtitle } = Astro.props;
+---
+
+<div class="relative flex flex-col gap-4 rounded-2xl border border-transparent group">
+  {image &&
+    <PortableTextImage
+      node={image}
+      imgClass={cn("object-cover w-full h-auto rounded-2xl aspect-square opacity-40 group-hover:opacity-70 duration-300 ease-in-out", classname)}
+    />
+  }
+  <div>
+    <h3 class='group-hover:text-foreground group-focus-within:text-foreground transition-colors duration-300 ease-in-out mb-0'>
+      {title}
+    </h3>
+    {subtitle &&
+      <p class='text-foreground/50 group-hover:text-foreground transition-colors duration-300 ease-in-out'>
+        {subtitle}
+      </p>
+    }
+  </div>
+</div>
