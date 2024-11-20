@@ -5,6 +5,7 @@ import EventButton from '@/components/interactive/event-button.svelte';
 import TicketButton from '@/components/interactive/ticket-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getGig } from '@/lib/content/get-gig';
+import type { LV } from '@/lib/types/kv.type';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
 import PortableTextImage from '../portable-text-image.astro';
@@ -21,12 +22,7 @@ const backLink = await getLink({
   tag: 'gigs',
 });
 
-type GigMeta = {
-  label: string;
-  value?: string;
-};
-
-const gigMeta: GigMeta[] = [
+const gigMeta: LV[] = [
   { label: t.date, value: gig?.date },
   { label: t.city, value: `${gig?.city}, ${gig?.country}` },
   { label: t.venue, value: gig?.venue },

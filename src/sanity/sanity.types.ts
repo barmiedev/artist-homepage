@@ -728,6 +728,52 @@ export type Album = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "listen";
   };
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    } | {
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  credits?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "credit";
+  }>;
 };
 
 export type Listen = {
@@ -875,7 +921,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/content/get-album.ts
 // Variable: albumQuery
-// Query: *[_type == "album" && slug.current == $slug][0]{..., "tracks": tracks[]->{title, "slug": slug.current}}
+// Query: *[_type == "album" && slug.current == $slug][0]{..., "tracks": tracks[]->{title, "slug": slug.current, trackNumber}, mixedBy->{name}, masteredBy->{name}, "listen": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}, "recordedBy": recordedBy[]->{name}, "credits": credits[]->{person->{name}, role, description}}
 export type AlbumQueryResult = {
   _id: string;
   _type: "album";
@@ -898,36 +944,114 @@ export type AlbumQueryResult = {
   };
   recordedAt?: string;
   recordedDuring?: Array<string>;
-  recordedBy?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "person";
-  }>;
-  mixedBy?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "person";
-  };
-  masteredBy?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "person";
-  };
+  recordedBy: Array<{
+    name: string;
+  }> | null;
+  mixedBy: {
+    name: string;
+  } | null;
+  masteredBy: {
+    name: string;
+  } | null;
   releaseDate: string;
   tracks: Array<{
     title: string;
     slug: string;
+    trackNumber: number;
   }> | null;
-  listen?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "listen";
-  };
+  listen: {
+    title: string | null;
+    spotifyUrl: string | null;
+    appleUrl: string | null;
+    youtubeUrl: string | null;
+    soundcloudUrl: string | null;
+    bandcampUrl: string | null;
+    tidalUrl: string | null;
+  } | null;
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  credits: Array<{
+    person: {
+      name: string;
+    } | null;
+    role: string;
+    description: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        reference?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "person";
+        };
+        _type: "internalLink";
+        _key: string;
+      } | {
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }> | null;
+  }> | null;
 } | null;
 
 // Source: ./src/lib/content/get-albums.ts
@@ -988,6 +1112,52 @@ export type AlbumsQueryResult = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "listen";
   };
+  about?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      reference?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      };
+      _type: "internalLink";
+      _key: string;
+    } | {
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  credits?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "credit";
+  }>;
 }>;
 
 // Source: ./src/lib/content/get-announcements.ts
@@ -1723,7 +1893,7 @@ export type TracksQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current}}": AlbumQueryResult;
+    "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current, trackNumber}, mixedBy->{name}, masteredBy->{name}, \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}, \"recordedBy\": recordedBy[]->{name}, \"credits\": credits[]->{person->{name}, role, description}}": AlbumQueryResult;
     "*[_type == \"album\"]": AlbumsQueryResult;
     "*[_type == \"announcement\" && active == true && slug.current == $slug][0]": AnnouncementQueryResult;
     "*[_type == \"article\" && slug.current == $slug][0]": SingleArticleQueryResult;
