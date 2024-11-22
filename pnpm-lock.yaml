@@ -90,6 +90,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
+      '@portabletext/svelte':
+        specifier: ^2.1.11
+        version: 2.1.11(svelte@5.2.2)
       '@portabletext/types':
         specifier: ^2.0.13
         version: 2.0.13
@@ -1576,6 +1579,11 @@ packages:
     engines: {node: ^14.13.1 || >=16.0.0}
     peerDependencies:
       react: ^17 || ^18 || >=19.0.0-rc
+
+  '@portabletext/svelte@2.1.11':
+    resolution: {integrity: sha512-ecatiEd80Mw72XXya1swRnzZePuMnrbRf3OGgjTFe1iePcyQ89n8PMpfO3Dpn6bXvjMkIq9yvqB4b9oLLlGOfA==}
+    peerDependencies:
+      svelte: '>=3.47.0 <5.0.0'
 
   '@portabletext/toolkit@2.0.16':
     resolution: {integrity: sha512-aBvnD8MscoAlEIuZBn0Aksd+oCuoMGFOT3CtHIgRBaac0Vu4YnnMUF45xo/B/T5vmwWcnDXoJEJdn+SKDg1m+A==}
@@ -7501,6 +7509,11 @@ snapshots:
       '@portabletext/toolkit': 2.0.16
       '@portabletext/types': 2.0.13
       react: 18.3.1
+
+  '@portabletext/svelte@2.1.11(svelte@5.2.2)':
+    dependencies:
+      '@portabletext/toolkit': 2.0.16
+      svelte: 5.2.2
 
   '@portabletext/toolkit@2.0.16':
     dependencies:

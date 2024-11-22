@@ -53,7 +53,7 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
 
 <Common title={album?.title}>
   <BackButton client:load href={backLink}>{t.back}</BackButton>
-  <h2>{album?.title}</h2>
+  <h1>{album?.title}</h1>
   {album?.cover &&
     <PortableTextImage node={album?.cover} imgClass="object-cover w-full rounded-xl max-md:aspect-square mb-8 md:max-h-[400px] opacity-40 hover:opacity-70 duration-300 ease-in-out" />
   }

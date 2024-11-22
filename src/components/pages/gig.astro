@@ -32,7 +32,7 @@ const gigMeta: LV[] = [
 
 <Common title={gig?.city}>
   <BackButton client:load href={backLink}>{t.back}</BackButton>
-  <h2>{gig?.city}</h2>
+  <h1>{gig?.city}</h1>
   <h3>{gig?.date}</h3>
   {(!!gig?.ticketsUrl || !!gig?.facebookEventUrl) &&
     <div class='flex max-md:flex-col gap-6 mb-8'>

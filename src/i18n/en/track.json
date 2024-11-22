@@ -1,5 +1,8 @@
 {
   "title": "Track",
   "from": "From album: ",
-  "back": "Back to: "
+  "back": "Back to: ",
+  "availableTranslations": "Available translations",
+  "originalLyrics": "Original lyrics",
+  "translation": "translation"
 }
