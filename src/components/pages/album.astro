@@ -9,6 +9,7 @@ import { getLink } from '@/lib/utils/navigation';
 import { format } from 'date-fns';
 import SimpleCard from '../cards/simple-card.astro';
 import ListenButton from '../interactive/buttons/listen-button.svelte';
+import Listen from '../listen.astro';
 import PortableTextImage from '../portable-text-image.astro';
 import PortableText from '../portable-text.astro';
 
@@ -100,12 +101,5 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
     </SimpleCard>
   </div>
 
-  <h3 class='mt-8'>{t.listen}:</h3>
-  <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
-    <ListenButton href={album?.listen?.spotifyUrl} platform='spotify' />
-    <ListenButton href={album?.listen?.appleUrl} platform='apple' />
-    <ListenButton href={album?.listen?.bandcampUrl} platform='bandcamp' />
-    <ListenButton href={album?.listen?.youtubeUrl} platform='youtube' />
-    <ListenButton href={album?.listen?.soundcloudUrl} platform='soundcloud' />
-  </div>
+  <Listen listen={album?.listen} />
 </Common>

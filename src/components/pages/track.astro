@@ -6,6 +6,7 @@ import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
 import SimpleCard from '../cards/simple-card.astro';
 import BackButton from '../interactive/back-button.svelte';
+import Listen from '../listen.astro';
 import PortableText from '../portable-text.astro';
 
 const {
@@ -26,20 +27,27 @@ const defaultLyricLanguage =
 const defaultLyrics = track?.lyrics?.find(
   (lyric) => lyric.language === defaultLyricLanguage,
 );
-
-console.log(track, defaultLocale);
 ---
 
 <Common title={track?.title}>
   <BackButton client:load href={backLink}>{t.back}{track?.album.title}</BackButton>
   <h1>{track?.title}</h1>
-  <div class="max-md:-mx-4">
-  <SimpleCard class="w-full">
-    {track && <LanguageTranslations client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
-      <article class="prose prose-stone prose-invert">
-        <PortableText portableText={defaultLyrics?.text}/>
-      </article>
-      </LanguageTranslations>}
-  </SimpleCard>
-  </div>
+  {track?.about &&
+    <h3 class='mb-4'>{t.about}</h3>
+    <article class="prose prose-stone prose-invert">
+      <PortableText portableText={track?.about} />
+    </article>
+  }
+  {defaultLyrics?.text &&
+    <div class="max-md:-mx-4 mt-8">
+      <SimpleCard class="w-full">
+        {track && <LanguageTranslations client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
+          <article class="prose prose-stone prose-invert">
+            <PortableText portableText={defaultLyrics?.text}/>
+          </article>
+          </LanguageTranslations>}
+      </SimpleCard>
+    </div>
+  }
+  {track?.listen && <Listen listen={track?.listen} />}
 </Common>

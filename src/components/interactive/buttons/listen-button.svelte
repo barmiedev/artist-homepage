@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Platform } from "@/lib/types/";
+  import type { Platform } from "@/lib/types";
   import { cn } from "@/lib/utils";
   import { getStreamingPlatformSpecs } from "@/lib/utils/streaming-platforms";
   import { AudioLines } from "lucide-svelte";
@@ -8,7 +8,7 @@
   const specs = getStreamingPlatformSpecs(platform);
 </script>
 
-{#if href}
+{#if href || !href}
   <a
     {href}
     target="_blank"
@@ -17,10 +17,10 @@
     )}
     style={`--background: ${specs.background}; --foreground: ${specs.foreground}; background: var(--background); color: var(--foreground);`}
   >
-    <div class="relative flex flex-col items-center overflow-hidden">
+    <div class="relative flex flex-col items-center overflow-hidden truncate">
       <span class="invisible">{specs.label}</span>
       <span
-        class="absolute top-0 left-0 group-hover:-translate-y-[120%] transition-transform ease-in-out duration-300"
+        class="absolute top-0 left-0 group-hover:-translate-y-[120%] overflow-hidden transition-transform ease-in-out duration-300"
       >
         {specs.label}
       </span>
