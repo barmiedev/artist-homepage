@@ -1,11 +1,12 @@
 ---
+import { cn } from '@/lib/utils';
 import { defaultLocale } from '@/lib/utils/i18n';
 
-const { language = defaultLocale } = Astro.props;
+const { language = defaultLocale, current } = Astro.props;
 ---
 
 <astro-language-switch data-language={language}>
-  <button class="font-medium">{language.toUpperCase()}</button>
+  <button class={cn("font-medium text-foreground-darken hover:text-foreground transition duration-300 ease-in-out", { 'text-foreground/60': language === current })}>{language.toUpperCase()}</button>
 </astro-language-switch>
 
 <script>
