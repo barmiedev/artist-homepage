@@ -8,7 +8,7 @@
   const specs = getStreamingPlatformSpecs(platform);
 </script>
 
-{#if href || !href}
+{#if href}
   <a
     {href}
     target="_blank"
