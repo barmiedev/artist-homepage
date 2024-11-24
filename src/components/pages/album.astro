@@ -81,9 +81,7 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
     </SimpleCard>
   </div>
   <h3 class='mb-4'>{t.about}</h3>
-  <article class="prose prose-stone max-w-none prose-invert mb-8">
-    <PortableText portableText={album?.about} />
-  </article>
+  <PortableText portableText={album?.about} className="mb-8" />
   <div class="max-md:-mx-4">
     <SimpleCard>
       <h3>{t.tracklist}:</h3>
@@ -101,5 +99,5 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
     </SimpleCard>
   </div>
 
-  <Listen listen={album?.listen} />
+  <Listen listen={album?.listen} locale={locale} />
 </Common>

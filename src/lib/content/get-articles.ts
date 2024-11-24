@@ -51,3 +51,11 @@ export const getSingleArticle = async (params: QueryParams) => {
 
   return data;
 };
+
+export const getLatestArticle = async () => {
+  const { data } = await loadQuery<SingleArticleQueryResult[]>({
+    query: articlesQuery({ howMany: 1 }),
+  });
+
+  return data[0];
+};

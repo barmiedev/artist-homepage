@@ -8,6 +8,7 @@ import { getGig } from '@/lib/content/get-gig';
 import type { LV } from '@/lib/types/kv.type';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
 import PortableTextImage from '../portable-text-image.astro';
 import PortableText from '../portable-text.astro';
 
@@ -22,8 +23,10 @@ const backLink = await getLink({
   tag: 'gigs',
 });
 
+const gigDate = gig?.date ? format(gig.date, 'dd.MM.yyyy') : '';
+
 const gigMeta: LV[] = [
-  { label: t.date, value: gig?.date },
+  { label: t.date, value: gigDate },
   { label: t.city, value: `${gig?.city}, ${gig?.country}` },
   { label: t.venue, value: gig?.venue },
   { label: t.otherArtists, value: gig?.otherBands?.join(', ') },
@@ -33,7 +36,7 @@ const gigMeta: LV[] = [
 <Common title={gig?.city}>
   <BackButton client:load href={backLink}>{t.back}</BackButton>
   <h1>{gig?.city}</h1>
-  <h3>{gig?.date}</h3>
+  <h3>{gigDate}</h3>
   {(!!gig?.ticketsUrl || !!gig?.facebookEventUrl) &&
     <div class='flex max-md:flex-col gap-6 mb-8'>
       {gig?.ticketsUrl && <TicketButton client:visible label={t.tickets} href={gig.ticketsUrl} date={gig?.date} />}
@@ -57,8 +60,6 @@ const gigMeta: LV[] = [
   </div>
 
   {gig?.about &&
-    <article class="prose prose-stone max-w-none prose-invert">
-      <PortableText portableText={gig?.about}/>
-    </article>
+    <PortableText portableText={gig?.about}/>
   }
 </Common>

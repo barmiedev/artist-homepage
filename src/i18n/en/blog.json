@@ -1,4 +1,7 @@
 {
   "title": "Blog",
-  "back": "Back to articles"
+  "back": "Back to articles",
+  "lastArticle": "Last article",
+  "lastArticles": "Last articles",
+  "allArticles": "All articles"
 }
