@@ -1,5 +1,9 @@
 {
   "title": "Utwór",
   "from": "Z albumu: ",
-  "back": "Powrót do: "
+  "back": "Powrót do: ",
+  "availableTranslations": "Available translations",
+  "originalLyrics": "Original lyrics",
+  "translation": "translation",
+  "about": "About the song"
 }
