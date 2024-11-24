@@ -1,0 +1,24 @@
+---
+import type { Social } from '@/lib/types/socials.type';
+import { cn } from '@/lib/utils';
+import SocialIcon from './social-icon.astro';
+
+interface Props {
+  socials: Social[];
+  ulClass?: string;
+  liClass?: string;
+  aClass?: string;
+  labelClass?: string;
+}
+const { socials, ulClass, liClass, aClass, labelClass } = Astro.props;
+---
+<ul class={cn("grid grid-cols-4 gap-x-8 max-md:gap-y-2 max-md:place-items-center", ulClass)}>
+  {socials.map((social) => (
+    <li class={cn("group w-fit", liClass)}>
+      <a href={social.href} target="_blank" rel="noopener noreferrer" class={cn("text-sm flex items-center gap-2 text-foreground-darken hover:text-foreground/80", aClass)}>
+        <SocialIcon social={social.name} />
+        <span class={cn("hidden md:block", labelClass)}>{social.label}</span>
+      </a>
+    </li>
+  ))}
+</ul>

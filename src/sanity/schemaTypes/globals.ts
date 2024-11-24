@@ -25,6 +25,10 @@ export const globalsType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'siteBeginningDate',
+      type: 'date',
+    }),
+    defineField({
       name: 'siteUrl',
       type: 'url',
       validation: rule => rule.required(),
@@ -85,6 +89,14 @@ export const globalsType = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'tidal',
+      type: 'url',
+    }),
+    defineField({
+      name: 'tiktok',
+      type: 'url',
+    }),
+    defineField({
       name: 'email',
       type: 'email',
     }),
@@ -95,6 +107,39 @@ export const globalsType = defineType({
     defineField({
       name: 'privacyPolicy',
       type: 'blockContent',
+    }),
+    // contact information
+    defineField({
+      name: 'bookingName',
+      type: 'string',
+    }),
+    defineField({
+      name: 'bookingEmail',
+      type: 'email',
+    }),
+    defineField({
+      name: 'managementName',
+      type: 'string',
+    }),
+    defineField({
+      name: 'managementEmail',
+      type: 'email',
+    }),
+    defineField({
+      name: 'pressName',
+      type: 'string',
+    }),
+    defineField({
+      name: 'pressEmail',
+      type: 'email',
+    }),
+    defineField({
+      name: 'generalEmail',
+      type: 'email',
+    }),
+    defineField({
+      name: 'generalName',
+      type: 'string',
     })
   ]
 });

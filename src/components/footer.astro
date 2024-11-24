@@ -1,21 +1,24 @@
 ---
 import { getGlobals } from '@/lib/content/get-globals';
 import { serializeSocials } from '@/lib/serializers/socials';
+import { format, isAfter, isSameYear } from 'date-fns';
 import NewsletterForm from './newsletter-form.astro';
+import SocialList from './social-list.astro';
 
 const globals = await getGlobals();
 const socials = serializeSocials(globals);
+
+const now = new Date();
+const years =
+  globals?.siteBeginningDate &&
+  !isSameYear(now, globals.siteBeginningDate) &&
+  isAfter(now, globals.siteBeginningDate)
+    ? `${format(globals?.siteBeginningDate, 'yyyy')} - ${format(now, 'yyyy')}`
+    : format(now, 'yyyy');
 ---
 
-<footer>
-  {globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
-  <ul>
-    {socials.map((social) => (
-      <li>
-        <a href={social.href} target="_blank" rel="noopener noreferrer">
-          {social.name}
-        </a>
-      </li>
-    ))}
-  </ul>
+<footer class="border-t mt-12 -mx-12 px-12 border-foreground-darken/20">
+  {!globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
+  <SocialList socials={socials.filter((social) => social.name !== 'email')} />
+  {globals?.siteAuthor && <p class='mt-12 w-full text-sm text-center text-foreground-darken'>© {globals?.siteAuthor} {years}</p>}
 </footer>
