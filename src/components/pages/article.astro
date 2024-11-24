@@ -1,8 +1,10 @@
 ---
+import BackButton from '@/components/interactive/back-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getArticlesWithoutSlug, getSingleArticle } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
 import PortableTextImage from '../portable-text-image.astro';
 import PortableText from '../portable-text.astro';
 
@@ -20,24 +22,29 @@ const lastArticles = await getArticlesWithoutSlug(slug, 3);
 ---
 
 <Common title={article?.title}>
-  <a href={backLink}>{t.back}</a>
-  {lastArticles.map(async (article) => {
-    return (
-      <li>
-        <a
-          href={await getLink({
-            locale,
-            tag: 'blog',
-            slug: article?.slug.current,
-          })}
-        >
-          {article?.title}
-        </a>
-      </li>
-    );
-  })}
+  <BackButton client:load href={backLink}>{t.back}</BackButton>
   <h1>{article?.title}</h1>
-  <PortableTextImage node={article?.cover} />
+  <PortableTextImage node={article?.cover} imgClass="pointer-events-none max-h-[300px] lg:max-h-[500px] opacity-50 w-full object-cover rounded-2xl " />
+  {article?.publishedAt && <p class="text-sm -mt-4 mb-6 text-foreground-darken">{format(article?.publishedAt, 'dd.MM.yyyy')}</p>}
 
-  <article class="prose prose-stone prose-invert"><PortableText portableText={article?.text} /></article>
+  <PortableText portableText={article?.text} />
+
+  <h3 class="mt-16 mb-4">Ostatnie artykuły</h3>
+  <ul class="text-foreground-darken">
+    {lastArticles.map(async (article) => {
+      return (
+        <li>
+          <a
+            href={await getLink({
+              locale,
+              tag: 'blog',
+              slug: article?.slug.current,
+            })}
+          >
+            {article?.title}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
 </Common>
