@@ -14,4 +14,5 @@ export type SocialType = (typeof socialTypes)[number];
 export type Social = {
   name: SocialType;
   href: string;
+  label: string;
 };

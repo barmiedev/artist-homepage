@@ -3,17 +3,19 @@ import { getGlobals } from '@/lib/content/get-globals';
 import { serializeSocials } from '@/lib/serializers/socials';
 import NewsletterForm from './newsletter-form.astro';
 
+import SocialIcon from './social-icon.astro';
 const globals = await getGlobals();
 const socials = serializeSocials(globals);
 ---
 
 <footer>
-  {globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
-  <ul>
+  {!globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
+  <ul class="grid grid-cols-4 gap-x-8 max-md:gap-y-2 flex-wrap max-md:place-items-center">
     {socials.map((social) => (
-      <li>
-        <a href={social.href} target="_blank" rel="noopener noreferrer">
-          {social.name}
+      <li class="group">
+        <a href={social.href} target="_blank" rel="noopener noreferrer" class="text-sm flex items-center gap-2 text-foreground-darken hover:text-foreground/80">
+          <SocialIcon social={social.name} />
+          <span class="hidden md:block">{social.label}</span>
         </a>
       </li>
     ))}

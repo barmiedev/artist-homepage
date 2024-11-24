@@ -1,0 +1,54 @@
+---
+import Apple from '@/assets/icons/apple.svg?raw';
+import Bandcamp from '@/assets/icons/bandcamp.svg?raw';
+import Email from '@/assets/icons/email.svg?raw';
+import Facebook from '@/assets/icons/facebook.svg?raw';
+import Instagram from '@/assets/icons/instagram.svg?raw';
+import Soundcloud from '@/assets/icons/soundcloud.svg?raw';
+import Spotify from '@/assets/icons/spotify.svg?raw';
+import Youtube from '@/assets/icons/youtube.svg?raw';
+import type { Social, SocialType } from '@/lib/types/socials.type';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  social: Social['name'];
+}
+const { social } = Astro.props;
+
+const getIcon = (social: SocialType) => {
+  switch (social) {
+    case 'appleMusic':
+      return Apple;
+    case 'spotify':
+      return Spotify;
+    case 'bandcamp':
+      return Bandcamp;
+    case 'soundcloud':
+      return Soundcloud;
+    case 'instagram':
+      return Instagram;
+    case 'facebook':
+      return Facebook;
+    case 'youtube':
+      return Youtube;
+    case 'email':
+      return Email;
+    default:
+      return null;
+  }
+};
+
+const Icon = getIcon(social);
+---
+
+{Icon &&
+  <div class={cn(
+    "[&>svg]:h-8 [&>svg]:w-8 [&>svg]:p-1",
+    "[&>svg]:stroke-foreground-darken [&>svg]:group-hover:stroke-foreground [&>svg]:transition [&>svg]:duration-300 [&>svg]:ease-in-out",
+    "[&>svg]:fill-foreground-darken [&>svg]:group-hover:fill-foreground",
+    "[&>svg>g]:fill-foreground-darken [&>svg>g]:group-hover:fill-foreground [&>svg>g]:transition [&>svg>g]:duration-300 [&>svg]:ease-in-out",
+    "[&>svg>g>g]:fill-foreground-darken [&>svg>g>g]:group-hover:fill-foreground [&>svg>g>g]:transition [&>svg>g>g]:duration-300 [&>svg]:ease-in-out",
+  )}>
+    <Fragment set:html={Icon} class='h-6 w-6' />
+  </div>
+}

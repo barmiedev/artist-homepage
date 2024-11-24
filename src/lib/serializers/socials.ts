@@ -8,5 +8,6 @@ export const serializeSocials = (globals: GlobalsQueryResult): Social[] => {
   return socials.map((type) => ({
     name: type,
     href: globals[type] as string,
+    label: type.charAt(0).toUpperCase() + type.slice(1),
   }));
 };
