@@ -1,13 +1,13 @@
 {
-  "title": "Downloadables",
-  "description": "All of the documents you need in couple of langugages. Everything in here is a link to a Google document. Clicking the title of the document will open it in a new tab.",
+  "title": "Downloads",
+  "description": "Alle Dokumente, die Sie benötigen, in mehreren Sprachen. Alles hier ist ein Link zu einem Google-Dokument. Wenn Sie auf den Titel des Dokuments klicken, wird es in einem neuen Tab geöffnet.",
   "rider": "Technischer Fahrer",
   "pressKit": "Press Kit",
-  "additionalInfo": "Additional info",
-  "concertOffer": "Concert offer",
-  "hospitalityRider": "Hospitality rider",
-  "stagePlot": "Stage plot",
-  "techRider": "Technical rider",
+  "additionalInfo": "Weitere Informationen",
+  "concertOffer": "Konzertangebot",
+  "hospitalityRider": "Hospitality Reiter",
+  "stagePlot": "Bühnenhandlung",
+  "techRider": "Technischer Reiter",
   "bio": "Bio",
-  "photos": "Photos"
+  "photos": "Fotos"
 }
