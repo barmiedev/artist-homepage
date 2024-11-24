@@ -57,8 +57,6 @@ const gigMeta: LV[] = [
   </div>
 
   {gig?.about &&
-    <article class="prose prose-stone max-w-none prose-invert">
-      <PortableText portableText={gig?.about}/>
-    </article>
+    <PortableText portableText={gig?.about}/>
   }
 </Common>
