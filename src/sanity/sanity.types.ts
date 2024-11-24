@@ -39,6 +39,28 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
+export type SanityFileAsset = {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
+};
+
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -53,37 +75,10 @@ export type Docs = {
   _updatedAt: string;
   _rev: string;
   language: "pl" | "en" | "de" | "cz" | "sk" | "fr" | "es" | "it" | "ru" | "jp" | "cn" | "kr" | "uk";
-  rider?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   techRiderUrl?: string;
   pressKitUrl?: string;
   concertOfferUrl?: string;
-  hospitalityRider?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   hospitalityRiderUrl?: string;
-  stagePlot?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   stagePlotUrl?: string;
   additionalInfo?: Array<{
     children?: Array<{
@@ -124,28 +119,8 @@ export type Docs = {
     _type: "image";
     _key: string;
   }>;
-};
-
-export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
+  bioUrl?: string;
+  photosUrl?: string;
 };
 
 export type Globals = {
@@ -917,7 +892,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Docs | SanityFileAsset | Globals | Gig | Lyrics | Track | Credit | Article | Announcement | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Docs | Globals | Gig | Lyrics | Track | Credit | Article | Announcement | Album | Listen | BlockContent | Person | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/lib/content/get-album.ts
 // Variable: albumQuery
@@ -1320,37 +1295,10 @@ export type DocsQueryResult = Array<{
   _updatedAt: string;
   _rev: string;
   language: "cn" | "cz" | "de" | "en" | "es" | "fr" | "it" | "jp" | "kr" | "pl" | "ru" | "sk" | "uk";
-  rider?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   techRiderUrl?: string;
   pressKitUrl?: string;
   concertOfferUrl?: string;
-  hospitalityRider?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   hospitalityRiderUrl?: string;
-  stagePlot?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    _type: "file";
-  };
   stagePlotUrl?: string;
   additionalInfo?: Array<{
     children?: Array<{
@@ -1391,6 +1339,8 @@ export type DocsQueryResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  bioUrl?: string;
+  photosUrl?: string;
 }>;
 
 // Source: ./src/lib/content/get-gig.ts
@@ -1612,7 +1562,7 @@ export type GlobalsQueryResult = {
 
 // Source: ./src/lib/content/get-track.ts
 // Variable: trackQuery
-// Query: *[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}}
+// Query: *[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}, "listen": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}
 export type TrackQueryResult = {
   _id: string;
   _type: "track";
@@ -1716,12 +1666,15 @@ export type TrackQueryResult = {
     _type: "credit";
     _key: string;
   }>;
-  listen?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "listen";
-  };
+  listen: {
+    title: string | null;
+    spotifyUrl: string | null;
+    appleUrl: string | null;
+    youtubeUrl: string | null;
+    soundcloudUrl: string | null;
+    bandcampUrl: string | null;
+    tidalUrl: string | null;
+  } | null;
   lyrics: Array<{
     text: Array<{
       children?: Array<{
@@ -1901,7 +1854,7 @@ declare module "@sanity/client" {
     "*[_type == \"gig\" && slug.current == $slug][0]": GigQueryResult;
     "*[_type == \"gig\"] | order(date desc)": GigsQueryResult;
     "*[_type == \"globals\"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
-    "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}}": TrackQueryResult;
+    "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}, \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
   }
 }

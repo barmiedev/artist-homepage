@@ -1,0 +1,27 @@
+---
+import type { Docs } from '@/sanity/sanity.types';
+
+interface Props {
+  label: string;
+  docs: { language: string; url?: string }[];
+}
+const { label, docs } = Astro.props;
+---
+
+<div class="mb-8">
+  <h3 class='mb-0'>{label}</h3>
+  <ul class="flex flex-wrap gap-x-8 gap-y-2">
+    {docs.map(doc => (
+      <li>
+        <a
+          href={doc.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-foreground-darken hover:text-foreground"
+        >
+          {doc.language.toUpperCase()}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

@@ -27,11 +27,6 @@ export const docsType = defineType({
       validation: rule => rule.required(),
     }),
     defineField({
-      name: 'rider',
-      type: 'file',
-      title: 'Technical rider',
-    }),
-    defineField({
       name: 'techRiderUrl',
       type: 'url',
       title: 'Technical rider URL',
@@ -47,19 +42,9 @@ export const docsType = defineType({
       title: 'Concert Offer URL',
     }),
     defineField({
-      name: 'hospitalityRider',
-      type: 'file',
-      title: 'Hospitality rider',
-    }),
-    defineField({
       name: 'hospitalityRiderUrl',
       type: 'url',
       title: 'Hospitality rider URL',
-    }),
-    defineField({
-      name: 'stagePlot',
-      type: 'file',
-      title: 'Stage plot',
     }),
     defineField({
       name: 'stagePlotUrl',
@@ -71,6 +56,16 @@ export const docsType = defineType({
       type: 'blockContent',
       title: 'Additional info',
     }),
+    defineField({
+      name: 'bioUrl',
+      type: 'url',
+      title: 'Bio URL',
+    }),
+    defineField({
+      name: 'photosUrl',
+      type: 'url',
+      title: 'Photos URL',
+    })
   ],
   preview: {
     select: {
