@@ -1,5 +1,11 @@
 {
-  "title": "Documents",
+  "title": "Downloadables",
+  "description": "All of the documents you need in couple of langugages. Everything in here is a link to a Google document. Clicking the title of the document will open it in a new tab.",
   "rider": "Technical rider",
-  "pressKit": "Press kit"
+  "pressKit": "Press kit",
+  "additionalInfo": "Additional info",
+  "concertOffer": "Concert offer",
+  "hospitalityRider": "Hospitality rider",
+  "stagePlot": "Stage plot",
+  "techRider": "Technical rider"
 }

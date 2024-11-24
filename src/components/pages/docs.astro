@@ -1,4 +1,5 @@
 ---
+import Doc from '@/components/interactive/doc.svelte';
 import Common from '@/layouts/common.astro';
 import { getDocs } from '@/lib/content/get-docs';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
@@ -9,19 +10,19 @@ const {
 
 const t = await getTranslations(locale, 'docs');
 const docs = await getDocs();
+
+const labels = {
+  additionalInfo: t.title,
+  concertOffer: t.concertOffer,
+  hospitalityRider: t.hospitalityRider,
+  pressKit: t.pressKit,
+  stagePlot: t.stagePlot,
+  techRider: t.techRider,
+};
 ---
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
-  {docs.map(async (doc) => {
-    return (
-      <div>
-        <h2>{doc.language}</h2>
-        <p>
-          <span>{t.rider}: {doc.techRiderUrl}</span>
-          <span>{t.pressKit}: {doc.pressKitUrl}</span>
-        </p>
-      </div>
-    );
-  })}
+  <p class="mb-8">{t.description}</p>
+  {docs.map((doc) => <Doc client:load doc={doc} labels={labels} />)}
 </Common>
