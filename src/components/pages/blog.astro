@@ -1,30 +1,61 @@
 ---
+import Card from '@/components/interactive/card.svelte';
 import Common from '@/layouts/common.astro';
-import { getArticles } from '@/lib/content/get-articles';
+import { getArticlesWithoutSlug } from '@/lib/content';
+import {
+  getArticles,
+  getLatestArticle,
+  getSingleArticle,
+} from '@/lib/content/get-articles';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
 
 const {
   props: { locale = defaultLocale },
 } = Astro;
 
-const articles = await getArticles(3);
+const lastArticle = await getLatestArticle();
+const lastArticleLink = await getLink({
+  locale,
+  tag: 'blog',
+  slug: lastArticle?.slug.current,
+});
+
+const articles = await getArticlesWithoutSlug(lastArticle?.slug.current || '');
 const t = await getTranslations(locale, 'blog');
 ---
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
-  <ul>
+  <h3 class="mb-8">Ostatni wpis</h3>
+  <div class="max-md:-mx-4">
+    {lastArticle && (
+      <Card
+        client:visible
+        title={lastArticle.title}
+        description={format(lastArticle.publishedAt, 'dd.MM.yyyy')}
+        href={lastArticleLink}
+      />
+    )}
+  </div>
+  <h3 class='my-8'>Archiwum wpisów</h3>
+  <ul class="mt-4 grid md:grid-cols-2 gap-8 max-md:-mx-4">
     {articles.map(async (article) => {
       if (!article) return null;
+      const link = await getLink({
+        locale,
+        tag: 'blog',
+        slug: article.slug.current,
+      });
       return (
         <li>
-          {article.title}
-          <a href={await getLink({
-            locale,
-            tag: 'blog',
-            slug: article.slug.current,
-          })}>{article?.title}</a>
+          <Card
+            client:visible
+            title={article.title}
+            description={format(article.publishedAt, 'dd.MM.yyyy')}
+            href={link}
+          />
         </li>
       )
     })}
