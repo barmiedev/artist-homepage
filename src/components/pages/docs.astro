@@ -1,8 +1,9 @@
 ---
-import Doc from '@/components/interactive/doc.svelte';
 import Common from '@/layouts/common.astro';
 import { getDocs } from '@/lib/content/get-docs';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import type { Docs } from '@/sanity/sanity.types';
+import DocGroup from '../doc-group.astro';
 
 const {
   props: { locale = defaultLocale },
@@ -11,18 +12,75 @@ const {
 const t = await getTranslations(locale, 'docs');
 const docs = await getDocs();
 
-const labels = {
-  additionalInfo: t.title,
-  concertOffer: t.concertOffer,
-  hospitalityRider: t.hospitalityRider,
-  pressKit: t.pressKit,
-  stagePlot: t.stagePlot,
-  techRider: t.techRider,
-};
+function serializeFilteredDocs(
+  filteredDocs: Docs[],
+  key:
+    | 'techRider'
+    | 'pressKit'
+    | 'concertOffer'
+    | 'hospitalityRider'
+    | 'stagePlot'
+    | 'bio'
+    | 'photos',
+): { language: Docs['language']; url?: string }[] {
+  return filteredDocs.map((doc) => ({
+    language: doc.language,
+    url: doc[`${key}Url`],
+  }));
+}
+
+const bioDocs = docs.filter((doc) => doc.bioUrl);
+const techRiderDocs = docs.filter((doc) => doc.techRiderUrl);
+const stagePlotDocs = docs.filter((doc) => doc.stagePlotUrl);
+const hospitalityRiderDocs = docs.filter((doc) => doc.hospitalityRiderUrl);
+const concertOfferDocs = docs.filter((doc) => doc.concertOfferUrl);
+const pressKitDocs = docs.filter((doc) => doc.pressKitUrl);
+const photosDocs = docs.filter((doc) => doc.photosUrl);
 ---
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
   <p class="mb-8">{t.description}</p>
-  {docs.map((doc) => <Doc client:load doc={doc} labels={labels} />)}
+  {bioDocs.length > 0 &&
+    <DocGroup
+      label={t.bio}
+      docs={serializeFilteredDocs(bioDocs, 'bio')}
+    />
+  }
+  {photosDocs.length > 0 &&
+    <DocGroup
+      label={t.photos}
+      docs={serializeFilteredDocs(photosDocs, 'photos')}
+    />
+  }
+  {pressKitDocs.length > 0 &&
+    <DocGroup
+      label={t.pressKit}
+      docs={serializeFilteredDocs(pressKitDocs, 'pressKit')}
+    />
+  }
+  {techRiderDocs.length > 0 &&
+    <DocGroup
+      label={t.techRider}
+      docs={serializeFilteredDocs(techRiderDocs, 'techRider')}
+    />
+  }
+  {concertOfferDocs.length > 0 &&
+    <DocGroup
+      label={t.concertOffer}
+      docs={serializeFilteredDocs(concertOfferDocs, 'concertOffer')}
+    />
+  }
+  {stagePlotDocs.length > 0 &&
+    <DocGroup
+      label={t.stagePlot}
+      docs={serializeFilteredDocs(stagePlotDocs, 'stagePlot')}
+    />
+  }
+  {hospitalityRiderDocs.length > 0 &&
+    <DocGroup
+      label={t.hospitalityRider}
+      docs={serializeFilteredDocs(hospitalityRiderDocs, 'hospitalityRider')}
+    />
+  }
 </Common>
