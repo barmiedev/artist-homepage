@@ -1,0 +1,18 @@
+---
+import ListenButton from '@/components/interactive/buttons/listen-button.svelte';
+import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+
+const {
+  props: { locale = defaultLocale, listen },
+} = Astro;
+
+const t = await getTranslations(locale, 'albums');
+---
+<h3 class='mt-8'>{t.listen}:</h3>
+  <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-4 mt-8">
+    <ListenButton href={listen?.spotifyUrl} platform='spotify' />
+    <ListenButton href={listen?.appleUrl} platform='apple' />
+    <ListenButton href={listen?.bandcampUrl} platform='bandcamp' />
+    <ListenButton href={listen?.youtubeUrl} platform='youtube' />
+    <ListenButton href={listen?.soundcloudUrl} platform='soundcloud' />
+  </div>

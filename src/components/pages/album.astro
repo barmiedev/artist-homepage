@@ -1,8 +1,17 @@
 ---
+import BackButton from '@/components/interactive/back-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getAlbum } from '@/lib/content';
+import { parseRoles } from '@/lib/serializers/roles';
+import type { LV } from '@/lib/types/kv.type';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
+import SimpleCard from '../cards/simple-card.astro';
+import ListenButton from '../interactive/buttons/listen-button.svelte';
+import Listen from '../listen.astro';
+import PortableTextImage from '../portable-text-image.astro';
+import PortableText from '../portable-text.astro';
 
 const {
   props: { locale = defaultLocale, slug },
@@ -11,19 +20,86 @@ const {
 const t = await getTranslations(locale, 'albums');
 const backLink = await getLink({ locale, tag: 'albums' });
 const album = await getAlbum({ slug: slug });
+
+const releaseDate = album?.releaseDate
+  ? format(album?.releaseDate, 'dd.MM.yyyy')
+  : undefined;
+
+const credits = album?.credits?.map((credit) => {
+  const roles = parseRoles(credit.role);
+  return `${credit.person?.name} - ${roles
+    .map((role) => {
+      if (role.tracks && role.tracks.length > 0) {
+        const trackWord = role.tracks.length > 1 ? t.inTracks : t.inTrack;
+        return `${t[role.name]} (${trackWord} ${role.tracks.join(', ')})`;
+      }
+      return t[role.name];
+    })
+    .join(', ')}`;
+});
+
+const albumMeta: LV[] = [
+  { label: t.releaseDate, value: releaseDate },
+  { label: t.credits, value: credits },
+  {
+    label: t.recording,
+    value: `${album?.recordedBy?.map((person) => person.name).join(', ')} (${album?.recordedAt})`,
+  },
+  { label: t.mix, value: album?.mixedBy?.name },
+  { label: t.mastering, value: album?.masteredBy?.name },
+].filter((meta) => !!meta.value);
+
+const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
 ---
 
 <Common title={album?.title}>
-  <a href={backLink}>{t.back}</a>
-  <h1>Album: {album?.title}</h1>
-  {album?.recordedAt}
-  <ul class="mt-8">
-    {album?.tracks?.map(async (track) => {
-      const link = await getLink({ locale, slug: track.slug, tag: 'track' });
-      return (
-        <li>
-          <a href={link}>{track.title}</a>
-        </li>
-    )})}
-  </ul>
+  <BackButton client:load href={backLink}>{t.back}</BackButton>
+  <h1>{album?.title}</h1>
+  {album?.cover &&
+    <PortableTextImage node={album?.cover} imgClass="object-cover w-full rounded-xl max-md:aspect-square mb-8 md:max-h-[400px] opacity-40 hover:opacity-70 duration-300 ease-in-out" />
+  }
+  <div class="max-md:-mx-4">
+    <SimpleCard classname='w-full mb-8'>
+      <div class="grid max-md:gap-4">
+        {albumMeta.map((meta) => (
+          <div class="group grid sm:grid-cols-2 md:grid-cols-3 gap-0 select-none">
+            <div>{meta.label}</div>
+            {
+              Array.isArray(meta.value)
+              ? <div class="text-foreground/50 duration-300 group-hover:text-foreground ease-in-out md:col-span-2">
+                {meta.value.map((value) => (
+                  <div>{value}</div>
+                ))}
+              </div>
+              : <div class="text-foreground/50 duration-300 group-hover:text-foreground ease-in-out md:col-span-2">
+                {meta.value}
+              </div>
+            }
+          </div>
+        ))}
+      </div>
+    </SimpleCard>
+  </div>
+  <h3 class='mb-4'>{t.about}</h3>
+  <article class="prose prose-stone max-w-none prose-invert mb-8">
+    <PortableText portableText={album?.about} />
+  </article>
+  <div class="max-md:-mx-4">
+    <SimpleCard>
+      <h3>{t.tracklist}:</h3>
+      <ul>
+        {tracks?.map(async (track) => {
+          const link = await getLink({ locale, slug: track.slug, tag: 'track' });
+          return (
+            <li>
+              {track.trackNumber}.&nbsp;
+              <a href={link}>{track.title}</a>
+            </li>
+        )})}
+      </ul>
+      <p class="mt-8 text-foreground-darken">{t.tracksDisclaimer}</p>
+    </SimpleCard>
+  </div>
+
+  <Listen listen={album?.listen} />
 </Common>

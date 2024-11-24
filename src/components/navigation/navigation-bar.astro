@@ -3,6 +3,7 @@ import MobileNavigation from '@/components/interactive/mobile/navigation.svelte'
 import { getGlobals } from '@/lib/content/get-globals';
 import { getSegments } from '@/lib/utils/navigation';
 import { getLink } from '@/lib/utils/navigation';
+import LanguageSelect from './language-select.astro';
 import Links from './links.astro';
 
 const currentPath = Astro.url.pathname;
@@ -13,9 +14,12 @@ const home = await getLink({ locale: currentLocale, tag: 'home' });
 ---
 
 <nav class="pb-12 max-md:flex gap-4 md:relative">
-  {globals?.siteTitle && <a href={home} class="nav-title">{globals.siteTitle}</a>}
+  {globals?.siteTitle &&
+    <div class="flex justify-between"><a href={home} class="nav-title">{globals.siteTitle}</a>
+    <div class="max-md:hidden flex items-center gap-x-8"><LanguageSelect /></div>
+  </div>}
   <MobileNavigation client:load transition:preserve>
     <Links />
   </MobileNavigation>
-  <div class="hidden md:block"><Links /></div>
+  <div class="hidden md:block md:mt-4"><Links /></div>
 </nav>

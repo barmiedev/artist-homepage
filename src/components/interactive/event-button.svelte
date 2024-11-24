@@ -1,8 +1,7 @@
 <script lang="ts">
   import { Calendar } from "lucide-svelte";
 
-  const { label, href, date }: { label: string; href?: string; date: string } =
-    $props();
+  const { label, href }: { label: string; href?: string } = $props();
   import { cn } from "@/lib/utils";
 </script>
 

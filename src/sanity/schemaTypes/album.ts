@@ -72,5 +72,14 @@ export const albumType = defineType({
       type: 'reference',
       to: [{ type: 'listen' }],
     }),
+    defineField({
+      name: 'about',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'credits',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'credit' }] }],
+    })
   ],
 });

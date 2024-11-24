@@ -13,7 +13,7 @@ const navigationTranslations = await getTranslations(
 );
 ---
 
-<ul class="flex flex-col items-center md:items-start md:flex-row md:flex-wrap gap-4 md:gap-16 pointer-events-none focus-within:text-foreground-darken hover:text-foreground-darken">
+<ul class="flex flex-col items-center md:items-start md:flex-row md:flex-wrap gap-4 md:gap-x-16 pointer-events-none focus-within:text-foreground-darken hover:text-foreground-darken">
   {navigation.filter((link) => !link.hide).map((link) => (
     <li>
       <a href={link.href} class="group pointer-events-auto block transition-colors duration-300 ease-in-out focus-within:text-foreground hover:text-foreground text-2xl md:text-lg font-medium">
@@ -22,4 +22,4 @@ const navigationTranslations = await getTranslations(
     </li>
   ))}
 </ul>
-<div class="flex gap-x-8"><LanguageSelect /></div>
+<div class="md:hidden flex gap-x-8"><LanguageSelect /></div>

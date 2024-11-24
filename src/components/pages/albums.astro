@@ -3,6 +3,8 @@ import Common from '@/layouts/common.astro';
 import { getAlbums } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
+import ImageCard from '../cards/image-card.astro';
 
 const {
   props: { locale = defaultLocale },
@@ -14,12 +16,15 @@ const albums = await getAlbums();
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
-  <ul>
+  <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
     {albums.map(async (album) => {
       const link = await getLink({ locale, slug: album?.slug.current, tag: 'albums' });
+      const releaseYear = album?.releaseDate ? format(album?.releaseDate, 'yyyy') : '';
       return (
         <li>
-          <a href={link}>{album?.title}</a>
+          <a href={link}>
+            <ImageCard image={album?.cover} title={album?.title} subtitle={releaseYear} />
+          </a>
         </li>
       )
     })}

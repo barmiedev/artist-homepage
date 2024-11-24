@@ -4,7 +4,7 @@ import { defineQuery } from 'groq';
 import type { QueryParams } from 'sanity';
 
 const trackQuery = defineQuery(
-  `*[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}}`,
+  `*[_type == "track" && slug.current == $slug][0]{..., "album": album->{title, "slug": slug.current}, "lyrics": lyrics[]->{text,language}, "listen": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}`,
 );
 
 export const getTrack = async (params: QueryParams) => {
