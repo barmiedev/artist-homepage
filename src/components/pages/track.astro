@@ -45,5 +45,5 @@ const defaultLyrics = track?.lyrics?.find(
       </SimpleCard>
     </div>
   }
-  {track?.listen && <Listen listen={track?.listen} />}
+  {track?.listen && <Listen listen={track?.listen} locale={locale} />}
 </Common>

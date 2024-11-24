@@ -99,5 +99,5 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
     </SimpleCard>
   </div>
 
-  <Listen listen={album?.listen} />
+  <Listen listen={album?.listen} locale={locale} />
 </Common>
