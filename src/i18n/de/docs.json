@@ -1,5 +1,13 @@
 {
-  "title": "Zum Download",
+  "title": "Downloads",
+  "description": "Alle Dokumente, die Sie benötigen, in mehreren Sprachen. Alles hier ist ein Link zu einem Google-Dokument. Wenn Sie auf den Titel des Dokuments klicken, wird es in einem neuen Tab geöffnet.",
   "rider": "Technischer Fahrer",
-  "pressKit": "Press Kit"
+  "pressKit": "Press Kit",
+  "additionalInfo": "Weitere Informationen",
+  "concertOffer": "Konzertangebot",
+  "hospitalityRider": "Hospitality Reiter",
+  "stagePlot": "Bühnenhandlung",
+  "techRider": "Technischer Reiter",
+  "bio": "Bio",
+  "photos": "Fotos"
 }

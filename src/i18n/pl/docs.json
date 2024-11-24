@@ -1,5 +1,13 @@
 {
   "title": "Do pobrania",
+  "description": "Wszelkie dokumenty, jakich potrzebujesz — w kilku językach. Wszystko tutaj to odnośniki do dokumentów Google. Kliknięcie danego odnośnika przekieruje Cię do nowej zakładki.",
   "rider": "Rider techniczny",
-  "pressKit": "Press kit"
+  "pressKit": "Press kit",
+  "additionalInfo": "Dodatkowe informacje",
+  "concertOffer": "Oferta koncertowa",
+  "hospitalityRider": "Hospitality rider",
+  "stagePlot": "Plan sceniczny",
+  "techRider": "Rider techniczny",
+  "bio": "Biografia",
+  "photos": "Zdjęcia"
 }
