@@ -29,7 +29,7 @@ const lastArticles = await getArticlesWithoutSlug(slug, 3);
 
   <PortableText portableText={article?.text} />
 
-  <h3 class="mt-16 mb-4">Ostatnie artykuły</h3>
+  <h3 class="mt-16 mb-4">{t.lastArticles}</h3>
   <ul class="text-foreground-darken">
     {lastArticles.map(async (article) => {
       return (

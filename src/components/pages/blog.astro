@@ -28,7 +28,7 @@ const t = await getTranslations(locale, 'blog');
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
-  <h3 class="mb-8">Ostatni wpis</h3>
+  <h3 class="mb-8">{t.lastArticle}</h3>
   <div class="max-md:-mx-4">
     {lastArticle && (
       <Card
@@ -39,7 +39,7 @@ const t = await getTranslations(locale, 'blog');
       />
     )}
   </div>
-  <h3 class='my-8'>Archiwum wpisów</h3>
+  <h3 class='my-8'>{t.allArticles}</h3>
   <ul class="mt-4 grid md:grid-cols-2 gap-4 md:gap-8 max-md:-mx-4">
     {articles.map(async (article) => {
       if (!article) return null;
