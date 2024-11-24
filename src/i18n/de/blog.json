@@ -1,4 +1,7 @@
 {
   "title": "Blog",
-  "back": "Zurück zu Artikeln"
+  "back": "Zurück zu Artikeln",
+  "lastArticle": "Letzter Artikel",
+  "lastArticles": "Letzte Artikel",
+  "allArticles": "Alle Artikel"
 }
