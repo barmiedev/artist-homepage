@@ -25,6 +25,10 @@ export const globalsType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'siteBeginningDate',
+      type: 'date',
+    }),
+    defineField({
       name: 'siteUrl',
       type: 'url',
       validation: rule => rule.required(),

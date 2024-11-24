@@ -133,6 +133,7 @@ export type Globals = {
   siteDescription: string;
   siteKeywords?: Array<string>;
   siteAuthor?: string;
+  siteBeginningDate?: string;
   siteUrl: string;
   siteImage?: {
     asset?: {
@@ -1496,6 +1497,7 @@ export type GlobalsQueryResult = {
   siteDescription: string;
   siteKeywords?: Array<string>;
   siteAuthor?: string;
+  siteBeginningDate?: string;
   siteUrl: string;
   siteImage: {
     asset: {

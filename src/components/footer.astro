@@ -3,12 +3,20 @@ import { getGlobals } from '@/lib/content/get-globals';
 import { serializeSocials } from '@/lib/serializers/socials';
 import NewsletterForm from './newsletter-form.astro';
 
+import { format, isAfter, isSameYear } from 'date-fns';
 import SocialIcon from './social-icon.astro';
 const globals = await getGlobals();
 const socials = serializeSocials(globals);
+const now = new Date();
+const years =
+  globals?.siteBeginningDate &&
+  !isSameYear(now, globals.siteBeginningDate) &&
+  isAfter(now, globals.siteBeginningDate)
+    ? `${format(globals?.siteBeginningDate, 'yyyy')} - ${format(now, 'yyyy')}`
+    : format(now, 'yyyy');
 ---
 
-<footer>
+<footer class="border-t mt-12 -mx-12 px-12 border-foreground-darken/20">
   {!globals?.newsletter && globals?.privacyPolicy && <NewsletterForm />}
   <ul class="grid grid-cols-4 gap-x-8 max-md:gap-y-2 flex-wrap max-md:place-items-center">
     {socials.map((social) => (
@@ -20,4 +28,5 @@ const socials = serializeSocials(globals);
       </li>
     ))}
   </ul>
+  {globals?.siteAuthor && <p class='mt-8 w-full text-sm text-center text-foreground-darken'>© {globals?.siteAuthor} {years}</p>}
 </footer>
