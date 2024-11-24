@@ -166,6 +166,8 @@ export type Globals = {
   youtube?: string;
   soundcloud?: string;
   bandcamp?: string;
+  tidal?: string;
+  tiktok?: string;
   email?: string;
   newsletter?: boolean;
   privacyPolicy?: Array<{
@@ -207,6 +209,14 @@ export type Globals = {
     _type: "image";
     _key: string;
   }>;
+  bookingName?: string;
+  bookingEmail?: string;
+  managementName?: string;
+  managementEmail?: string;
+  pressName?: string;
+  pressEmail?: string;
+  generalEmail?: string;
+  generalName?: string;
 };
 
 export type Gig = {
@@ -1519,6 +1529,8 @@ export type GlobalsQueryResult = {
   youtube?: string;
   soundcloud?: string;
   bandcamp?: string;
+  tidal?: string;
+  tiktok?: string;
   email?: string;
   newsletter?: boolean;
   privacyPolicy?: Array<{
@@ -1560,6 +1572,14 @@ export type GlobalsQueryResult = {
     _type: "image";
     _key: string;
   }>;
+  bookingName?: string;
+  bookingEmail?: string;
+  managementName?: string;
+  managementEmail?: string;
+  pressName?: string;
+  pressEmail?: string;
+  generalEmail?: string;
+  generalName?: string;
 } | null;
 
 // Source: ./src/lib/content/get-track.ts

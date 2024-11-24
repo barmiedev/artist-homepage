@@ -6,6 +6,8 @@ import Facebook from '@/assets/icons/facebook.svg?raw';
 import Instagram from '@/assets/icons/instagram.svg?raw';
 import Soundcloud from '@/assets/icons/soundcloud.svg?raw';
 import Spotify from '@/assets/icons/spotify.svg?raw';
+import Tidal from '@/assets/icons/tidal.svg?raw';
+import Tiktok from '@/assets/icons/tiktok.svg?raw';
 import Youtube from '@/assets/icons/youtube.svg?raw';
 import type { Social, SocialType } from '@/lib/types/socials.type';
 import { cn } from '@/lib/utils';
@@ -33,6 +35,10 @@ const getIcon = (social: SocialType) => {
       return Youtube;
     case 'email':
       return Email;
+    case 'tidal':
+      return Tidal;
+    case 'tiktok':
+      return Tiktok;
     default:
       return null;
   }

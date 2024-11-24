@@ -1,12 +1,14 @@
 export const socialTypes = [
   'instagram',
-  'twitter',
   'facebook',
+  'tiktok',
+  'twitter',
   'spotify',
-  'appleMusic',
   'youtube',
-  'soundcloud',
+  'tidal',
   'bandcamp',
+  'appleMusic',
+  'soundcloud',
   'email',
 ] as const;
 export type SocialType = (typeof socialTypes)[number];

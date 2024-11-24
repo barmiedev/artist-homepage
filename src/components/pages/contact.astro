@@ -1,7 +1,9 @@
 ---
 import Common from '@/layouts/common.astro';
 import { getGlobals } from '@/lib/content/get-globals';
+import { serializeSocials } from '@/lib/serializers/socials';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
+import SocialList from '../social-list.astro';
 
 const {
   props: { locale = defaultLocale },
@@ -9,10 +11,98 @@ const {
 
 const t = await getTranslations(locale, 'contact');
 const globals = await getGlobals();
+const socials = serializeSocials(globals);
+
+const socialMedia = socials.filter((social) =>
+  ['facebook', 'instagram', 'twitter', 'tiktok'].includes(social.name),
+);
+const streaming = socials.filter((social) =>
+  [
+    'youtube',
+    'spotify',
+    'appleMusic',
+    'soundcloud',
+    'bandcamp',
+    'tidal',
+  ].includes(social.name),
+);
+
+// in globals we have bookingEmail, managementEmail, pressEmail, and generalEmail
+// in t we have booking, management, press, and general translations
+// those can be the same or different, so we need to check if they are the same
+//
+// In serializeEmails we get the following structure:
+// 1. globals: { bookingEmail = x, managementEmail = y, pressEmail = z, generalEmail = a }
+// { label: t.booking, email: globals.bookingEmail }, { label: t.management, email: globals.managementEmail }, etc.
+// 2. globals: { bookingEmail = x, managementEmail = x, pressEmail = x, generalEmail = x }
+// { label: `${t.booking}, ${t.management}, ${t.press}, ${t.general}`, email: x }
+// 3. globals: { bookingEmail = x, managementEmail = y, pressEmail = x, generalEmail = y }
+// { label: `${t.booking}, ${t.press}`, email: x }, { label: `${t.management}, ${t.general}`, email: y }
+// etc.
+function serializeEmails() {
+  const emails = [
+    {
+      label: t.booking,
+      email: globals?.bookingEmail,
+      name: globals?.bookingName,
+    },
+    {
+      label: t.management,
+      email: globals?.managementEmail,
+      name: globals?.managementName,
+    },
+    { label: t.press, email: globals?.pressEmail, name: globals?.pressName },
+    {
+      label: t.general,
+      email: globals?.generalEmail,
+      name: globals?.generalName,
+    },
+  ];
+
+  const uniqueEmails = [...new Set(emails.map((email) => email.email))];
+
+  return uniqueEmails.map((email) => {
+    const filteredEmails = emails.filter((e) => e.email === email);
+    const uniqueLabels = filteredEmails
+      .map((e) => e.label?.toLowerCase())
+      .join(', ');
+    return {
+      label: uniqueLabels.charAt(0).toUpperCase() + uniqueLabels.slice(1),
+      email,
+      name: filteredEmails.find((fe) => !!fe.name)?.name,
+    };
+  });
+}
+
+const emails = serializeEmails();
 ---
 
 <Common title={t.title}>
   <h1>{t.title}</h1>
-  <p>{globals?.siteTitle}</p>
-  <p>{globals?.email}</p>
+  <p>{t.description}</p>
+  <div class="mt-8 space-y-8">
+    {emails.map((email) => (
+      <div>
+        <h4>
+          <span>{email.label}</span>
+          {email.name && <span>({email.name})</span>}
+        </h4>
+        <a href={`mailto:${email.email}`} class="text-foreground-darken hover:text-foreground">{email.email}</a>
+      </div>
+    ))}
+  </div>
+  <h4 class="mt-8 mb-4">{t.socialMedia}</h4>
+  <SocialList
+    socials={socialMedia}
+    ulClass='flex flex-col gap-y-2 flex-wrap max-md:items-start'
+    aClass="text-base"
+    labelClass='block'
+  />
+  <h4 class="mt-8 mb-4">{t.streaming}</h4>
+  <SocialList
+    socials={streaming}
+    ulClass='flex flex-col gap-y-2 flex-wrap max-md:items-start'
+    aClass="text-base"
+    labelClass='block'
+  />
 </Common>
