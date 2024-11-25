@@ -1,3 +1,10 @@
 {
-  "title": "Kontakt"
+  "title": "Kontakt",
+  "description": "Wenn Sie Fragen haben oder uns etwas mitteilen möchten, kontaktieren Sie uns bitte über eine der folgenden E-Mails. Wir werden uns so schnell wie möglich bei Ihnen melden.",
+  "booking": "Booking",
+  "management": "Management",
+  "press": "PR",
+  "general": "Allgemeiner",
+  "socialMedia": "Social Media",
+  "streaming": "Streaming-Plattformen"
 }
