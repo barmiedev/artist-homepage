@@ -1,0 +1,45 @@
+---
+import Card from '@/components/interactive/card.svelte';
+import type { Locale } from '@/lib/utils/i18n';
+import { type LinkTag, getLink } from '@/lib/utils/navigation';
+import type { Slug } from '@/sanity/sanity.types';
+
+interface Element {
+  title?: string;
+  description?: string;
+  slug?: Slug;
+}
+
+interface Props {
+  label: string;
+  locale: Locale;
+  elements: Element[];
+  tag: LinkTag;
+}
+
+const { label, locale, elements, tag } = Astro.props;
+---
+
+<div>
+  <h2 class="md:mx-8 mb-8 mt-0">{label}</h2>
+  <ul class="space-y-4 md:space-y-6">
+    {elements.map(async (element) => {
+      if (!element) return null;
+      const link = await getLink({
+        locale,
+        tag,
+        slug: element.slug?.current,
+      });
+      return (
+        <li class="-mx-4 md:mx-0">
+          <Card
+            client:visible
+            title={element.title}
+            description={element.description}
+            href={link}
+          />
+        </li>
+      )
+    })}
+  </ul>
+</div>

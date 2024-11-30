@@ -2,10 +2,13 @@
 import Common from '@/layouts/common.astro';
 import { getArticles } from '@/lib/content';
 import { getLastAnnouncement } from '@/lib/content/get-announcements';
-import { getLastGigs } from '@/lib/content/get-gigs';
-import { getGigsTimeline } from '@/lib/utils/gigs';
+import { getLastPastGigs, getNextGigs } from '@/lib/content/get-gigs';
+import { getGlobals } from '@/lib/content/get-globals';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import { format } from 'date-fns';
+import HomeGroup from '../home-group.astro';
+import PortableTextImage from '../portable-text-image.astro';
 
 const {
   props: { locale = defaultLocale },
@@ -13,9 +16,10 @@ const {
 
 const t = await getTranslations(locale, 'home');
 
+const globals = await getGlobals();
 const articles = await getArticles(3);
-const gigs = await getLastGigs(3);
-const { upcoming, past } = await getGigsTimeline(gigs);
+const pastGigs = await getLastPastGigs(3);
+const nextGigs = await getNextGigs(3);
 
 const announcement = await getLastAnnouncement();
 const announcementLink = await getLink({
@@ -24,60 +28,83 @@ const announcementLink = await getLink({
   slug: announcement?.slug.current,
 });
 
-// TODO homepage layout
-// hero - photo in the background, title and subtitle
-// last announcement
-// last 3 articles
-// 3 concerts: if there are any concerts in the future, show them, if not, show the last 3 concerts
-// - if there are no concerts, show the last 3 concerts
-// - if there is 1 future concert, show it and 2 last concerts
-// footer with contact and social media
+const showLists =
+  nextGigs.length > 0 || articles.length > 0 || pastGigs.length > 0;
+
+const contactLink = await getLink({ locale, tag: 'contact' });
 ---
 
 <Common title="dom">
-  <h2>{t.announcements}</h2>
-  {announcement && (
-    <h4>
-      <a href={announcementLink}>{announcement.title}</a>
-    </h4>
-  )}
-  <h2>{t.articles}</h2>
-  <ul>
-  {articles.map(async (article) => {
-    const link = await getLink({ locale, tag: 'blog', slug: article?.slug.current });
-    return (
-      <li>
-        <a href={link}>{article?.title}</a>
-      </li>
-    );
-  })}
-  </ul>
-  <h2>{t.gigs}</h2>
-  {upcoming.length > 0 &&
-    <h3>{t.upcomingGigs}</h3>
-    <ul>
-      {upcoming.map(async (gig) => {
-        const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
-        return (
-        <li>
-          <h4>{gig.city}</h4>
-          <p>{gig.date}</p>
-          <p>{gig.venue}</p>
-          <a href={link}>Zobacz</a>
-        </li>
-      )})}
-    </ul>
-  }
-  <h3>{t.pastGigs}</h3>
-  <ul class="space-y-8">
-    {past.map(async (gig) => {
-      const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
-      return (
-      <li>
-        <h4>{gig.city}</h4>
-        <p>{gig.date}</p>
-        <p>{gig.venue}</p>
-        <a href={link}>Zobacz</a>
-      </li>
-    )})}
+  <div class="space-y-16">
+  <!-- Hero -->
+    <div class="relative -mx-12 h-[80vh] md:h-[700px] lg:h-[800px] xl:h-[900px]">
+      <!-- image should fade to background color on top and bottom -->
+      {globals?.siteImage && <PortableTextImage node={globals?.siteImage} imgClass="object-cover w-full h-full opacity-30 md:rounded-xl" />}
+      <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
+        <div class="text-center text-white">
+          <h1>{globals?.siteTitle}</h1>
+          <h3>{globals?.siteDescription}</h3>
+        </div>
+      </div>
+    </div>
+    <!-- Announcements -->
+    {announcement && <div class="relative -mx-12 h-72 sm:h-80 group">
+      <a href={announcementLink}>
+        {announcement?.cover && <PortableTextImage node={announcement?.cover} imgClass="object-cover w-full h-full opacity-30 md:rounded-xl group-hover:opacity-40 transition duration-300 ease-in-out" />}
+        <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
+          <div class="text-center text-white">
+            <h2>{announcement?.title}</h2>
+            <h3>{announcement?.previewText}</h3>
+          </div>
+        </div>
+      </a>
+    </div>}
+    <!-- Articles and gigs -->
+    {showLists &&
+      <div class="grid md:grid-cols-2 gap-8 -mx-4 md:-mx-12">
+        {nextGigs && nextGigs.length > 0 && (
+          <div class="md:col-span-2">
+            <HomeGroup
+              locale={locale}
+              label={t.upcomingGigs}
+              elements={nextGigs.map((gig) => ({
+                title: gig?.city,
+                description: format(gig.date, 'dd.MM.yyyy'),
+                slug: gig?.slug
+              }))}
+              tag="gigs"
+            />
+          </div>
+        )}
+        {articles && articles.length > 0 &&
+          <HomeGroup
+            locale={locale}
+            label={t.articles}
+            elements={articles.map((article) => ({
+              title: article?.title,
+              description: article?.publishedAt && format(article?.publishedAt, 'dd.MM.yyyy'),
+              slug: article?.slug
+            }))}
+            tag="blog"
+          />
+        }
+        {pastGigs && pastGigs.length > 0 &&
+          <HomeGroup
+            locale={locale}
+            label={t.gigs}
+            elements={pastGigs.map((gig) => ({
+              title: gig?.city,
+              description: format(gig.date, 'dd.MM.yyyy'),
+              slug: gig?.slug
+            }))}
+            tag="gigs"
+          />
+        }
+    </div>}
+    {t.contact &&
+      <div>
+        <p>{t.contact}<a href={contactLink} class="text-foreground underline">{t.here}</a>{t.forInfo}.</p>
+      </div>
+    }
+  </div>
 </Common>
