@@ -1,8 +1,10 @@
 ---
+import BackButton from '@/components/interactive/back-button.svelte';
 import Common from '@/layouts/common.astro';
 import { getAnnouncement } from '@/lib/content/get-announcements';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
+import Listen from '../listen.astro';
 import PortableTextImage from '../portable-text-image.astro';
 import PortableText from '../portable-text.astro';
 
@@ -18,8 +20,20 @@ const backLink = await getLink({
 ---
 
 <Common title={announcement?.title}>
-  <a href={backLink}>{t.back}</a>
-  <h1>{announcement?.title}</h1>
-  <PortableTextImage node={announcement?.cover} />
-  <PortableText portableText={announcement?.text} />
+  <BackButton client:load href={backLink}>{t.back}</BackButton>
+  <div class="relative -mx-12 h-[80vh] md:h-[700px] lg:h-[800px] xl:h-[900px]">
+    {announcement?.cover && <PortableTextImage node={announcement.cover} imgClass="object-cover w-full h-full opacity-30 md:rounded-xl" />}
+    <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
+      <div class="text-center text-white">
+        <h1>{announcement?.title}</h1>
+      </div>
+    </div>
+  </div>
+  <div class='mt-8'>
+    <PortableText portableText={announcement?.text} />
+  </div>
+  {announcement?.listen && (
+    <Listen listen={announcement.listen} />
+  )}
+  <!-- TODO: gigs, album -->
 </Common>
