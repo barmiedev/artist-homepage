@@ -1,11 +1,11 @@
 {
   "title": "Homepage",
-  "articles": "Last articles",
-  "gigs": "Shows",
-  "upcomingGigs": "Upcoming shows",
-  "pastGigs": "Last shows",
+  "articles": "Letzte Artikel",
+  "gigs": "Konzerte",
+  "upcomingGigs": "Nächste Konzerte",
+  "pastGigs": "Letzte Konzerte",
   "announcements": "Ankündigungen",
-  "contact": " If you have any questions, want to book a gig or just want to say hi, feel free to reach out! Look ",
-  "here": "here",
-  "forInfo": " for more information"
+  "contact": "Wenn du Fragen hast, einen Auftritt buchen oder einfach nur Hallo sagen möchtest, melde dich gerne! Weitere Informationen findest du ",
+  "here": "hier",
+  "forInfo": ":)"
 }
