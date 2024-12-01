@@ -19,3 +19,23 @@ export const getLastGigs = async (howMany?: number) => {
 
   return data;
 };
+
+export const getLastPastGigs = async (howMany?: number) => {
+  const { data } = await loadQuery<Gig[]>({
+    query: defineQuery(
+      `*[_type == "gig" && date < now()] | order(date desc) [0...${howMany}]`,
+    ),
+  });
+
+  return data;
+};
+
+export const getNextGigs = async (howMany?: number) => {
+  const { data } = await loadQuery<Gig[]>({
+    query: defineQuery(
+      `*[_type == "gig" && date > now()] | order(date asc) [0...${howMany}]`,
+    ),
+  });
+
+  return data;
+};

@@ -4,7 +4,7 @@ import { defineQuery } from 'groq';
 import type { QueryParams } from 'sanity';
 
 const announcementQuery = defineQuery(
-  `*[_type == "announcement" && active == true && slug.current == $slug][0]`,
+  `*[_type == "announcement" && active == true && slug.current == $slug][0]{..., "listen": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}`,
 );
 
 export const getAnnouncement = async (params: QueryParams) => {

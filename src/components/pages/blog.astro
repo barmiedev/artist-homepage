@@ -2,11 +2,7 @@
 import Card from '@/components/interactive/card.svelte';
 import Common from '@/layouts/common.astro';
 import { getArticlesWithoutSlug } from '@/lib/content';
-import {
-  getArticles,
-  getLatestArticle,
-  getSingleArticle,
-} from '@/lib/content/get-articles';
+import { getLatestArticle } from '@/lib/content/get-articles';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
 import { getLink } from '@/lib/utils/navigation';
 import { format } from 'date-fns';

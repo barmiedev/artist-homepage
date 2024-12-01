@@ -5,7 +5,7 @@ import {
   isLocale,
 } from '@/lib/utils/i18n';
 
-type LinkTag =
+export type LinkTag =
   | 'home'
   | 'albums'
   | 'track'

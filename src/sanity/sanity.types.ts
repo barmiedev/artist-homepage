@@ -1148,7 +1148,7 @@ export type AlbumsQueryResult = Array<{
 
 // Source: ./src/lib/content/get-announcements.ts
 // Variable: announcementQuery
-// Query: *[_type == "announcement" && active == true && slug.current == $slug][0]
+// Query: *[_type == "announcement" && active == true && slug.current == $slug][0]{..., "listen": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}
 export type AnnouncementQueryResult = {
   _id: string;
   _type: "announcement";
@@ -1223,12 +1223,15 @@ export type AnnouncementQueryResult = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "gig";
   }>;
-  listen?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "listen";
-  };
+  listen: {
+    title: string | null;
+    spotifyUrl: string | null;
+    appleUrl: string | null;
+    youtubeUrl: string | null;
+    soundcloudUrl: string | null;
+    bandcampUrl: string | null;
+    tidalUrl: string | null;
+  } | null;
 } | null;
 
 // Source: ./src/lib/content/get-articles.ts
@@ -1496,7 +1499,7 @@ export type GigsQueryResult = Array<{
 
 // Source: ./src/lib/content/get-globals.ts
 // Variable: globalsQuery
-// Query: *[_type == "globals"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}
+// Query: *[_type == "globals"][0]{...,siteFavicon{asset->{path,url}}}
 export type GlobalsQueryResult = {
   _id: string;
   _type: "globals";
@@ -1509,12 +1512,18 @@ export type GlobalsQueryResult = {
   siteAuthor?: string;
   siteBeginningDate?: string;
   siteUrl: string;
-  siteImage: {
-    asset: {
-      path: string | null;
-      url: string | null;
-    } | null;
-  } | null;
+  siteImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   siteFavicon: {
     asset: {
       path: string | null;
@@ -1870,12 +1879,12 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"album\" && slug.current == $slug][0]{..., \"tracks\": tracks[]->{title, \"slug\": slug.current, trackNumber}, mixedBy->{name}, masteredBy->{name}, \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}, \"recordedBy\": recordedBy[]->{name}, \"credits\": credits[]->{person->{name}, role, description}}": AlbumQueryResult;
     "*[_type == \"album\"]": AlbumsQueryResult;
-    "*[_type == \"announcement\" && active == true && slug.current == $slug][0]": AnnouncementQueryResult;
+    "*[_type == \"announcement\" && active == true && slug.current == $slug][0]{..., \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}": AnnouncementQueryResult;
     "*[_type == \"article\" && slug.current == $slug][0]": SingleArticleQueryResult;
     "*[_type == \"docs\"] | order(language asc)": DocsQueryResult;
     "*[_type == \"gig\" && slug.current == $slug][0]": GigQueryResult;
     "*[_type == \"gig\"] | order(date desc)": GigsQueryResult;
-    "*[_type == \"globals\"][0]{...,siteImage{asset->{path,url}},siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
+    "*[_type == \"globals\"][0]{...,siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
     "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}, \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
   }
