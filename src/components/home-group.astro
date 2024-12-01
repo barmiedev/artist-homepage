@@ -21,8 +21,8 @@ const { label, locale, elements, tag } = Astro.props;
 ---
 
 <div>
-  <h2 class="md:mx-8 mb-8 mt-0">{label}</h2>
-  <ul class="space-y-4 md:space-y-6">
+  <h2 class="mb-8 mt-0">{label}</h2>
+  <ul class="space-y-4 md:space-y-8">
     {elements.map(async (element) => {
       if (!element) return null;
       const link = await getLink({

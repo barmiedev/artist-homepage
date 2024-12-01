@@ -9,6 +9,7 @@ import { getLink } from '@/lib/utils/navigation';
 import { format } from 'date-fns';
 import HomeGroup from '../home-group.astro';
 import PortableTextImage from '../portable-text-image.astro';
+import Vignette from '../vignette.astro';
 
 const {
   props: { locale = defaultLocale },
@@ -37,15 +38,18 @@ const contactLink = await getLink({ locale, tag: 'contact' });
 <Common>
   <div class="space-y-16">
   <!-- Hero -->
-    <div class="relative -mx-12 h-[80vh] md:h-[700px] lg:h-[800px] xl:h-[900px]">
-      {globals?.siteImage && <PortableTextImage node={globals?.siteImage} imgClass="object-cover w-full h-full opacity-30 md:rounded-xl" />}
-      <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
-        <div class="text-center text-white">
-          <h1>{globals?.siteTitle}</h1>
-          <h3>{globals?.siteDescription}</h3>
+    <div class="absolute inset-0 -mx-[calc((100vw-100%)/2)] h-screen pointer-events-none">
+      <div class="relative min-h-[700px] h-full w-full">
+        {globals?.siteImage && <PortableTextImage node={globals?.siteImage} imgClass="object-cover w-full h-full opacity-15 rounded-b-xl" />}
+        <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
+          <div class="text-center">
+            <h1>{globals?.siteTitle}</h1>
+            <h3>{globals?.siteDescription}</h3>
+          </div>
         </div>
       </div>
     </div>
+    <div class="h-[78vh] -my-16"></div>
     <!-- Announcements -->
     {announcement && <div class="relative -mx-12 h-72 sm:h-80 group">
       <a href={announcementLink}>
@@ -60,7 +64,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
     </div>}
     <!-- Articles and gigs -->
     {showLists &&
-      <div class="grid md:grid-cols-2 gap-8 -mx-4 md:-mx-12">
+      <div class="grid md:grid-cols-2 gap-y-16 gap-x-8">
         {nextGigs && nextGigs.length > 0 && (
           <div class="md:col-span-2">
             <HomeGroup
@@ -102,7 +106,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
     </div>}
     {t.contact &&
       <div>
-        <p>{t.contact}<a href={contactLink} class="text-foreground underline">{t.here}</a>{t.forInfo}.</p>
+        <p>{t.contact}<a href={contactLink} class="underline underline-offset-4">{t.here}</a>{t.forInfo}.</p>
       </div>
     }
   </div>
