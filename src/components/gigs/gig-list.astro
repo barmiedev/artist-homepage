@@ -19,7 +19,7 @@ const globals = await getGlobals();
 
 const contactLink = await getLink({ locale, tag: 'contact' });
 const docsLink = await getLink({ locale, tag: 'docs' });
-const watchLink = globals?.youtube;
+const watchLink = globals?.liveVideo;
 ---
 
 {disclaimer && t['organize.disclaimer'] &&
@@ -31,7 +31,7 @@ const watchLink = globals?.youtube;
 }
 {gigs.length > 0 &&
   <h2>{title}</h2>
-  <ul class="mt-8 grid md:grid-cols-2 gap-4 md:gap-8">
+  <ul class="mt-8 grid md:grid-cols-2 gap-4">
     {gigs.map(async (gig) => {
       const link = await getLink({ locale, tag: 'gigs', slug: gig?.slug.current });
       return (

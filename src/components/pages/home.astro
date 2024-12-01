@@ -64,7 +64,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
     </div>}
     <!-- Articles and gigs -->
     {showLists &&
-      <div class="grid md:grid-cols-2 gap-y-16 gap-x-8">
+      <div class="grid md:grid-cols-2 gap-y-16 gap-x-4">
         {nextGigs && nextGigs.length > 0 && (
           <div class="md:col-span-2">
             <HomeGroup
@@ -94,7 +94,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
         {pastGigs && pastGigs.length > 0 &&
           <HomeGroup
             locale={locale}
-            label={t.gigs}
+            label={t.pastGigs}
             elements={pastGigs.map((gig) => ({
               title: gig?.city,
               description: format(gig.date, 'dd.MM.yyyy'),

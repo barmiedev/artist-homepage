@@ -32,6 +32,7 @@ const defaultLyrics = track?.lyrics?.find(
 <Common title={track?.title}>
   <BackButton client:load href={backLink}>{t.back}{track?.album.title}</BackButton>
   <h1>{track?.title}</h1>
+  {track?.listen && <Listen listen={track?.listen} locale={locale} />}
   {track?.about &&
     <h3 class='mb-4'>{t.about}</h3>
     <PortableText portableText={track?.about} />
@@ -45,5 +46,4 @@ const defaultLyrics = track?.lyrics?.find(
       </SimpleCard>
     </div>
   }
-  {track?.listen && <Listen listen={track?.listen} locale={locale} />}
 </Common>

@@ -217,6 +217,7 @@ export type Globals = {
   pressEmail?: string;
   generalEmail?: string;
   generalName?: string;
+  liveVideo?: string;
 };
 
 export type Gig = {
@@ -1589,6 +1590,7 @@ export type GlobalsQueryResult = {
   pressEmail?: string;
   generalEmail?: string;
   generalName?: string;
+  liveVideo?: string;
 } | null;
 
 // Source: ./src/lib/content/get-track.ts

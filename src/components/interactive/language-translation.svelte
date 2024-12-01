@@ -81,7 +81,7 @@
     </div>
   {/if}
   {#if children}
-    <p>{labels.originalLyrics}</p>
+    <p class="mb-4">{labels.originalLyrics}</p>
     {@render children?.()}
   {/if}
   <p

@@ -57,12 +57,13 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
   {album?.cover &&
     <PortableTextImage node={album?.cover} imgClass="object-cover w-full rounded-xl max-md:aspect-square mb-8 md:max-h-[400px] opacity-40 hover:opacity-70 duration-300 ease-in-out" />
   }
-  <div class="max-md:-mx-4">
+  {album?.listen && <Listen listen={album?.listen} locale={locale} />}
+  <div class="max-md:-mx-4 mt-8">
     <SimpleCard classname='w-full mb-8'>
       <div class="grid max-md:gap-4">
         {albumMeta.map((meta) => (
           <div class="group grid sm:grid-cols-2 md:grid-cols-3 gap-0 select-none">
-            <div>{meta.label}</div>
+            <div class="duration-300 group-hover:text-foreground ease-in-out">{meta.label}</div>
             {
               Array.isArray(meta.value)
               ? <div class="text-foreground/50 duration-300 group-hover:text-foreground ease-in-out md:col-span-2">
@@ -79,8 +80,10 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
       </div>
     </SimpleCard>
   </div>
-  <h3 class='mb-4'>{t.about}</h3>
-  <PortableText portableText={album?.about} className="mb-8" />
+  {album?.about &&
+    <h3 class='mb-4'>{t.about}</h3>
+    <PortableText portableText={album?.about} className="mb-8" />
+  }
   <div class="max-md:-mx-4">
     <SimpleCard>
       <h3>{t.tracklist}:</h3>
@@ -97,6 +100,4 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
       <p class="mt-8 text-foreground-darken">{t.tracksDisclaimer}</p>
     </SimpleCard>
   </div>
-
-  <Listen listen={album?.listen} locale={locale} />
 </Common>
