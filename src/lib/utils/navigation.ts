@@ -4,6 +4,7 @@ import {
   getRouteTranslations,
   isLocale,
 } from '@/lib/utils/i18n';
+import { getArticles } from '../content';
 
 export type LinkTag =
   | 'home'
@@ -26,6 +27,9 @@ export type NavigationLink = {
 export const getNavigationLinks = async (
   locale: Locale,
 ): Promise<NavigationLink[]> => {
+  const articles = await getArticles();
+  const hasArticles = articles.length > 0;
+
   const homeLink = locale === defaultLocale ? '/' : `/${locale}`;
   const albumsLink =
     locale === defaultLocale
@@ -49,33 +53,33 @@ export const getNavigationLinks = async (
       : `/${locale}/${(await getRouteTranslations(locale)).docs}`;
 
   return [
-    { title: 'home', href: homeLink, tag: 'home', hide: true },
+    { title: 'home', href: homeLink, tag: 'home' as LinkTag, hide: true },
     {
       title: 'albums',
       href: albumsLink,
-      tag: 'albums',
+      tag: 'albums' as LinkTag,
     },
     {
       title: 'gigs',
       href: gigsLink,
-      tag: 'gigs',
+      tag: 'gigs' as LinkTag,
     },
     {
       title: 'blog',
       href: blogLink,
-      tag: 'blog',
+      tag: 'blog' as LinkTag,
     },
     {
       title: 'docs',
       href: docsLink,
-      tag: 'docs',
+      tag: 'docs' as LinkTag,
     },
     {
       title: 'contact',
       href: contactLink,
-      tag: 'contact',
+      tag: 'contact' as LinkTag,
     },
-  ];
+  ].filter((link) => link.tag !== 'blog' || hasArticles);
 };
 
 export const getLink = async ({

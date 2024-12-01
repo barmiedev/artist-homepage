@@ -1,5 +1,5 @@
 ---
-import LanguageTranslations from '@/components/interactive/language-translation.svelte';
+import LanguageTranslation from '@/components/interactive/language-translation.svelte';
 import Common from '@/layouts/common.astro';
 import { getTrack } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
@@ -32,18 +32,18 @@ const defaultLyrics = track?.lyrics?.find(
 <Common title={track?.title}>
   <BackButton client:load href={backLink}>{t.back}{track?.album.title}</BackButton>
   <h1>{track?.title}</h1>
+  {track?.listen && <Listen listen={track?.listen} locale={locale} />}
   {track?.about &&
-    <h3 class='mb-4'>{t.about}</h3>
+    <h3 class='mb-4 mt-8'>{t.about}</h3>
     <PortableText portableText={track?.about} />
   }
   {defaultLyrics?.text &&
     <div class="max-md:-mx-4 mt-8">
       <SimpleCard class="w-full">
-        {track && <LanguageTranslations client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
-            <PortableText portableText={defaultLyrics?.text}/>
-          </LanguageTranslations>}
+        {track && <LanguageTranslation client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
+            <PortableText portableText={defaultLyrics?.text} />
+          </LanguageTranslation>}
       </SimpleCard>
     </div>
   }
-  {track?.listen && <Listen listen={track?.listen} locale={locale} />}
 </Common>

@@ -140,6 +140,10 @@ export const globalsType = defineType({
     defineField({
       name: 'generalName',
       type: 'string',
+    }),
+    defineField({
+      name: 'liveVideo',
+      type: 'url',
     })
   ]
 });

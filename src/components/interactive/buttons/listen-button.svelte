@@ -13,7 +13,7 @@
     {href}
     target="_blank"
     class={cn(
-      "border border-transparent rounded-xl px-4 md:px-8 py-3 antialiased flex items-center justify-center gap-4 opacity-55 hover:opacity-70 transition duration-300 ease-in-out group",
+      "border border-transparent rounded-xl px-4 md:px-8 py-3 antialiased flex items-center justify-center gap-4 opacity-35 hover:opacity-70 transition duration-300 ease-in-out group",
     )}
     style={`--background: ${specs.background}; --foreground: ${specs.foreground}; background: var(--background); color: var(--foreground);`}
   >

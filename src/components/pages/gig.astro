@@ -51,7 +51,7 @@ const gigMeta: LV[] = [
       <div class="grid max-md:gap-4">
         {gigMeta.map((meta) => (
           <div class="group grid sm:grid-cols-2 md:grid-cols-3 gap-0 select-none">
-            <div>{meta.label}</div>
+            <div class="duration-300 group-hover:text-foreground ease-in-out">{meta.label}</div>
             <div class="text-foreground/50 duration-300 group-hover:text-foreground ease-in-out md:col-span-2">{meta.value}</div>
           </div>
         ))}
