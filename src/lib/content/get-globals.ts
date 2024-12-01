@@ -3,7 +3,7 @@ import type { GlobalsQueryResult } from '@/sanity/sanity.types';
 import { defineQuery } from 'groq';
 
 const globalsQuery = defineQuery(
-  `*[_type == "globals"][0]{...,siteFavicon{asset->{path,url}}}`,
+  `*[_type == "globals"][0]{...,siteFavicon{asset->{path,url}},"metaImage": siteImage{asset->{path,url}}}`,
 );
 
 export const getGlobals = async () => {
