@@ -11,7 +11,7 @@ const siteTitle = globals?.siteTitle ?? import.meta.env.PAGE_TITLE ?? '';
 const title = pageTitle ? `${pageTitle} ⋅ ${siteTitle}` : siteTitle;
 const description = globals?.siteDescription ?? '';
 const favicon = globals?.siteFavicon.asset?.url ?? '/favicon.ico';
-const image = globals?.siteImage?.asset?._ref ?? '';
+const image = globals?.metaImage?.asset?.url ?? '';
 const keywords = globals?.siteKeywords?.join(', ') ?? '';
 ---
 

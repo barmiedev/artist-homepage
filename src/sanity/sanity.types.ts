@@ -1500,7 +1500,7 @@ export type GigsQueryResult = Array<{
 
 // Source: ./src/lib/content/get-globals.ts
 // Variable: globalsQuery
-// Query: *[_type == "globals"][0]{...,siteFavicon{asset->{path,url}}}
+// Query: *[_type == "globals"][0]{...,siteFavicon{asset->{path,url}},"metaImage": siteImage{asset->{path,url}}}
 export type GlobalsQueryResult = {
   _id: string;
   _type: "globals";
@@ -1591,6 +1591,12 @@ export type GlobalsQueryResult = {
   generalEmail?: string;
   generalName?: string;
   liveVideo?: string;
+  metaImage: {
+    asset: {
+      path: string | null;
+      url: string | null;
+    } | null;
+  } | null;
 } | null;
 
 // Source: ./src/lib/content/get-track.ts
@@ -1886,7 +1892,7 @@ declare module "@sanity/client" {
     "*[_type == \"docs\"] | order(language asc)": DocsQueryResult;
     "*[_type == \"gig\" && slug.current == $slug][0]": GigQueryResult;
     "*[_type == \"gig\"] | order(date desc)": GigsQueryResult;
-    "*[_type == \"globals\"][0]{...,siteFavicon{asset->{path,url}}}": GlobalsQueryResult;
+    "*[_type == \"globals\"][0]{...,siteFavicon{asset->{path,url}},\"metaImage\": siteImage{asset->{path,url}}}": GlobalsQueryResult;
     "*[_type == \"track\" && slug.current == $slug][0]{..., \"album\": album->{title, \"slug\": slug.current}, \"lyrics\": lyrics[]->{text,language}, \"listen\": listen->{title, spotifyUrl, appleUrl, youtubeUrl, soundcloudUrl, bandcampUrl, tidalUrl}}": TrackQueryResult;
     "*[_type == \"track\"]": TracksQueryResult;
   }
