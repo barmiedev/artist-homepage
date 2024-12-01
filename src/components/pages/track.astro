@@ -34,7 +34,7 @@ const defaultLyrics = track?.lyrics?.find(
   <h1>{track?.title}</h1>
   {track?.listen && <Listen listen={track?.listen} locale={locale} />}
   {track?.about &&
-    <h3 class='mb-4'>{t.about}</h3>
+    <h3 class='mb-4 mt-8'>{t.about}</h3>
     <PortableText portableText={track?.about} />
   }
   {defaultLyrics?.text &&
