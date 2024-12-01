@@ -44,6 +44,23 @@
       }, 300);
     }
     activeTranslation = language;
+
+    // check if we are in the mobile view
+    if (window.innerWidth < 768) {
+      const translationElement = document.getElementById("translation");
+      const originalElement = document.getElementById("original");
+      if (activeTranslation) {
+        translationElement?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      } else {
+        originalElement?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }
+    }
   };
 
   const translations = track?.lyrics
@@ -63,10 +80,13 @@
             {#if lyric && lyric !== defaultLanguage}
               <li
                 class={cn(
-                  "transition duration-300 ease-in-out  hover:text-foreground",
+                  "transition duration-300 ease-in-out hover:text-foreground",
                   {
                     "text-foreground/90 hover:text-foreground":
                       activeTranslation === lyric,
+                  },
+                  {
+                    "text-foreground-darken": activeTranslation !== lyric,
                   },
                 )}
               >
@@ -80,24 +100,31 @@
       </div>
     </div>
   {/if}
-  {#if children}
-    <p class="mb-4">{labels.originalLyrics}</p>
-    {@render children?.()}
-  {/if}
-  <p
-    class={cn("duration-150 overflow-hidden max-h-0 origin-top ", {
-      "max-h-screen flex items-center gap-4 mt-8": activeTranslation,
-    })}
-  >
-    {activeTranslation?.toUpperCase() || hidingTranslation?.toUpperCase()}
-    {labels.translation}
-    <button onclick={setActiveTranslation()}><X class="w-4 h-4" /></button>
-  </p>
-  {#each track?.lyrics as lyric}
-    {#if lyric.language === activeTranslation}
-      <article class="prose prose-stone prose-invert">
-        <PortableText value={lyric.text} components={{}} />
-      </article>
-    {/if}
-  {/each}
+  <div class="grid gap-8 lg:grid-cols-2">
+    <div id="original">
+      {#if children}
+        <p class="mb-4">{labels.originalLyrics}</p>
+        {@render children?.()}
+      {/if}
+    </div>
+    <div id="translation">
+      <p
+        class={cn("duration-200 opacity-0 overflow-hidden max-h-0 origin-top", {
+          "max-h-screen flex items-center opacity-100 gap-4 max-md:mt-8 mb-4":
+            activeTranslation,
+        })}
+      >
+        {activeTranslation?.toUpperCase() || hidingTranslation?.toUpperCase()}
+        {labels.translation}
+        <button onclick={setActiveTranslation()}><X class="w-4 h-4" /></button>
+      </p>
+      {#each track?.lyrics as lyric}
+        {#if lyric.language === activeTranslation}
+          <article class="prose prose-stone prose-invert">
+            <PortableText value={lyric.text} components={{}} />
+          </article>
+        {/if}
+      {/each}
+    </div>
+  </div>
 {/if}

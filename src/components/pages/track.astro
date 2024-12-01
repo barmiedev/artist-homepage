@@ -1,5 +1,5 @@
 ---
-import LanguageTranslations from '@/components/interactive/language-translation.svelte';
+import LanguageTranslation from '@/components/interactive/language-translation.svelte';
 import Common from '@/layouts/common.astro';
 import { getTrack } from '@/lib/content';
 import { defaultLocale, getTranslations } from '@/lib/utils/i18n';
@@ -40,9 +40,9 @@ const defaultLyrics = track?.lyrics?.find(
   {defaultLyrics?.text &&
     <div class="max-md:-mx-4 mt-8">
       <SimpleCard class="w-full">
-        {track && <LanguageTranslations client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
-            <PortableText portableText={defaultLyrics?.text}/>
-          </LanguageTranslations>}
+        {track && <LanguageTranslation client:visible track={track} labels={{ availableTranslations: t.availableTranslations, originalLyrics: t.originalLyrics, translation: t.translation}}>
+            <PortableText portableText={defaultLyrics?.text} />
+          </LanguageTranslation>}
       </SimpleCard>
     </div>
   }
