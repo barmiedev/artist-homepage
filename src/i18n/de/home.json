@@ -1,8 +1,11 @@
 {
   "title": "Homepage",
-  "articles": "Blogeinträge",
-  "gigs": "Konzerten",
-  "upcomingGigs": "Zukünftige Konzerte",
-  "pastGigs": "Konzerte gespielt",
-  "announcements": "Ankündigungen"
+  "articles": "Letzte Artikel",
+  "gigs": "Konzerte",
+  "upcomingGigs": "Nächste Konzerte",
+  "pastGigs": "Letzte Konzerte",
+  "announcements": "Ankündigungen",
+  "contact": "Wenn du Fragen hast, einen Auftritt buchen oder einfach nur Hallo sagen möchtest, melde dich gerne! Weitere Informationen findest du ",
+  "here": "hier",
+  "forInfo": ":)"
 }
