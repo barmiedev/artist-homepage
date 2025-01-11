@@ -52,7 +52,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
     <div class="h-[78vh] -my-16"></div>
     <!-- Announcements -->
     {announcement && <div class="relative -mx-12 h-72 sm:h-80 group">
-      <a href={announcementLink}>
+      <a title={announcement?.title} href={announcementLink}>
         {announcement?.cover && <PortableTextImage node={announcement?.cover} imgClass="object-cover w-full h-full opacity-30 md:rounded-xl group-hover:opacity-40 transition duration-300 ease-in-out" />}
         <div class="absolute inset-0 bg-background/10 bg-opacity-10 flex items-center justify-center">
           <div class="text-center text-white">
@@ -106,7 +106,7 @@ const contactLink = await getLink({ locale, tag: 'contact' });
     </div>}
     {t.contact &&
       <div>
-        <p>{t.contact}<a href={contactLink} class="underline underline-offset-4">{t.here}</a>{t.forInfo}.</p>
+        <p>{t.contact}<a title={t.here} href={contactLink} class="underline underline-offset-4">{t.here}</a>{t.forInfo}.</p>
       </div>
     }
   </div>

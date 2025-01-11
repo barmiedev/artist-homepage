@@ -93,7 +93,7 @@ const tracks = album?.tracks?.sort((a, b) => a.trackNumber - b.trackNumber);
           return (
             <li>
               {track.trackNumber}.&nbsp;
-              <a href={link}>{track.title}</a>
+              <a title={track.title} href={link}>{track.title}</a>
             </li>
         )})}
       </ul>

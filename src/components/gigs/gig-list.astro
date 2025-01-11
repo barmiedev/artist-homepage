@@ -24,9 +24,9 @@ const watchLink = globals?.liveVideo;
 
 {disclaimer && t['organize.disclaimer'] &&
   <div class="space-y-4">
-    <p>{t['organize.disclaimer']}<a class="underline underline-offset-4" href={contactLink}>{t['organize.contact']}</a>.</p>
-    <p>{t['organize.documents']}<a class="underline underline-offset-4" href={docsLink}>{t['organize.here']}</a>.</p>
-    {watchLink && <p>{t['organize.watch']}<a class="underline underline-offset-4" href={watchLink}>{t['organize.here']}</a>.</p>}
+    <p>{t['organize.disclaimer']}<a title={t['organize.contact']} class="underline underline-offset-4" href={contactLink}>{t['organize.contact']}</a>.</p>
+    <p>{t['organize.documents']}<a title={t['organize.here']} class="underline underline-offset-4" href={docsLink}>{t['organize.here']}</a>.</p>
+    {watchLink && <p>{t['organize.watch']}<a title={t['organize.here']} class="underline underline-offset-4" href={watchLink}>{t['organize.here']}</a>.</p>}
   </div>
 }
 {gigs.length > 0 &&

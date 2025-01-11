@@ -22,7 +22,7 @@ const albums = await getAlbums();
       const releaseYear = album?.releaseDate ? format(album?.releaseDate, 'yyyy') : '';
       return (
         <li>
-          <a href={link}>
+          <a href={link} title={album?.title}>
             <ImageCard image={album?.cover} title={album?.title} subtitle={releaseYear} />
           </a>
         </li>
