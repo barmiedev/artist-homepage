@@ -19,7 +19,7 @@ const localePaths = await Promise.all(
 ---
 
 {locales.map((locale, index) => (
-  <a href={localePaths[index]}>
+  <a href={localePaths[index]} title={locale}>
     <LanguageSwitch language={locale} current={currentLocale} />
   </a>
 ))}

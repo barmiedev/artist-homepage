@@ -87,7 +87,7 @@ const emails = serializeEmails();
           <span>{email.label}</span>
           {email.name && <span>({email.name})</span>}
         </h4>
-        <a href={`mailto:${email.email}`} class="text-foreground-darken hover:text-foreground">{email.email}</a>
+        <a title={email.email} href={`mailto:${email.email}`} class="text-foreground-darken hover:text-foreground">{email.email}</a>
       </div>
     ))}
   </div>

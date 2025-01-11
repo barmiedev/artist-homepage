@@ -17,7 +17,7 @@
   const { title, subtitle, description, href }: Props = $props();
 </script>
 
-<a {href}>
+<a {href} {title}>
   <div
     onmousemove={(e) => {
       const { left, top } = e.currentTarget.getBoundingClientRect();

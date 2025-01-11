@@ -3,10 +3,10 @@ import node from '@astrojs/node';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import { defineConfig } from 'astro/config';
-
 import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
 import { loadEnv } from 'vite';
+import sitemap from '@astrojs/sitemap';
 const {
   PUBLIC_SANITY_DATASET,
   PUBLIC_SANITY_PROJECT_ID,
@@ -23,6 +23,7 @@ if (process.argv.includes('--node')) {
 export default defineConfig({
   output: 'hybrid',
   adapter: adapter,
+  site: 'https://www.bartekmiezynski.com',
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'pl', 'de'],
@@ -41,5 +42,17 @@ export default defineConfig({
     react(),
     tailwind(),
     svelte(),
+    sitemap({
+      filter: (page) => page !== 'https://www.bartekmiezynski.com/admin',
+      customPages: ['https://www.bartekmiezynski.com/admin'],
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en', // The `defaultLocale` value must present in `locales` keys
+          pl: 'pl',
+          de: 'de',
+        },
+      },
+    }),
   ],
 });

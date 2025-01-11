@@ -15,7 +15,7 @@ const { socials, ulClass, liClass, aClass, labelClass } = Astro.props;
 <ul class={cn("grid grid-cols-4 gap-x-8 max-md:gap-y-2 max-md:place-items-center", ulClass)}>
   {socials.map((social) => (
     <li class={cn("group w-fit", liClass)}>
-      <a href={social.href} target="_blank" rel="noopener noreferrer" class={cn("text-sm flex items-center gap-2 text-foreground-darken hover:text-foreground/80", aClass)}>
+      <a title={social.label} href={social.href} target="_blank" rel="noopener noreferrer" class={cn("text-sm flex items-center gap-2 text-foreground-darken hover:text-foreground/80", aClass)}>
         <SocialIcon social={social.name} />
         <span class={cn("hidden md:block", labelClass)}>{social.label}</span>
       </a>

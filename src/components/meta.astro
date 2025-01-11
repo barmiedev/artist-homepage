@@ -31,5 +31,10 @@ const keywords = globals?.siteKeywords?.join(', ') ?? '';
 <meta property="og:image" content={image} />
 
 <link rel="icon" type="image" href={favicon} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="canonical" href={site} />
+<link rel="alternate" hreflang="pl" href={site} />
+<link rel="alternate" hreflang="de" href={site} />
+<link rel="robots" href="/robots.txt" />
 
 <title>{title}</title>
